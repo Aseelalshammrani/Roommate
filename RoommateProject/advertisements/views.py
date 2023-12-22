@@ -1,8 +1,78 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Advertisement 
 
-
-def add_advertisement(request:HttpRequest):
-    return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration})
 # Create your views here.
+
+#Add a new advertisement
+def add_advertisement_view(request:HttpRequest):
+    if request.method == "POST":
+        advertisement = Advertisement(
+        title = request.POST["title"],
+        image = request.FILES["image"],
+        type_of_duration = request.POST["type_of_duration"],
+        duration_residence = request.POST["duration_residence"],
+        advertisement_date = request.POST["advertisement_date"],
+        type_of_residential = request.POST["type_of_residential"],
+        longitude = request.POST["longitude"],
+        latitiiude = request.POST["latitiiude"],
+        space = request.POST["space"],
+        price = request.POST["price"],
+        number_of_people = request.POST["number_of_people"],
+        features = request.POST["features"],
+        animal_allowed = request.POST["animal_allowed"],
+        min_age = request.POST["min_age"],
+        max_age = request.POST["max_age"],
+        gender = request.POST["gender"],
+        smoke_allowed = request.POST["smoke_allowed"],
+        advertisement_status = request.POST["advertisement_status"],
+        note = request.POST["note"],
+        rooms_number = request.POST["rooms_number"],
+        bathroom = request.POST["bathroom"],
+        has_kitchen = request.POST["has_kitchen"],
+        approved_status = request.POST["approved_status"]
+        )
+        advertisement.save()
+        return redirect("advertisements:advertisement_home_view")
+    return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration})
+
+#To display the advertisements in home page 
+def advertisement_home_view(request:HttpRequest):
+    return render(request,"advertisements/advertisement_home.html")
+
+#Update advertisement
+def update_advertisement_view(request:HttpRequest, advertisement_id):
+    advertisement = Advertisement.objects.get(id=advertisement_id)
+    if request.method == "POST":
+        advertisement.title = request.POST["title"]
+        advertisement.image = request.FILES["image"]
+        advertisement.type_of_duration = request.POST["type_of_duration"]
+        advertisement.duration_residence = request.POST["duration_residence"]
+        advertisement.advertisement_date = request.POST["advertisement_date"]
+        advertisement.type_of_residential = request.POST["type_of_residential"]
+        advertisement.longitude = request.POST["longitude"]
+        advertisement.latitiiude = request.POST["latitiiude"]
+        advertisement.space = request.POST["space"]
+        advertisement.price = request.POST["price"]
+        advertisement.number_of_people = request.POST["number_of_people"]
+        advertisement.features = request.POST["features"]
+        advertisement.animal_allowed = request.POST["animal_allowed"]
+        advertisement.min_age = request.POST["min_age"]
+        advertisement.max_age = request.POST["max_age"]
+        advertisement.gender = request.POST["gender"]
+        advertisement.smoke_allowed = request.POST["smoke_allowed"]
+        advertisement.advertisement_status = request.POST["advertisement_status"]
+        advertisement.note = request.POST["note"]
+        advertisement.rooms_number = request.POST["rooms_number"]
+        advertisement.bathroom = request.POST["bathroom"]
+        advertisement.has_kitchen = request.POST["has_kitchen"]
+        advertisement.approved_status = request.POST["approved_status"]
+        advertisement.save()
+        return redirect("advertisements/advertisement_details_view", advertisement_id=advertisement.id)
+    return render(request,"advertisements/update_advertisement_view", {"advertisement": update_advertisement})
+
+
+def advertisement_details_view(request:HttpRequest):
+    return render(request,"advertisements/advertisement_details.html")
+
+

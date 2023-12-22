@@ -31,15 +31,3 @@ class Advertisement(models.Model):
 class Advertisement_Image(models.Model):
     advertisement=models.ForeignKey(Advertisement,on_delete=models.CASCADE)
     image=models.ImageField(upload_to="images/")
-
-
-
-
-
-
-
-
-
-
-
-# Create your models here.
