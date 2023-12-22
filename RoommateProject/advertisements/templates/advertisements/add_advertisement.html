@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+{% block title %}Add Advertisement{% endblock%}
+{% block content%}
+<div class="container">
+<div class="row">
+<div class="col">
+<form action="{% url 'advertisements:add_advertisement'%}" method="post" enctype="multipart/form-data">
+    <label>Title:</label>
+    <input class="form-control" type="text" name="title" placeholder="Title of Advertisement" />
+    <label>Image:</label>
+    <input type="file" name="image"  class="form-control" accept="image/*"/>
+    <label>Type of duration:</label>
+    {% for key, value in types_of_duration.choices %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="type_of_duration" id="{{key}}" value="{{value}}">
+        <label class="form-check-label" for="{{key}}">{{value}}</label>
+    </div>
+    {% endfor %}
+    <label>Duration of residence:</label>
+    <input class="form-control" type="number" name="duration_residence" placeholder="Duration of residence" />
+    <label>Type of residential:</label>
+    {% for key, value in types_of_residential.choices %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}">
+        <label class="form-check-label" for="{{key}}">{{value}}</label>
+    </div>
+    {% endfor %}
+    <label>Longitude:</label>
+    <input class="form-control" type="number" name="longitude" placeholder="longitude" />
+    <label>Latitiiude:</label>
+    <input class="form-control" type="number" name="latitiiude" placeholder="latitiiude" />
+    <label>Space:</label>
+    <input class="form-control" type="number" name="space" placeholder="space" />
+    <label>Price:</label>
+    <input class="form-control" type="number" name="price" placeholder="price" />
+    <label>Number of people:</label>
+    <input class="form-control" type="number" name="number_of_people" placeholder="number of people" />
+    <label>Features:</label>
+    <textarea class="form-control" name="features"></textarea>
+
+
+
+
+</form>
+</div>
+</div>
+</div>
+{% endblock %}
