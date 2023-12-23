@@ -4,7 +4,8 @@
 <div class="container">
 <div class="row">
 <div class="col">
-<form action="{% url 'advertisements:add_advertisement'%}" method="post" enctype="multipart/form-data">
+<form action="{% url 'advertisements:add_advertisement_view'%}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <label>Title:</label>
     <input class="form-control" type="text" name="title" placeholder="Title of Advertisement" />
     <label>Image:</label>
@@ -39,9 +40,10 @@
     <textarea class="form-control" name="features"></textarea>
     <label>Animal allowed:</label>
     <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True">
-    <label>Min age:</label>
+    <br>
+    <label>minimum age:</label>
     <input class="form-control" type="number" name="min_age" placeholder="min_age"/>
-    <label>Max age:</label>
+    <label>maximum age:</label>
     <input class="form-control" type="number" name="max_age" placeholder="max_age"/>
     <label>Gender:</label>
     {% for key, value in types_of_gender.choices %}
@@ -52,8 +54,9 @@
     {% endfor %}
     <label>Smoke allowed:</label>
     <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True">
-    <label>Advertisement status:</label>
-    <input type="checkbox" name="advertisement_status" id="advertisement_status" value="True">
+    <br>
+    <!--<label>Advertisement status:</label>
+    <input type="checkbox" name="advertisement_status" id="advertisement_status" value="True">-->
     <label>Note:</label>
     <textarea class="form-control" name="note"></textarea>
     <label>Rooms number:</label>
@@ -62,7 +65,8 @@
     <input class="form-control" type="number" name="bathroom" placeholder="bathroom"/>
     <label>Has kitchen:</label>
     <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True">
-    <label>Approved status:</label>
+    <br>
+    <input class="btn btn-success" type="submit" value="add_advertisement" />
 
 
 </form>
