@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block title %} log in {% endblock %}
+
+
+{% block content %}
+
+<section class="container mt-5">
+    
+    <div class="row">
+        {% if msg %}
+        <div class="alert alert-danger d-flex flex-column align-items-center" role="alert">
+            {{ msg }}
+          </div>
+        {% endif %}
+        <div class="col">
+
+            <div class="d-flex flex-column gap-3 justify-content-center align-items-center">
+                <h1>Log In</h1>
+                <form class="d-flex flex-column gap-1" style="width: 40vw;" action="{% url 'accounts:login_user_view' %}" method="post">
+                    {% csrf_token %}
+
+                    <input class="form-control" type="text" name="username" required minlength="3" placeholder="username"/>
+                    <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password"/>
+
+
+                    <input class="btn btn-dark" type="submit" value="Sing In" />
+                </form>
+
+                <h5>You don't have an account ? please <a href="{% url 'accounts:register_user_view' %}">Sign up</a>.</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+{% endblock %}
