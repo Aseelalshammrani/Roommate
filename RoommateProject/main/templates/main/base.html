@@ -18,7 +18,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'advertisements:add_advertisement_view'%}">Add Advertisement</a>
@@ -28,8 +28,11 @@
                   Dropdown
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="{% url 'accounts:login_user_view' %}">login</a></li>
+                  {% if request.user.is_authenticated %}
+                  <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">logout</a></li>
+                  <li><a class="dropdown-item" href="{% url 'accounts:user_profile' request.user.id %}">Profile</a></li>
+                  {% endif %}
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
