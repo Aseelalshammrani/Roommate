@@ -25,6 +25,7 @@ def add_advertisement_view(request:HttpRequest):
         note = request.POST["note"],
         rooms_number = request.POST["rooms_number"],
         bathroom = request.POST["bathroom"],
+        city=request.POST['city']
         )
         if 'animal_allowed' in request.POST:
             advertisement.animal_allowed = request.POST["animal_allowed"]
@@ -36,7 +37,7 @@ def add_advertisement_view(request:HttpRequest):
             advertisement.animal_allowed = request.POST["approved_status"] 
         advertisement.save()
         return redirect("advertisements:advertisement_home_view")
-    return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration})
+    return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration,'cities':Advertisement.cities})
 
 #To display the advertisements in home page 
 def advertisement_home_view(request:HttpRequest):

@@ -55,8 +55,6 @@
     <label>Smoke allowed:</label>
     <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True">
     <br>
-    <!--<label>Advertisement status:</label>
-    <input type="checkbox" name="advertisement_status" id="advertisement_status" value="True">-->
     <label>Note:</label>
     <textarea class="form-control" name="note"></textarea>
     <label>Rooms number:</label>
@@ -66,8 +64,13 @@
     <label>Has kitchen:</label>
     <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True">
     <br>
-    <label>City:</label>
-    <input class="form-control" type="text" name="city_name" placeholder="city name">
+    <label>City</label>
+    {% for key, value in cities.choices %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="city" id="{{key}}" value="{{value}}">
+        <label class="form-check-label" for="{{key}}">{{value}}</label>
+    </div>
+    {% endfor %}
     <br>
     <input class="btn btn-success" type="submit" value="add_advertisement" />
 
