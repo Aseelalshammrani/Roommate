@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Update personal profile {% endblock %}
+
+
+{% block content %}
+<section class="container mt-5">
+    <h1>Update your profile</h1>
+
+    {% if msg %}
+        <div class="alert alert-danger" role="alert">
+        {{ msg }}
+        </div>
+    {% endif %}
+    <div class="row">
+    
+        <div class="col-6">
+
+            <form class="d-flex flex-column gap-1" action="{% url 'accounts:update_user_view' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                
+                <input class="form-control"  type="text" name="first_name"  minlength="3" placeholder="First Name" value="{{ request.user.first_name }}"/>
+                <input class="form-control" type="text" name="last_name"  minlength="3" placeholder="Last Name"  value="{{ request.user.last_name }}"/>
+                <div class="d-flex align-items-center gap-2 ">
+                    <input class="form-control" type="file" name="personal_image"  placeholder="choose avatar"/>
+                </div>
+                <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email" value="{{ request.user.email }}"/>
+                <input class="form-control" type="text" name="phone_number" required minlength="8" placeholder="phone number" value="{{ request.profile.phone_number }}"/>
+                <input class="form-control" type="number" name="age"  placeholder="age" value="{{ request.profile.age }}"/>
+                <h5>gendar:</h5>
+                <select class="form-control" name="gender">
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                </select>
+                <h5>language:</h5>
+                <select class="form-control" name="language">
+                    <option value="einglish">einglish</option>
+                    <option value="arabic">arabic</option>
+                </select>
+                <h5>nationality:</h5>
+                <select class="form-control" name="nationality">
+                    <option value="Saudi">Saudi</option>
+                    <option value="Emirati">Emirati</option>
+                    <option value="etc">etc</option>
+                </select>
+
+         
+                <textarea class="form-control" name="about" placeholder="About you..">{{ request.user.profile.about }}</textarea>
+             
+
+                <input class="btn btn-primary" type="submit" value="Update profile" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Profile {% endblock %}
+
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+            
+                <div class="d-flex flex-column gap-1">
+                    <img class="rounded-circle" src="{{ user.profile.personal_image.url }}"  />
+                 
+                </div>
+                <p> <strong>{{ user.username }}</strong></p>
+                <ul class="gap-1 mt-5">
+                    <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn btn-primary ">My Profile</a></li>
+                    <li><a href="{% url 'accounts:update_user_view'%}"class="btn btn-primary mt-2">Update personal profile </a></li>
+                    <li><a href="#"class="btn btn-primary mt-2"> Reviews</a></li>
+                    <li><a href="{% url 'accounts:favorite'%}"class="btn btn-primary mt-2"> Favourites</a></li>
+                    <li><a href="#"class="btn btn-primary mt-2"> My comments</a></li>
+                    <li><a href="#"class="btn btn-primary mt-2"> Advertisement</a></li>
+                    <li><a href="#"class="btn btn-primary mt-2"> Add Advertisement</a></li>
+                    <li><a href="#"class="btn btn-primary mt-2 "> My requestes</a></li>
+                    <li><a href="#"class="btn btn-primary mt-2 "> Validation</a></li>
+                </ul>
+            </div>
+
+
+            <div class="col-md-6">
+                <h1> welcome {{user.first_name}} {{user.last_name}}</h1>
+                <h4>{{user.profile.gender}} </h4>
+                <h4>{{user.profile.phone_number}}</h4>
+                <h4>{{user.profile.age}}</h4>
+                <h4>{{user.profile.language}}</h4>
+                <h4>{{user.profile.nationality}}</h4>
+                <h4>{{user.profile.about}}</h4>
+
+            </div>
+        
+        </div>
+ </div>
+
+
+
+
+{% endblock %}
