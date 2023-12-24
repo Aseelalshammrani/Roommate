@@ -25,7 +25,6 @@ def add_advertisement_view(request:HttpRequest):
         note = request.POST["note"],
         rooms_number = request.POST["rooms_number"],
         bathroom = request.POST["bathroom"],
-        
         )
         if 'animal_allowed' in request.POST:
             advertisement.animal_allowed = request.POST["animal_allowed"]
@@ -72,10 +71,12 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         advertisement.approved_status = request.POST["approved_status"]
         advertisement.save()
         return redirect("advertisements/advertisement_details_view", advertisement_id=advertisement.id)
-    return render(request,"advertisements/update_advertisement_view", {"advertisement": update_advertisement})
+    return render(request,"advertisements/update_advertisement_view", {"advertisement": advertisement})
 
 
 def advertisement_details_view(request:HttpRequest):
     return render(request,"advertisements/advertisement_details.html")
+
+
 
 
