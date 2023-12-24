@@ -122,6 +122,9 @@ def favorite(request: HttpRequest):
 
     return render(request, 'accounts/favorite.html', {"favorites" : favorites})
 
+def validation_user(request: HttpRequest):
+    pass
+
 
 
 
