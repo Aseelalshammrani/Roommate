@@ -18,7 +18,6 @@ def add_advertisement_view(request:HttpRequest):
         space = request.POST["space"],
         price = request.POST["price"],
         number_of_people = request.POST["number_of_people"],
-        features = request.POST["features"],
         min_age = request.POST["min_age"],
         max_age = request.POST["max_age"],
         gender = request.POST["gender"],
@@ -34,14 +33,25 @@ def add_advertisement_view(request:HttpRequest):
         if 'has_kitchen' in request.POST:
             advertisement.animal_allowed = request.POST["has_kitchen"]
         if 'approved_status' in request.POST:
-            advertisement.animal_allowed = request.POST["approved_status"] 
+            advertisement.animal_allowed = request.POST["approved_status"]
+        if 'dishwasher' in request.POST:
+            advertisement.dishwasher=request.POST['dishwasher']
+        if 'washing_machine' in request.POST:
+            advertisement.washing_machine=request.POST['washing_machine']
+
         advertisement.save()
-        return redirect("advertisements:advertisement_home_view")
+        return redirect("advertisements:browse_advertisements_view")
     return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration,'cities':Advertisement.cities})
 
-#To display the advertisements in home page 
-def advertisement_home_view(request:HttpRequest):
-    return render(request,"advertisements/advertisement_details.html")
+def browse_advertisements_view(request:HttpRequest):
+    advertisements=Advertisement.objects.all()
+    return render(request,'advertisements/browse_advertisements.html',{'advertisements':advertisements})
+
+
+def advertisement_details_view(request:HttpRequest,advertisement_id):
+    advertisement=Advertisement.objects.get(id=advertisement_id)
+    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement})
+
 
 #Update advertisement
 def update_advertisement_view(request:HttpRequest, advertisement_id):
@@ -75,8 +85,10 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
     return render(request,"advertisements/update_advertisement_view", {"advertisement": advertisement})
 
 
-def advertisement_details_view(request:HttpRequest):
-    return render(request,"advertisements/advertisement_details.html")
+
+
+
+    
 
 
 

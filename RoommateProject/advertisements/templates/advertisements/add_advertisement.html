@@ -10,6 +10,13 @@
     <input class="form-control" type="text" name="title" placeholder="Title of Advertisement" />
     <label>Image:</label>
     <input type="file" name="image"  class="form-control" accept="image/*"/>
+    <label>City</label>
+    {% for key, value in cities.choices %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="city" id="{{key}}" value="{{value}}">
+        <label class="form-check-label" for="{{key}}">{{value}}</label>
+    </div>
+    {% endfor %}
     <label>Type of duration:</label>
     {% for key, value in types_of_duration.choices %}
     <div class="form-check">
@@ -36,11 +43,6 @@
     <input class="form-control" type="number" name="price" placeholder="price" />
     <label>Number of people:</label>
     <input class="form-control" type="number" name="number_of_people" placeholder="number of people" />
-    <label>Features:</label>
-    <textarea class="form-control" name="features"></textarea>
-    <label>Animal allowed:</label>
-    <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True">
-    <br>
     <label>minimum age:</label>
     <input class="form-control" type="number" name="min_age" placeholder="min_age"/>
     <label>maximum age:</label>
@@ -52,25 +54,27 @@
         <label class="form-check-label" for="{{key}}">{{value}}</label>
     </div>
     {% endfor %}
-    <label>Smoke allowed:</label>
-    <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True">
-    <br>
     <label>Note:</label>
     <textarea class="form-control" name="note"></textarea>
     <label>Rooms number:</label>
     <input class="form-control" type="number" name="rooms_number" placeholder="rooms number"/>
     <label>Bathroom:</label>
     <input class="form-control" type="number" name="bathroom" placeholder="bathroom"/>
+    <h5>Features:</h5>
     <label>Has kitchen:</label>
     <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True">
     <br>
-    <label>City</label>
-    {% for key, value in cities.choices %}
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="city" id="{{key}}" value="{{value}}">
-        <label class="form-check-label" for="{{key}}">{{value}}</label>
-    </div>
-    {% endfor %}
+    <label>Dishwasher:</label>
+    <input type="checkbox" name="dishwasher"  value="True">
+    <br>
+    <label>Washing machine:</label>
+    <input type="checkbox" name="washing_machine" value="True">
+    <br>
+    <label>Animal allowed:</label>
+    <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True">
+    <br>
+    <label>Smoke allowed:</label>
+    <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True">
     <br>
     <input class="btn btn-success" type="submit" value="add_advertisement" />
 

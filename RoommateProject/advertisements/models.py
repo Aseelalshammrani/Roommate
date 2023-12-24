@@ -20,7 +20,6 @@ class Advertisement(models.Model):
     space=models.FloatField()
     price=models.FloatField()
     number_of_people=models.IntegerField()
-    features=models.TextField()
     animal_allowed=models.BooleanField(default=False)
     min_age=models.IntegerField()
     max_age=models.IntegerField()
@@ -33,6 +32,9 @@ class Advertisement(models.Model):
     has_kitchen=models.BooleanField(default=False)
     approved_status=models.CharField(max_length=500,default='Pending',choices=approval_status.choices)
     city=models.CharField(max_length=500,choices=cities.choices)
+    dishwasher=models.BooleanField(default=False)
+    washing_machine=models.BooleanField(default=False)
+
     
 
 class Advertisement_Image(models.Model):

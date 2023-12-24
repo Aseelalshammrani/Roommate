@@ -1,6 +1,131 @@
 {% extends 'main/base.html' %}
-{% block title %} Advertisement details {% endblock%}
+{% block title %}Advertisement details {% endblock%}
 {% block content%}
+<div class="container">
+
+<div class="row">
+<h1 class="text-center">{{advertisement.title}}</h1>
+<img src="{{advertisement.image.url}}" height="300px" alt="...">
+</div>
+
+<div class="row">
+<div class="d-flex justify-content-between">
+<div class="d-flex gap-1 p-1">
+    <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Edit</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Update</a></li>
+          <li><a class="dropdown-item" href="#">Delete</a></li>
+        </ul>
+      </div>
+      <a class="btn btn-success"href="#">Send Request</a>
+</div>
+<div class="d-flex">
+ <h2>Price {{advertisement.price}}SR</h2>
+</div>
+</div>
+</div>
+
+<div class="row my-3">
+<div class="d-flex justify-content-between">
+<div class="col">
+<div class="d-flex align-items-center gap-1">
+<span class="material-symbols-outlined">timer</span>
+<h4>The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h4>
+</div>
+
+<div class="d-flex align-items-center gap-1">
+    {% if advertisement.type_of_residential == 'House' %}
+    <span class="material-symbols-outlined">home</span>
+    {% elif advertisement.type_of_residential == 'Room' %}
+    <span class="material-symbols-outlined">night_shelter</span>
+    {%else%}
+    <span class="material-symbols-outlined">apartment</span>
+    {% endif %}
+<h4>{{advertisement.type_of_residential}}</h4>
+</div>
+
+<div class="d-flex align-items-center gap-1">
+<h4>Space: {{advertisement.space}}m</h4>
+</div>
+
+<div class="d-flex align-items-center gap-1">
+<span class="material-symbols-outlined">group</span>
+<h4>Number of people: {{advertisement.number_of_people}}</h4>
+</div>
 
 
+<div class="d-flex align-items-center gap-1">
+<span class="material-symbols-outlined">pets</span>
+{% if advertisement.animal_allowed == False %}
+<h4>Not allowed</h4>
+{% else %}
+<h4>Allowed</h4>
+{% endif %}
+</div>
+
+<div class="d-flex align-items-center">
+<span class="material-symbols-outlined">person_search</span>
+<h4>Favred age: From {{advertisement.min_age}} to {{advertisement.max_age}} </h4>
+</div>
+
+</div>
+<div class="col">
+<div class="d-flex">
+{% if advertisement.gender == 'Male' %}
+<span class="material-symbols-outlined">man</span>
+{% else %}
+<span class="material-symbols-outlined">woman</span>
+{% endif %}
+<h4>{{advertisement.gender}}</h4>
+</div>
+
+<div class="d-flex align-items-center gap-1">
+    {% if advertisement.smoke_allowed == False %}
+    <span class="material-symbols-outlined">smoke_free</span>
+    <h4>Not allowed</h4>
+    {% else %}
+    <span class="material-symbols-outlined">smoking_rooms</span>
+    <h4>Allowed.</h4>
+    {% endif %}
+</div>
+
+<div class="d-flex align-items-center gap-1">
+<span class="material-symbols-outlined">bedroom_child</span>
+<h4>Room: {{advertisement.rooms_number}}</h4>
+</div>
+
+<div class="d-flex align-items-center gap-1">
+<span class="material-symbols-outlined">bathtub</span>
+<h4>Bathroom: {{advertisement.bathroom}}</h4>
+</div>
+
+<div class="d-flex align-items-center gap-1">
+    <span class="material-symbols-outlined">dishwasher_gen</span>
+    {% if advertisement.dishwasher == True %}
+    <h4>Dishwasher:Yes</h4>
+    {%else%}
+    <h4>Dishwasher:No</h4>
+    {%endif%}
+</div>
+
+<div class="d-flex align-items-center gap-1">
+    <span class="material-symbols-outlined">local_laundry_service</span>
+    {% if advertisement.washing_machine == True %}
+    <h4>Washing machine:Yes</h4>
+    {%else%}
+    <h4>Washing machine:No</h4>
+    {%endif%}
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<h2>Note</h2>
+<h4>{{advertisement.note}}</h4>
+</div>
+
+</div>
 {% endblock %}
