@@ -5,38 +5,113 @@
 
 {% block content %}
 
+<style>
+body{
+    background-color: rgb(236, 213, 216);
+}
 
-    <div class="container">
+.transitions{
+  
+    background-color: rgba(255, 255, 255, 0.882);
+    padding:5%;
+    height: 100%; 
+}
+
+.transitions2 a{
+    background-color: rgb(213, 156, 170);
+    width: 90%;
+    border: rgb(213, 156, 170) ;
+    border-radius: 0px;
+    
+}
+.transitions2{
+    list-style-type: none;
+}
+
+a:hover {
+    color: rgb(213, 156, 170);
+}
+.btn:hover{
+    color: rgb(213, 156, 170);
+    background-color: rgb(238, 206, 214);
+
+    
+}
+.btn{
+    color: azure;
+}
+.user_data{
+    background-color: rgba(255, 255, 255, 0.492);
+    height: 70%;
+    padding: 2%;
+    border-radius: 15px;
+}
+.data{
+    background-color: rgba(214, 214, 214, 0.619);
+    padding: 2%;
+    border-radius: 15px;
+    
+    
+}
+.username{
+    background-color:  rgb(232, 202, 209);
+ 
+    padding: 2%;
+    width: 50%;
+  
+    height: 20px;
+ 
+}
+
+
+
+</style>
+    <div class="">
         <div class="row">
-            <div class="col-md-6">
             
+            <div class="col-4 transitions" >
+        
                 <div class="d-flex flex-column gap-1">
-                    <img class="rounded-circle" src="{{ user.profile.personal_image.url }}"  />
-                 
+                    <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"   />
+                    <div class="d-flex align-items-center justify-content-center gap-2">
+                        <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
+                    </div>
+                    
                 </div>
-                <p> <strong>{{ user.username }}</strong></p>
-                <ul class="gap-1 mt-5">
-                    <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn btn-primary ">My Profile</a></li>
-                    <li><a href="{% url 'accounts:update_user_view'%}"class="btn btn-primary mt-2">Update personal profile </a></li>
-                    <li><a href="#"class="btn btn-primary mt-2"> Reviews</a></li>
-                    <li><a href="{% url 'accounts:favorite'%}"class="btn btn-primary mt-2"> Favourites</a></li>
-                    <li><a href="#"class="btn btn-primary mt-2"> My comments</a></li>
-                    <li><a href="#"class="btn btn-primary mt-2"> Advertisement</a></li>
-                    <li><a href="#"class="btn btn-primary mt-2"> Add Advertisement</a></li>
-                    <li><a href="#"class="btn btn-primary mt-2 "> My requestes</a></li>
-                    <li><a href="#"class="btn btn-primary mt-2 "> Validation</a></li>
+            <div class="transitions2">
+                <ul class="gap-1 mt-5 mx-1 transitions2">
+                    <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn  ">My Profile</a></li>
+                    <li><a href="{% url 'accounts:update_user_view'%}"class="btn  mt-2">Update personal profile </a></li>
+                    <li><a href="#"class="btn  mt-2"> Reviews</a></li>
+                    <li><a href="{% url 'accounts:favorite'%}"class="btn  mt-2"> Favourites</a></li>
+                    <li><a href="#"class="btn  mt-2 "> My comments</a></li>
+                    <li><a href="#"class="btn  mt-2"> Advertisement</a></li>
+                    <li><a href="#"class="btn  mt-2"> Add Advertisement</a></li>
+                    <li><a href="#"class="btn  mt-2 "> My requestes</a></li>
+                    <li><a href="#"class="btn  mt-2 "> Validation</a></li>
                 </ul>
+            </div>
+               
             </div>
 
 
-            <div class="col-md-6">
-                <h1> welcome {{user.first_name}} {{user.last_name}}</h1>
-                <h4>{{user.profile.gender}} </h4>
-                <h4>{{user.profile.phone_number}}</h4>
-                <h4>{{user.profile.age}}</h4>
-                <h4>{{user.profile.language}}</h4>
-                <h4>{{user.profile.nationality}}</h4>
-                <h4>{{user.profile.about}}</h4>
+            <div class="col-md-6 mx-5 mt-5 user_data">
+                
+                <h1 class=" d-flex flex-column justify-content-center align-items-center">Welcome  {{user.first_name}} to roommate</h1>
+                <div class="data">
+                    <h4>Name: {{user.first_name}} {{user.last_name}}</h4>
+                    <h6>Gender: {{user.profile.gender}} </h6>
+                    <h6>Phone number: {{user.profile.phone_number}}</h6>
+                    <h6>Age: {{user.profile.age}}</h6>
+                    <h6>Language: {{user.profile.language}}</h6>
+                    <h6>Nationality: {{user.profile.nationality}}</h6>
+                </div>
+               
+                <div class="data mt-4" >
+                    <h3>about:</h3>
+                    <h6>{{user.profile.about}}</h6>
+                </div>
+                
 
             </div>
         

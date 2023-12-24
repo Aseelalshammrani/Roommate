@@ -19,33 +19,44 @@
             <form class="d-flex flex-column gap-1" action="{% url 'accounts:update_user_view' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                
+                <label> </label>
                 <input class="form-control"  type="text" name="first_name"  minlength="3" placeholder="First Name" value="{{ request.user.first_name }}"/>
                 <input class="form-control" type="text" name="last_name"  minlength="3" placeholder="Last Name"  value="{{ request.user.last_name }}"/>
+                <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email" value="{{ request.user.email }}"/>
+                <label>Avatar</label>
                 <div class="d-flex align-items-center gap-2 ">
                     <input class="form-control" type="file" name="personal_image"  placeholder="choose avatar"/>
                 </div>
-                <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email" value="{{ request.user.email }}"/>
-                <input class="form-control" type="text" name="phone_number" required minlength="8" placeholder="phone number" value="{{ request.profile.phone_number }}"/>
-                <input class="form-control" type="number" name="age"  placeholder="age" value="{{ request.profile.age }}"/>
-                <h5>gendar:</h5>
-                <select class="form-control" name="gender">
-                    <option value="male">male</option>
-                    <option value="female">female</option>
-                </select>
-                <h5>language:</h5>
-                <select class="form-control" name="language">
-                    <option value="einglish">einglish</option>
-                    <option value="arabic">arabic</option>
-                </select>
-                <h5>nationality:</h5>
+                <label>Phone number</label>
+                <input class="form-control" type="text" name="phone_number" required minlength="2" placeholder="phone number" value="{{ request.user.profile.phone_number }}"/>
+                <label>Age</label>
+                <input class="form-control" type="number" name="age"  placeholder="age" value="{{ request.user.profile.age }}"/>
+         
+             
+                <label>gendar:</label>
+                {% for key, value in user.profile.genders.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}" {% if user.profile.gender == key %} checked {% endif %}>
+                    <label class="form-check-label" for="{{key}}">{{value}}</label>
+                </div>
+                {% endfor %}
+            
+                <label>language:</label>
+                {% for key, value in user.profile.languages.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="language" id="{{key}}" value="{{value}}" {% if user.profile.language == key %} checked {% endif %}>
+                    <label class="form-check-label" for="{{key}}">{{value}}</label>
+                </div>
+                {% endfor %}
+
+                <label>nationality:</label>
                 <select class="form-control" name="nationality">
                     <option value="Saudi">Saudi</option>
                     <option value="Emirati">Emirati</option>
                     <option value="etc">etc</option>
                 </select>
-
          
+                <label>About:</label>
                 <textarea class="form-control" name="about" placeholder="About you..">{{ request.user.profile.about }}</textarea>
              
 
@@ -57,6 +68,5 @@
     </div>
 
 </section>
-
 
 {% endblock %}
