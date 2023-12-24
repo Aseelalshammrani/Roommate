@@ -25,6 +25,7 @@ def add_advertisement_view(request:HttpRequest):
         note = request.POST["note"],
         rooms_number = request.POST["rooms_number"],
         bathroom = request.POST["bathroom"],
+        
         )
         if 'animal_allowed' in request.POST:
             advertisement.animal_allowed = request.POST["animal_allowed"]

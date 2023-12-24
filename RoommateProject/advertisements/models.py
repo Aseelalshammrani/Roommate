@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class City(models.Model):
+    city_name=models.CharField(max_length=200)
+    description=models.TextField()
+
+
 class Advertisement(models.Model):
     types_of_gender=models.TextChoices('types_of_gender',['Female','Male'])
     types_of_residential=models.TextChoices('types_of_residential',['Apartment','Room','House'])
@@ -30,6 +35,8 @@ class Advertisement(models.Model):
     bathroom=models.IntegerField()
     has_kitchen=models.BooleanField(default=False)
     approved_status=models.CharField(max_length=500,default='Pending',choices=approval_status.choices)
+    city=models.ForeignKey(City,on_delete=models.CASCADE)
+
 
 class Advertisement_Image(models.Model):
     advertisement=models.ForeignKey(Advertisement,on_delete=models.CASCADE)
@@ -42,3 +49,4 @@ class Rent_Request(models.Model):
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
     order_status = models.CharField(max_length=500,default='Pending',choices=order_status.choices)
     created_at = models.DateTimeField(auto_now_add=True)
+
