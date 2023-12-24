@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Advertisement(models.Model):
     types_of_gender=models.TextChoices('types_of_gender',['Female','Male'])
@@ -32,3 +34,11 @@ class Advertisement(models.Model):
 class Advertisement_Image(models.Model):
     advertisement=models.ForeignKey(Advertisement,on_delete=models.CASCADE)
     image=models.ImageField(upload_to="images/")
+
+
+class Rent_Request(models.Model):
+    order_status = models.TextChoices('order_status',['Pending','Approved','Denied','Cancel','Finish'])
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
+    order_status = models.CharField(max_length=500,default='Pending',choices=order_status.choices)
+    created_at = models.DateTimeField(auto_now_add=True)
