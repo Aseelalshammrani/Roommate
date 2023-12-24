@@ -34,10 +34,17 @@
                     <option value="female">female</option>
                 </select>
                 <h5>language:</h5>
-                <select class="form-control" name="gender">
+                <select class="form-control" name="language">
                     <option value="einglish">einglish</option>
                     <option value="arabic">arabic</option>
                 </select>
+                <h5>nationality:</h5>
+                <select class="form-control" name="nationality">
+                    <option value="Saudi">Saudi</option>
+                    <option value="Emirati">Emirati</option>
+                    <option value="etc">etc</option>
+                </select>
+
          
                 <textarea class="form-control" name="about" placeholder="About you..">{{ request.user.profile.about }}</textarea>
              

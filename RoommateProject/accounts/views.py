@@ -70,7 +70,7 @@ def update_user_view(request: HttpRequest):
                     profile : Profile = request.user.profile
                 except Exception as e:
                     profile = Profile(user=user)
-                    profile.save()
+     
 
                 if 'personal_image' in request.FILES: profile.personal_image = request.FILES["personal_image"]
                 profile.phone_number = request.POST["phone_number"]
@@ -86,6 +86,7 @@ def update_user_view(request: HttpRequest):
             else:
                 return redirect("accounts:login_user_view")
         except IntegrityError as e:
+            print(e)
             msg = f"Please select another username"
         except Exception as e:
             msg = f"something went wrong {e}"
@@ -112,7 +113,7 @@ def add_favorite(request:HttpRequest, advertisement_id):
 
         return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
     except Exception as e:
-         return redirect("main:home_page")
+        return redirect("main:home_page")
     
 
 def favorite(request: HttpRequest):
