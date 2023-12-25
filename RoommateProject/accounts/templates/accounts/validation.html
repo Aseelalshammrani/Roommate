@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+
+{% block title %} My Rent Request {% endblock %}
+
+
+{% block content %}
+<div class="">
+    <div class="row">
+        
+        <div class="col-4 transitions" >
+    
+            <div class="d-flex flex-column gap-1">
+                <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"   />
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
+                </div>
+                
+            </div>
+        <div class="transitions2">
+            <ul class="gap-1 mt-5 mx-1 transitions2">
+                <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn  ">My Profile</a></li>
+                <li><a href="{% url 'accounts:update_user_view'%}"class="btn  mt-2">Update personal profile </a></li>
+                <li><a href="#"class="btn  mt-2"> Reviews</a></li>
+                <li><a href="{% url 'accounts:favorite'%}"class="btn  mt-2"> Favourites</a></li>
+                <li><a href="#"class="btn  mt-2 "> My comments</a></li>
+                <li><a href="#"class="btn  mt-2"> Advertisement</a></li>
+                <li><a href="#"class="btn  mt-2"> Add Advertisement</a></li>
+                <li><a href="#"class="btn  mt-2 "> My requestes</a></li>
+                <li><a href="#"class="btn  mt-2 "> Validation</a></li>
+            </ul>
+        </div>
+           
+        </div>
+
+    <div class="col-md-8">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+        {{ msg }}
+        </div>
+    {% endif %}
+
+        <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
+            <form action="{% url 'accounts:validation_user_view'  %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>National id</label>
+            <input type="text" class="form-control" name="national_id" placeholder="national id" minlength="10"> 
+            <label>id image</label>
+            <input type="file" class="form-control" name="id_image" placeholder="id image"> 
+            <label>Validate:</label>
+            <input type="checkbox" name="validated" placeholder="VALIDATE" value="True">
+            <br>
+            <input class="btn btn-dark" type="submit" value="Confirm" />
+            </form>
+            
+
+        </div>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from advertisements.models import Advertisement
 from .models import Favorite ,Profile ,Validation
+from django.db import IntegrityError
 # Create your views here.
 
 
@@ -122,10 +123,31 @@ def favorite(request: HttpRequest):
 
     return render(request, 'accounts/favorite.html', {"favorites" : favorites})
 
-def validation_user(request: HttpRequest):
-    pass
+
+def validation_user_view(request: HttpRequest):
+    msg =None
+    pre_validation = None
+    
+    if request.method=="POST":
+
+        try:
+            pre_validation = Validation.objects.filter(user=request.user).first()
+            if not pre_validation:
+                validation = Validation (
+                user =request.user, 
+                national_id =request.POST["national_id"],
+                id_image= request.FILES["id_image"],
+                validated = request.POST["validated"],
+                )
+                validation.save()
+                return redirect( "accounts:success_page")
+            else:
+                msg = "You have a previous application"
+        except IntegrityError as e:
+            msg = f"something went wrong {e}"
+    return render(request, 'accounts/validation.html', {"msg":msg})
 
 
+def success_page (request: HttpRequest):
 
-
-
+    return render(request, 'accounts/success_page.html')
