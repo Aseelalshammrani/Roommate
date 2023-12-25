@@ -5,8 +5,12 @@
 <div class="row">
 <div class="col">
 <form action="{% url 'advertisements:update_advertisement_view' advertisement.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <label>Title:</label>
     <input class="form-control" type="text" name="title" value="{{advertisement.title}}"/>
+    <label>AD block:</label>
+    <input type="checkbox" name="advertisement_status" value="False" {% if advertisement.advertisement_status == False %} checked {% endif %}>
+    <br>
     <img src="{{advertisement.image.url}}" height="200px" width="250px">
     <br>
     <label>Image:</label>
@@ -28,42 +32,49 @@
     </div>
     {% endfor %}
     <label>Longitude:</label>
-    <input class="form-control" type="number" name="longitude" placeholder="longitude" />
+    <input class="form-control" type="number" name="longitude" value="{{advertisement.longitude}}"/>
     <label>Latitiiude:</label>
-    <input class="form-control" type="number" name="latitiiude" placeholder="latitiiude" />
+    <input class="form-control" type="number" name="latitiiude" value="{{advertisement.latitiiude}}"/>
     <label>Space:</label>
-    <input class="form-control" type="number" name="space" placeholder="space" />
+    <input class="form-control" type="number" name="space" value="{{advertisement.space}}" />
     <label>Price:</label>
-    <input class="form-control" type="number" name="price" placeholder="price" />
+    <input class="form-control" type="number" name="price" value="{{advertisement.price}}"/>
     <label>Number of people:</label>
-    <input class="form-control" type="number" name="number_of_people" placeholder="number of people" />
-    <label>Features:</label>
-    <textarea class="form-control" name="features"></textarea>
-    <label>Animal allowed:</label>
-    <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True">
+    <input class="form-control" type="number" name="number_of_people" value="{{advertisement.number_of_people}}"/>
     <label>Min age:</label>
-    <input class="form-control" type="number" name="min_age" placeholder="min_age"/>
+    <input class="form-control" type="number" name="min_age" value="{{advertisement.min_age}}"/>
     <label>Max age:</label>
-    <input class="form-control" type="number" name="max_age" placeholder="max_age"/>
+    <input class="form-control" type="number" name="max_age" value="{{advertisement.max_age}}"/>
     <label>Gender:</label>
     {% for key, value in types_of_gender.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}">
+        <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}" {% if advertisement.gender == key %} checked {% endif %}>
         <label class="form-check-label" for="{{key}}">{{value}}</label>
     </div>
     {% endfor %}
-    <label>Smoke allowed:</label>
-    <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True">
-    <label>Advertisement status:</label>
-    <input type="checkbox" name="advertisement_status" id="advertisement_status" value="True">
     <label>Note:</label>
-    <textarea class="form-control" name="note"></textarea>
+    <textarea class="form-control" name="note">{{advertisement.note}}</textarea>
     <label>Rooms number:</label>
-    <input class="form-control" type="number" name="rooms_number" placeholder="rooms number"/>
+    <input class="form-control" type="number" name="rooms_number" value="{{advertisement.rooms_number}}"/>
     <label>Bathroom:</label>
-    <input class="form-control" type="number" name="bathroom" placeholder="bathroom"/>
+    <input class="form-control" type="number" name="bathroom" value="{{advertisement.bathroom}}"/>
+    <h5>Features:</h5>
+    <label>Animal allowed:</label>
+    <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True" {% if advertisement.animal_allowed%} checked {% endif %}>
+    <br>
+    <label>Dishwasher:</label>
+    <input type="checkbox" name="dishwasher"  value="True" {% if advertisement.dishwasher%} checked {% endif %}>
+    <br>
+    <label>Smoke allowed:</label>
+    <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True" {% if advertisement.smoke_allowed%} checked {% endif %}>
+    <br>
     <label>Has kitchen:</label>
-    <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True">
+    <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True" {% if advertisement.has_kitchen%} checked {% endif %}>
+    <br>
+    <label>Washing machine:</label>
+    <input type="checkbox" name="washing_machine" value="True" {% if advertisement.washing_machine%} checked {% endif %}>
+    <br>
+    <input class="btn btn-success" type="submit" value="Update advertisement" />
 
 
 

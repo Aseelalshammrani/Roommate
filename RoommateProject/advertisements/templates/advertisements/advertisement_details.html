@@ -18,10 +18,10 @@
           Edit</button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="{% url 'advertisements:update_advertisement_view' advertisement.id %}">Update</a></li>
-          <li><a class="dropdown-item" href="#">Delete</a></li>
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteadvertisement">Delete</a></li>
         </ul>
       </div>
-      
+
       <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#send_request">Send Request</a>
 </div>
 
@@ -29,21 +29,10 @@
 </div>
 
 <div class="row">
-<div class="col-6">
+<div class="d-flex justify-content-between align-items-center">
 <div class="profile d-flex gap-2 align-items-center p-2">
 <img src="{{advertisement.user.profile.personal_image.url}}" height="50" width="50" class="rounded">
 <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h4>
-</div>
-</div>
-</div>
-
-
-<div class="row my-3">
-<div class="d-flex justify-content-between">
-<div class="col">
-<div class="d-flex align-items-center gap-1">
-<span class="material-symbols-outlined">timer</span>
-<h4>The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h4>
 </div>
 
 <div class="d-flex align-items-center gap-1">
@@ -54,7 +43,19 @@
     {%else%}
     <span class="material-symbols-outlined">apartment</span>
     {% endif %}
-<h4>{{advertisement.type_of_residential}}</h4>
+<h2>{{advertisement.type_of_residential}}</h2>
+</div>
+
+</div>
+</div>
+
+
+<div class="row my-3">
+<div class="d-flex justify-content-between">
+<div class="col">
+<div class="d-flex align-items-center gap-1">
+<span class="material-symbols-outlined">timer</span>
+<h4>The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h4>
 </div>
 
 <div class="d-flex align-items-center gap-1">
@@ -79,6 +80,11 @@
 <div class="d-flex align-items-center">
 <span class="material-symbols-outlined">person_search</span>
 <h4>Favred age: From {{advertisement.min_age}} to {{advertisement.max_age}} </h4>
+</div>
+
+<div class="d-flex align-items-center gap-1">
+<span class="material-symbols-outlined">bathtub</span>
+<h4>Bathroom: {{advertisement.bathroom}}</h4>
 </div>
 
 </div>
@@ -108,9 +114,14 @@
 </div>
 
 <div class="d-flex align-items-center gap-1">
-<span class="material-symbols-outlined">bathtub</span>
-<h4>Bathroom: {{advertisement.bathroom}}</h4>
+    <span class="material-symbols-outlined">kitchen</span>
+    {% if advertisement.has_kitchen == True %}
+    <h4>Kitchen:Yes</h4>
+    {%else%}
+    <h4>Kitchen:No</h4>
+    {%endif%}
 </div>
+
 
 <div class="d-flex align-items-center gap-1">
     <span class="material-symbols-outlined">dishwasher_gen</span>
@@ -150,11 +161,29 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <a href="#" class="btn btn-success">Yes, I want to send it.</a>
+          <a href="#" class="btn btn-success">Yes</a>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="modal fade" id="deleteadvertisement" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteadvertisement">Delete advertisement</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete advertisement?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <a href="{% url 'advertisements:delete_advertisement_view' advertisement.id %}" class="btn btn-danger">Yes, I want to delete it.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>
 {% endblock %}

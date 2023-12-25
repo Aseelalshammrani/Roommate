@@ -62,33 +62,54 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
     advertisement = Advertisement.objects.get(id=advertisement_id)
     if request.method == "POST":
         advertisement.title = request.POST["title"]
-        if 'image' in request.POST:
+        if 'image' in request.FILES:
             advertisement.image = request.FILES["image"]
         advertisement.type_of_duration = request.POST["type_of_duration"]
         advertisement.duration_residence = request.POST["duration_residence"]
-        advertisement.advertisement_date = request.POST["advertisement_date"]
         advertisement.type_of_residential = request.POST["type_of_residential"]
         advertisement.longitude = request.POST["longitude"]
         advertisement.latitiiude = request.POST["latitiiude"]
         advertisement.space = request.POST["space"]
         advertisement.price = request.POST["price"]
         advertisement.number_of_people = request.POST["number_of_people"]
-        advertisement.animal_allowed = request.POST["animal_allowed"]
+        if 'animal_allowed' in request.POST:
+            advertisement.animal_allowed = request.POST['animal_allowed']
+        else:
+            advertisement.animal_allowed = False
+        if 'dishwasher' in request.POST:
+            advertisement.dishwasher = request.POST['dishwasher']
+        else:
+            advertisement.dishwasher = False
+            
+        if 'smoke_allowed' in request.POST:
+            advertisement.smoke_allowed = request.POST['smoke_allowed']
+        else:
+            advertisement.smoke_allowed = False
+        
+        if 'has_kitchen' in request.POST:
+            advertisement.has_kitchen = request.POST['has_kitchen']
+        else:
+            advertisement.has_kitchen = False
+
+        if 'washing_machine' in request.POST:
+            advertisement.washing_machine = request.POST['washing_machine']
+        else:
+            advertisement.washing_machine = False
+
+        if 'advertisement_status' in request.POST:
+            advertisement.advertisement_status = request.POST['advertisement_status']
+        else:
+            advertisement.advertisement_status=True
+
         advertisement.min_age = request.POST["min_age"]
         advertisement.max_age = request.POST["max_age"]
         advertisement.gender = request.POST["gender"]
-        advertisement.smoke_allowed = request.POST["smoke_allowed"]
-        advertisement.advertisement_status = request.POST["advertisement_status"]
         advertisement.note = request.POST["note"]
         advertisement.rooms_number = request.POST["rooms_number"]
         advertisement.bathroom = request.POST["bathroom"]
-        advertisement.has_kitchen = request.POST["has_kitchen"]
-        advertisement.approved_status = request.POST["approved_status"]
-        advertisement.dishwasher=request.POST['dishwasher']
-        advertisement.washing_machine=request.POST['washing_machine']
         advertisement.save()
-        return redirect("advertisements/advertisement_details_view", advertisement_id=advertisement.id)
-    return render(request,"advertisements/update_advertisement.html", {"advertisement": advertisement,'types_of_duration':Advertisement.types_of_duration,'types_of_residential':Advertisement.types_of_duration})
+        return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
+    return render(request,"advertisements/update_advertisement.html", {"advertisement": advertisement,'types_of_duration':Advertisement.types_of_duration,'types_of_residential':Advertisement.types_of_residential,'types_of_gender':Advertisement.types_of_gender})
 
 def rent_request(request:HttpRequest,advertisement_id):
     advertisement = Advertisement.objects.get(id=advertisement_id)
@@ -96,8 +117,10 @@ def rent_request(request:HttpRequest,advertisement_id):
     if 'order_status' in request.POST:
         rent_request.order_status=request.POST['order_status']
 
-
-
+def delete_advertisement_view(request:HttpRequest, advertisement_id):
+    advertisement=Advertisement.objects.get(id=advertisement_id)
+    advertisement.delete()
+    return redirect("advertisements:browse_advertisements_view")
 
 
 
