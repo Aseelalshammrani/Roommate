@@ -52,3 +52,11 @@ a:hover {
     height: 20px;
  
 }
+.profile{
+    background-color:rgba(214, 214, 214, 0.9) ;
+    border-radius: 20px;
+}
+
+.profile img{
+border-radius: 20px;
+}

@@ -4,24 +4,26 @@
 <div class="container">
 <div class="row">
 <div class="col">
-<form action="{% url 'advertisements:update_advertisement' advertisement.id %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'advertisements:update_advertisement_view' advertisement.id %}" method="post" enctype="multipart/form-data">
     <label>Title:</label>
-    <input class="form-control" type="text" name="title" placeholder="Title of Advertisement" />
+    <input class="form-control" type="text" name="title" value="{{advertisement.title}}"/>
+    <img src="{{advertisement.image.url}}" height="200px" width="250px">
+    <br>
     <label>Image:</label>
     <input type="file" name="image"  class="form-control" accept="image/*"/>
     <label>Type of duration:</label>
     {% for key, value in types_of_duration.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="type_of_duration" id="{{key}}" value="{{value}}">
+        <input class="form-check-input" type="radio" name="type_of_duration" id="{{key}}" value="{{value}}" {% if advertisement.type_of_duration == key %} checked {% endif %}>
         <label class="form-check-label" for="{{key}}">{{value}}</label>
     </div>
     {% endfor %}
     <label>Duration of residence:</label>
-    <input class="form-control" type="number" name="duration_residence" placeholder="Duration of residence" />
+    <input class="form-control" type="number" name="duration_residence" value="{{advertisement.duration_residence}}" />
     <label>Type of residential:</label>
     {% for key, value in types_of_residential.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}">
+        <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}" {% if advertisement.type_of_residential == key %} checked {% endif %}>
         <label class="form-check-label" for="{{key}}">{{value}}</label>
     </div>
     {% endfor %}
@@ -62,7 +64,7 @@
     <input class="form-control" type="number" name="bathroom" placeholder="bathroom"/>
     <label>Has kitchen:</label>
     <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True">
-    <label>Approved status:</label>
+
 
 
 </form>

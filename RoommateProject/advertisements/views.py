@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Advertisement 
+from .models import Advertisement, Rent_Request
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 #Add a new advertisement
 def add_advertisement_view(request:HttpRequest):
-    
+
     if request.method == "POST":
         advertisement = Advertisement(
         user = request.user,
@@ -52,7 +53,8 @@ def browse_advertisements_view(request:HttpRequest):
 
 def advertisement_details_view(request:HttpRequest,advertisement_id):
     advertisement=Advertisement.objects.get(id=advertisement_id)
-    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement})
+    is_requested=request.user.is_authenticated and Rent_Request.objects.filter(advertisement=advertisement).first()
+    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested})
 
 
 #Update advertisement
@@ -60,7 +62,8 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
     advertisement = Advertisement.objects.get(id=advertisement_id)
     if request.method == "POST":
         advertisement.title = request.POST["title"]
-        advertisement.image = request.FILES["image"]
+        if 'image' in request.POST:
+            advertisement.image = request.FILES["image"]
         advertisement.type_of_duration = request.POST["type_of_duration"]
         advertisement.duration_residence = request.POST["duration_residence"]
         advertisement.advertisement_date = request.POST["advertisement_date"]
@@ -85,7 +88,14 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         advertisement.washing_machine=request.POST['washing_machine']
         advertisement.save()
         return redirect("advertisements/advertisement_details_view", advertisement_id=advertisement.id)
-    return render(request,"advertisements/update_advertisement_view", {"advertisement": advertisement})
+    return render(request,"advertisements/update_advertisement.html", {"advertisement": advertisement,'types_of_duration':Advertisement.types_of_duration,'types_of_residential':Advertisement.types_of_duration})
+
+def rent_request(request:HttpRequest,advertisement_id):
+    advertisement = Advertisement.objects.get(id=advertisement_id)
+    rent_request=Rent_Request(advertisement=advertisement,user=request.user)
+    if 'order_status' in request.POST:
+        rent_request.order_status=request.POST['order_status']
+
 
 
 
