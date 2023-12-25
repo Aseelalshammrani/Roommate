@@ -11,10 +11,10 @@ body{
 }
 
 .transitions{
-  
     background-color: rgba(255, 255, 255, 0.882);
     padding:5%;
-    height: 100%; 
+    height: 100%;
+    width: 25%; 
 }
 
 .transitions2 a{
@@ -42,14 +42,16 @@ a:hover {
 }
 .user_data{
     background-color: rgba(255, 255, 255, 0.492);
-    height: 70%;
     padding: 2%;
+    width: 90%;
     border-radius: 15px;
+    align-items: center;
 }
 .data{
     background-color: rgba(214, 214, 214, 0.619);
     padding: 2%;
     border-radius: 15px;
+    align-items: center;
     
     
 }
@@ -94,8 +96,8 @@ a:hover {
                
             </div>
 
-
-            <div class="col-md-6 mx-5 mt-5 user_data">
+        <div class="col-md-8">
+            <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
                 
                 <h1 class=" d-flex flex-column justify-content-center align-items-center">Welcome  {{user.first_name}} to roommate</h1>
                 <div class="data">
@@ -114,7 +116,7 @@ a:hover {
                 
 
             </div>
-        
+          </div>
         </div>
  </div>
 
