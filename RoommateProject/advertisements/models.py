@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Advertisement(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
     types_of_gender=models.TextChoices('types_of_gender',['Female','Male'])
     types_of_residential=models.TextChoices('types_of_residential',['Apartment','Room','House'])
     types_of_duration =models.TextChoices('types_of_duration',['Days','Weeks','Months'])

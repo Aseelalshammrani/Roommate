@@ -68,7 +68,6 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         advertisement.space = request.POST["space"]
         advertisement.price = request.POST["price"]
         advertisement.number_of_people = request.POST["number_of_people"]
-        advertisement.features = request.POST["features"]
         advertisement.animal_allowed = request.POST["animal_allowed"]
         advertisement.min_age = request.POST["min_age"]
         advertisement.max_age = request.POST["max_age"]
@@ -80,6 +79,7 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         advertisement.bathroom = request.POST["bathroom"]
         advertisement.has_kitchen = request.POST["has_kitchen"]
         advertisement.approved_status = request.POST["approved_status"]
+        ad
         advertisement.save()
         return redirect("advertisements/advertisement_details_view", advertisement_id=advertisement.id)
     return render(request,"advertisements/update_advertisement_view", {"advertisement": advertisement})
