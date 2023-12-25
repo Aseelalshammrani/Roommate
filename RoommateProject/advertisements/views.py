@@ -79,7 +79,8 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         advertisement.bathroom = request.POST["bathroom"]
         advertisement.has_kitchen = request.POST["has_kitchen"]
         advertisement.approved_status = request.POST["approved_status"]
-        ad
+        advertisement.dishwasher=request.POST['dishwasher']
+        advertisement.washing_machine=request.POST['washing_machine']
         advertisement.save()
         return redirect("advertisements/advertisement_details_view", advertisement_id=advertisement.id)
     return render(request,"advertisements/update_advertisement_view", {"advertisement": advertisement})
