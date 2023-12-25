@@ -6,8 +6,10 @@ from .models import Advertisement
 
 #Add a new advertisement
 def add_advertisement_view(request:HttpRequest):
+    
     if request.method == "POST":
         advertisement = Advertisement(
+        user = request.user,
         title = request.POST["title"],
         image = request.FILES["image"],
         type_of_duration = request.POST["type_of_duration"],
