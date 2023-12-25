@@ -11,5 +11,7 @@ urlpatterns = [
      path("update/", views.update_user_view, name="update_user_view"),
      path('<advertisement_id>/add/', views.add_favorite, name="add_favorite"),
      path('favorite/', views.favorite, name="favorite"),
+     path('validation_user/',views.validation_user_view, name="validation_user_view"),
+     path('success_page/',views.success_page,name='success_page')
   
 ]
