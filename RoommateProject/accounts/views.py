@@ -169,10 +169,12 @@ def approve_validation(request:HttpRequest, validation_id):
 
 def validate_detail_view(request:HttpRequest,user_id):
     msg=None
+    validation=None
     try:
         user = User.objects.get(id=user_id)
         validation = Validation.objects.get(user=user)
     except Exception as e:
+        print(e)
         msg=f"something went wrong{e}"
     return render(request,'accounts/validation_detail.html', {"user":user, "validation":validation, "msg":msg})
 
