@@ -12,8 +12,6 @@ class Profile(models.Model):
     genders = models.TextChoices("genders" , ["Male","Female"])
     languages = models.TextChoices ("languages" , ["Einglish","Arabic"])
     nationalitys= models.TextChoices("nationalitys", ["Saudi","Emirati", "etc"])
- 
-
     user = models.OneToOneField(User ,on_delete=models.CASCADE)
     personal_image = models.ImageField(upload_to="images/", default="images/ge.jpg")
     phone_number = models.CharField(max_length=64)
