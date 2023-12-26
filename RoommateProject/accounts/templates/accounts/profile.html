@@ -21,7 +21,6 @@ body{
                     <div class="d-flex align-items-center justify-content-center gap-2">
                         <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
                     </div>
-                    
                 </div>
             <div class="transitions2">
                 <ul class="gap-1 mt-5 mx-1 transitions2">
@@ -35,6 +34,7 @@ body{
                     <li><a href="#"class="btn  mt-2"> Add Advertisement</a></li>
                     <li><a href="#"class="btn  mt-2 "> My requestes</a></li>
                     <li><a href="{% url 'accounts:validation_user_view'  %}"class="btn  mt-2 "> Validation</a></li>
+                    <li><a href="{% url 'accounts:validate_detail_view' user.id %}" class="btn  mt-2 ">Validation status</a></li>
                 </ul>
             </div>
                
@@ -57,7 +57,6 @@ body{
                     <h3>about:</h3>
                     <h6>{{user.profile.about}}</h6>
                 </div>
-                
 
             </div>
           </div>
