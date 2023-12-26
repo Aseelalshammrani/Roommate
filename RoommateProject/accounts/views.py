@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from advertisements.models import Advertisement
 from .models import Favorite ,Profile ,Validation
 from django.db import IntegrityError
+
 # Create your views here.
 
 
@@ -137,7 +138,6 @@ def validation_user_view(request: HttpRequest):
                 user =request.user, 
                 national_id =request.POST["national_id"],
                 id_image= request.FILES["id_image"],
-                validated = request.POST["validated"],
                 )
                 validation.save()
                 return redirect( "accounts:success_page")
@@ -148,6 +148,34 @@ def validation_user_view(request: HttpRequest):
     return render(request, 'accounts/validation.html', {"msg":msg})
 
 
-def success_page (request: HttpRequest):
-
+def success_page(request: HttpRequest):
     return render(request, 'accounts/success_page.html')
+
+def confirmation_view(request:HttpRequest):
+    return render(request,'accounts/confirmation.html')
+
+def admin_validation_requests(request: HttpRequest):
+    validations = Validation.objects.filter(validated=False)
+    return render(request, 'accounts/admin_page.html', {'validations': validations})
+
+def approve_validation(request:HttpRequest, validation_id):
+    if request.method == 'POST':
+        validation = Validation.objects.get(id=validation_id)
+        validation.validated = True
+        validation.save()
+        return redirect('accounts:confirmation_view')
+    return render(request, 'accounts/validation_detail.html', {'validation_id': validation_id})
+
+
+def validate_detail_view(request:HttpRequest,user_id):
+    msg=None
+    validation=None
+    try:
+        user = User.objects.get(id=user_id)
+        validation = Validation.objects.get(user=user)
+    except Exception as e:
+        print(e)
+        msg=f"something went wrong{e}"
+    return render(request,'accounts/validation_detail.html', {"user":user, "validation":validation, "msg":msg})
+
+

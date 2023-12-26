@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %} My Rent Request {% endblock %}
+{% block title %} Validation request {% endblock %}
 
 
 {% block content %}
@@ -37,7 +37,7 @@
         <div class="alert alert-danger" role="alert">
         {{ msg }}
         </div>
-    {% endif %}
+        {% endif %}
 
         <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
             <form action="{% url 'accounts:validation_user_view'  %}" method="post" enctype="multipart/form-data">
@@ -46,8 +46,6 @@
             <input type="text" class="form-control" name="national_id" placeholder="national id" minlength="10"> 
             <label>id image</label>
             <input type="file" class="form-control" name="id_image" placeholder="id image"> 
-            <label>Validate:</label>
-            <input type="checkbox" name="validated" placeholder="VALIDATE" value="True">
             <br>
             <input class="btn btn-dark" type="submit" value="Confirm" />
             </form>
