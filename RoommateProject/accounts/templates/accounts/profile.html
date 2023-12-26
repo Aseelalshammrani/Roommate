@@ -25,12 +25,13 @@ body{
                 </div>
             <div class="transitions2">
                 <ul class="gap-1 mt-5 mx-1 transitions2">
+                    
                     <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn  ">My Profile</a></li>
                     <li><a href="{% url 'accounts:update_user_view'%}"class="btn  mt-2">Update personal profile </a></li>
                     <li><a href="#"class="btn  mt-2"> Reviews</a></li>
                     <li><a href="{% url 'accounts:favorite'%}"class="btn  mt-2"> Favourites</a></li>
                     <li><a href="#"class="btn  mt-2 "> My comments</a></li>
-                    <li><a href="#"class="btn  mt-2"> Advertisement</a></li>
+                    <li><a href="{% url 'accounts:advertisement_user' %}"class="btn  mt-2"> Advertisement</a></li>
                     <li><a href="#"class="btn  mt-2"> Add Advertisement</a></li>
                     <li><a href="#"class="btn  mt-2 "> My requestes</a></li>
                     <li><a href="{% url 'accounts:validation_user_view'  %}"class="btn  mt-2 "> Validation</a></li>

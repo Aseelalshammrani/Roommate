@@ -16,7 +16,7 @@
     list-style-type: none;
 }
 
-a:hover {
+.transitions2 a:hover {
     color: rgb(129, 136, 157);
 }
 .btn:hover{

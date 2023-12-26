@@ -12,6 +12,7 @@ urlpatterns = [
      path('<advertisement_id>/add/', views.add_favorite, name="add_favorite"),
      path('favorite/', views.favorite, name="favorite"),
      path('validation_user/',views.validation_user_view, name="validation_user_view"),
-     path('success_page/',views.success_page,name='success_page')
+     path('success_page/',views.success_page,name='success_page'),
+     path('advertisement_user/',views.advertisement_user,name="advertisement_user")
   
 ]

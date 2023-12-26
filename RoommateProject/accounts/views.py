@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from advertisements.models import Advertisement
 from .models import Favorite ,Profile ,Validation
+from advertisements.models import Advertisement
 from django.db import IntegrityError
 # Create your views here.
 
@@ -151,3 +152,9 @@ def validation_user_view(request: HttpRequest):
 def success_page (request: HttpRequest):
 
     return render(request, 'accounts/success_page.html')
+
+def advertisement_user(request: HttpRequest):
+    user = request.user  
+    advertisements = user.advertisement_set.all() 
+    context = {'advertisements': advertisements} 
+    return render(request, 'accounts/advertisement_user.html', context)
