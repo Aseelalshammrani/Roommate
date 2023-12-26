@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Admin Page {% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1>Admin Page</h1>
+        <hr>
+        {% if msg %}
+            <div class="alert alert-danger" role="alert">
+                {{ msg }}
+            </div>
+        {% endif %}
+        <h2>Users requests:</h2>
+        {% if validations.count == 0 %}
+        <div class="text-center">
+            <div class="alert alert-warning m-5">You don't have any requests yet.</div>
+        </div>
+        {% endif %}
+        <div class="col">
+            {% for validation in validations %}
+            <div class="p-3 mb-2 bg-primary-subtle text-emphasis-primary rounded-3">
+                <h4>Name of user: {{ validation.user.username }}</h4>
+                <h4>National id: {{ validation.national_id }}</h4>
+                <h5>Id image:</h5>
+                <img src="{{ validation.id_image.url }}" style="width: 100px;" alt="ID Image">
+                <div>
+                    <form action="{% url 'accounts:approve_validation' validation.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" value="True" class="btn btn-success m-3">Approve</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
