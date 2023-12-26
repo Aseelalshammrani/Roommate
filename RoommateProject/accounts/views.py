@@ -200,6 +200,11 @@ def send_rent_request(request:HttpRequest, advertisement_id):
     return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
 
 def receive_rent_request(request:HttpRequest,user_id):
-    advertisement = Advertisement.objects.get(user=user_id)
-    receive_rent_request=Rent_Request.objects.filter(advertisement=advertisement)
-    return render(request,'accounts/my_roommate.html',{'receives':receive_rent_request})
+    msg=None
+    receive_rent_request=None
+    try:
+        advertisement = Advertisement.objects.get(user=user_id)
+        receive_rent_request=Rent_Request.objects.filter(advertisement=advertisement)
+    except Exception as e:
+        msg=f"You dont have any advertisements yet."
+    return render(request,'accounts/my_roommate.html',{'receives':receive_rent_request,"msg":msg})
