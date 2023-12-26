@@ -13,9 +13,9 @@ urlpatterns = [
      path('favorite/', views.favorite, name="favorite"),
      path('validation_user/',views.validation_user_view, name="validation_user_view"),
      path('success_page/',views.success_page,name='success_page'),
+     path('advertisement_user/',views.advertisement_user,name="advertisement_user")
      path('vali/',views.admin_validation_requests, name='admin_validation_requests'),
      path('validate/<validation_id>/', views.approve_validation , name="approve_validation"),
      path('confirmation/',views.confirmation_view, name="confirmation_view"),
-     path('validation_detail/<user_id>/', views.validate_detail_view, name="validate_detail_view")
-  
+     path('validation_detail/<user_id>/', views.validate_detail_view, name="validate_detail_view")  
 ]
