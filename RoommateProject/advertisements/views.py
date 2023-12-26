@@ -116,7 +116,6 @@ def rent_request(request:HttpRequest,advertisement_id):
     rent_request=Rent_Request(advertisement=advertisement,user=request.user)
     if 'order_status' in request.POST:
         rent_request.order_status=request.POST['order_status']
-        return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
 
 def delete_advertisement_view(request:HttpRequest, advertisement_id):
     advertisement=Advertisement.objects.get(id=advertisement_id)
@@ -124,15 +123,6 @@ def delete_advertisement_view(request:HttpRequest, advertisement_id):
     return redirect("advertisements:browse_advertisements_view")
 
 
-def send_rent_request(request:HttpRequest, advertisement_id):
-    advertisement = Advertisement.objects.get(id=advertisement_id)
-    rent_request = Rent_Request(
-        user=request.user,
-        advertisement=advertisement,
-    )
-    return redirect('advertisements:rent_request', rent_request.id)
-
-    
 
 
 

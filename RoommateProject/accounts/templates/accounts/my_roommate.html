@@ -5,16 +5,16 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            {% for requset in requsets %}
+            {% for receive in receives %}
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                   <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="...">
+                    <img src="{{receive.advertisement.image.url}}" class="img-fluid rounded-start" alt="...">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
-                      <h5 class="card-title"><a href="{% url 'advertisements:advertisement_details_view' requset.advertisement.id %}">{{requset.advertisement.title}}</a></h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <h5 class="card-title"><a href="{% url 'advertisements:advertisement_details_view' receive.advertisement.id %}">{{receive.advertisement.title}}</a></h5>
+                      <p class="card-text">{{receive.user.username}}</p>
                       <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                     </div>
                   </div>

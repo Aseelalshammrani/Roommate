@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from advertisements.models import Advertisement
+from advertisements.models import Advertisement,Rent_Request
 from .models import Favorite ,Profile ,Validation
 from advertisements.models import Advertisement
 from django.db import IntegrityError
@@ -186,5 +186,20 @@ def validate_detail_view(request:HttpRequest,user_id):
         msg=f"something went wrong{e}"
     return render(request,'accounts/validation_detail.html', {"user":user, "validation":validation, "msg":msg})
 
+def my_requset(request:HttpRequest,user_id):
+    requsets=Rent_Request.objects.filter(user=user_id)
+    return render(request,'accounts/rent_request.html',{'requsets':requsets})
 
+def send_rent_request(request:HttpRequest, advertisement_id):
+    advertisement = Advertisement.objects.get(id=advertisement_id)
+    rent_request = Rent_Request(
+        user=request.user,
+        advertisement=advertisement,
+    )
+    rent_request.save()
+    return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
 
+def receive_rent_request(request:HttpRequest,user_id):
+    advertisement = Advertisement.objects.get(user=user_id)
+    receive_rent_request=Rent_Request.objects.filter(advertisement=advertisement)
+    return render(request,'accounts/my_roommate.html',{'receives':receive_rent_request})

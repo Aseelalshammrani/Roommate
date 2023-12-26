@@ -32,7 +32,8 @@ body{
                     <li><a href="#"class="btn  mt-2 "> My comments</a></li>
                     <li><a href="{% url 'accounts:advertisement_user' %}"class="btn  mt-2"> Advertisement</a></li>
                     <li><a href="#"class="btn  mt-2"> Add Advertisement</a></li>
-                    <li><a href="#"class="btn  mt-2 "> My requestes</a></li>
+                    <li><a href="{% url 'accounts:my_requset' user.id %}"class="btn  mt-2 "> My requestes</a></li>
+                    <li><a href="{% url 'accounts:receive_rent_request' user.id %}"class="btn  mt-2 "> My Roommate</a></li>
                     <li><a href="{% url 'accounts:validation_user_view'  %}"class="btn  mt-2 "> Validation</a></li>
                     <li><a href="{% url 'accounts:validate_detail_view' user.id %}" class="btn  mt-2 ">Validation status</a></li>
                 </ul>
