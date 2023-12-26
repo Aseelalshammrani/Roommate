@@ -192,19 +192,43 @@ def my_requset(request:HttpRequest,user_id):
 
 def send_rent_request(request:HttpRequest, advertisement_id):
     advertisement = Advertisement.objects.get(id=advertisement_id)
+    user_id = request.user.id  # Get the user ID
+
     rent_request = Rent_Request(
-        user=request.user,
+        user_id=user_id,
         advertisement=advertisement,
     )
     rent_request.save()
-    return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
+    return redirect("advertisements:advertisement_details_view",  advertisement_id=advertisement.id)
 
 def receive_rent_request(request:HttpRequest,user_id):
-    msg=None
-    receive_rent_request=None
+    msg = None
+    receive_rent_requests = None  # Use plural for clarity
     try:
-        advertisement = Advertisement.objects.get(user=user_id)
-        receive_rent_request=Rent_Request.objects.filter(advertisement=advertisement)
+        # Retrieve advertisements for the current user (request.user)
+        advertisements = Advertisement.objects.filter(user=request.user)
+
+        if advertisements:  # Check if any advertisements exist
+            receive_rent_requests = Rent_Request.objects.filter(advertisement__in=advertisements)
+        else:
+            msg = "You don't have any advertisements yet."
+
     except Exception as e:
-        msg=f"You dont have any advertisements yet."
-    return render(request,'accounts/my_roommate.html',{'receives':receive_rent_request,"msg":msg})
+        msg = f"An error occurred while retrieving rent requests: {e}"
+    return render(request,'accounts/my_roommate.html',{'receives':receive_rent_requests,"msg":msg, "order_status": Rent_Request.order_status})
+
+def accept_rent_request(request, rent_request_id):
+    rent_request = Rent_Request.objects.get(id=rent_request_id)
+    if request.GET.get("order_status_choice") == "Approved":
+        rent_request.order_status_choice= "Approved"
+    elif request.GET.get("order_status_choice") == "Denied":
+        rent_request.order_status_choice= "Denied"
+    elif request.GET.get("order_status_choice") == "Finish":
+        rent_request.order_status_choice= "Finish"
+    rent_request.save()
+    return redirect('accounts:receive_rent_request',user_id=request.user)
+
+def cancel_rent_request(request, rent_request_id):
+    rent_request = Rent_Request.objects.get(id=rent_request_id)
+    rent_request.delete()
+    return redirect('accounts:my_requset',user_id=request.user.id)

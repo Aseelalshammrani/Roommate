@@ -35,7 +35,8 @@ class Advertisement(models.Model):
     city=models.CharField(max_length=500,choices=cities.choices)
     dishwasher=models.BooleanField(default=False)
     washing_machine=models.BooleanField(default=False)
-
+    def __str__(self):
+        return f"{self.title}"
     
 
 class Advertisement_Image(models.Model):
@@ -44,9 +45,9 @@ class Advertisement_Image(models.Model):
 
 
 class Rent_Request(models.Model):
-    order_status = models.TextChoices('order_status',['Pending','Approved','Denied','Cancel','Finish'])
+    order_status= models.TextChoices('order_status',['Pending','Approved','Denied','Finish'])
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
-    order_status = models.CharField(max_length=500,default='Pending',choices=order_status.choices)
+    order_status_choice = models.CharField(max_length=500,default='Pending',choices=order_status.choices)
     created_at = models.DateTimeField(auto_now_add=True)
 

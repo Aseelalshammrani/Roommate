@@ -20,5 +20,7 @@ urlpatterns = [
      path('validation_detail/<user_id>/', views.validate_detail_view, name="validate_detail_view"),
      path('my/requsets/<user_id>/',views.my_requset,name='my_requset'),
      path('send/rent/request/<advertisement_id>/',views.send_rent_request,name='send_rent_request'),
-    path('my/roommate/<user_id>/',views.receive_rent_request,name='receive_rent_request')
+     path('my/roommate/<user_id>/',views.receive_rent_request,name='receive_rent_request'),
+     path('accept/rent/request/<rent_request_id>/',views.accept_rent_request,name='accept_rent_request'),
+     path('cancel/rent/request/<rent_request_id>/',views.cancel_rent_request,name='cancel_rent_request')
 ]
