@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Advertisement, Rent_Request
+from .models import Advertisement, Rent_Request, Advertisement_Image
 from django.contrib.auth.models import User
+from accounts.models import Favorite, Profile, Review, Validation
 
 # Create your views here.
 
@@ -54,7 +55,12 @@ def browse_advertisements_view(request:HttpRequest):
 def advertisement_details_view(request:HttpRequest,advertisement_id):
     advertisement=Advertisement.objects.get(id=advertisement_id)
     is_requested=request.user.is_authenticated and Rent_Request.objects.filter(advertisement=advertisement).first()
-    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested})
+
+    is_favored = request.user.is_authenticated and Favorite.objects.filter(advertisement=advertisement, user=request.user).exists()
+
+
+
+    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested,"is_favored":is_favored })
 
 
 #Update advertisement
@@ -121,9 +127,5 @@ def delete_advertisement_view(request:HttpRequest, advertisement_id):
     advertisement=Advertisement.objects.get(id=advertisement_id)
     advertisement.delete()
     return redirect("advertisements:browse_advertisements_view")
-
-
-
-
 
 

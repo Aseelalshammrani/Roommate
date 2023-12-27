@@ -98,13 +98,13 @@ def update_user_view(request: HttpRequest):
 
 
 
-def add_favorite(request:HttpRequest, advertisement_id):
+def add_favorite_view(request:HttpRequest, advertisement_id):
 
     if not request.user.is_authenticated:
         return redirect("accounts:login_user_view")
 
     try:
-        advertisement = Profile.objects.get(id=advertisement_id)
+        advertisement = Advertisement.objects.get(id=advertisement_id)
         user_favored = Favorite.objects.filter(user=request.user, advertisement=advertisement).first() 
         
         if not user_favored:
@@ -117,13 +117,13 @@ def add_favorite(request:HttpRequest, advertisement_id):
         return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
     except Exception as e:
         return redirect("main:home_page")
-    
 
-def favorite(request: HttpRequest):
+
+def my_favorite_view(request: HttpRequest):
 
     favorites = Favorite.objects.filter(user=request.user)
 
-    return render(request, 'accounts/favorite.html', {"favorites" : favorites})
+    return render(request, 'accounts/my_favorite.html', {"favorites" : favorites})
 
 
 def validation_user_view(request: HttpRequest):

@@ -4,11 +4,7 @@ from advertisements.models import Advertisement
 
 # Create your models here.
 
-
-
-
 class Profile(models.Model):
-
     genders = models.TextChoices("genders" , ["Male","Female"])
     languages = models.TextChoices ("languages" , ["Einglish","Arabic"])
     nationalitys= models.TextChoices("nationalitys", ["Saudi","Emirati", "etc"])
