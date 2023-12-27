@@ -4,18 +4,15 @@
 <div class="container">
     <div class="row m-5 ">
         <div class="col">
-            {% if msg %}
-                <div class="alert alert-danger" role="alert">
-                    {{ msg }}
-                </div>
-            {% endif %}
             <div class="d-flex flex-column card border-secondary mb-3 p-3 justify-content-center align-items-center">
-                <form class="d-flex flex-column gap-1"  style="width: 40vw;" action="{% url 'advertisements:add_iamge_view' %}" method="post" enctype="multipart/form-data">
+                <form class="d-flex flex-column gap-1"  style="width: 40vw;" action="{% url 'advertisements:add_images_for_advertisements' advertisement.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label>Add Image:</label>
-                    <input required name="images" type="file" multiple class="form-control-file">
+                    <input required name="image" type="file" multiple class="form-control-file">
                     <button type="submit" class="btn-btn-primary">Upload image</button>
                 </form>
+                
+                <a class="btn btn-secondary" href="{% url 'advertisements:advertisement_details_view' advertisement.id %}">Skip</a>
 
             </div>
 

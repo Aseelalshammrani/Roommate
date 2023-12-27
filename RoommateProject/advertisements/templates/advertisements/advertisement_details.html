@@ -18,7 +18,7 @@
           Edit</button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="{% url 'advertisements:update_advertisement_view' advertisement.id %}">Update</a></li>
-          <li><a class="dropdown-item" href="#">Add Image</a></li>
+          <li><a class="dropdown-item" href="{% url 'advertisements:add_images_for_advertisements' advertisement.id %}">Add Image</a></li>
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteadvertisement">Delete</a></li>
         </ul>
       </div>
@@ -199,6 +199,13 @@
       </div>
     </div>
   </div>
+<div class="row">
+<div class="col">
+  {% for images in advertisement_images %}
+  <img src="{{images.image.url}}" height="200" width="150">
+  {%endfor%}
+</div>
+</div>
 </div>
 <h1 class="m-5">Location:</h1>
 <div id="map"></div> 

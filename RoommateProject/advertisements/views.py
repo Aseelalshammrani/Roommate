@@ -45,7 +45,7 @@ def add_advertisement_view(request:HttpRequest):
             advertisement.washing_machine=request.POST['washing_machine']
 
         advertisement.save()
-        return redirect("advertisements:browse_advertisements_view")
+        return redirect("advertisements:add_images_for_advertisements",advertisement_id=advertisement.id)
     return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration,'cities':Advertisement.cities})
 
 def browse_advertisements_view(request:HttpRequest):
@@ -56,12 +56,9 @@ def browse_advertisements_view(request:HttpRequest):
 def advertisement_details_view(request:HttpRequest,advertisement_id):
     advertisement=Advertisement.objects.get(id=advertisement_id)
     is_requested=request.user.is_authenticated and Rent_Request.objects.filter(advertisement=advertisement).first()
-
+    advertisement_images=Advertisement_Image.objects.filter(advertisement=advertisement)
     is_favored = request.user.is_authenticated and Favorite.objects.filter(advertisement=advertisement, user=request.user).exists()
-
-
-
-    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested,"is_favored":is_favored })
+    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested,"is_favored":is_favored,'advertisement_images':advertisement_images })
 
 
 #Update advertisement
@@ -74,8 +71,6 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         advertisement.type_of_duration = request.POST["type_of_duration"]
         advertisement.duration_residence = request.POST["duration_residence"]
         advertisement.type_of_residential = request.POST["type_of_residential"]
-        advertisement.longitude = request.POST["longitude"]
-        advertisement.latitiiude = request.POST["latitiiude"]
         advertisement.space = request.POST["space"]
         advertisement.price = request.POST["price"]
         advertisement.number_of_people = request.POST["number_of_people"]
@@ -141,3 +136,9 @@ def search(request: HttpRequest):
     return render(request, 'advertisements/search.html',  {"advertisements" : advertisements})
 
 
+def add_images_for_advertisements(request:HttpRequest, advertisement_id):
+    advertisement=Advertisement.objects.get(id=advertisement_id)
+    if request.method=='POST':
+        advertisement_image=Advertisement_Image(advertisement=advertisement,image=request.FILES["image"])
+        advertisement_image.save()
+    return render(request,'advertisements/add_image.html',{'advertisement':advertisement})
