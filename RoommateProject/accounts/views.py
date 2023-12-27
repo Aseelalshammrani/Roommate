@@ -19,10 +19,15 @@ def register_user_view(request: HttpRequest):
         
             user = User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
             user.save()
+
+
+            user_profile = Profile(user=user, personal_image=request.FILES["personal_image"], age=request.POST["age"])
+            user_profile.save() 
+
             return redirect("accounts:login_user_view")
-       
+        
         except IntegrityError as e:
-            msg = f"Please select another username"
+            msg = f"Please select another username {e}"
         except Exception as e:
             msg = f"something went wrong {e}"
 
@@ -47,14 +52,12 @@ def logout_user_view(request: HttpRequest):
      return redirect("accounts:login_user_view")
 
 
-
 def user_profile(request: HttpRequest, user_id):
-
     try:
         user = User.objects.get(id=user_id)
     except:
         return render(request, 'main/not_found.html')
-    return render(request, 'accounts/profile.html', {"user":user})
+    return render(request, 'accounts/profile.html', {"user":user })
 
 
 def update_user_view(request: HttpRequest):
@@ -69,16 +72,18 @@ def update_user_view(request: HttpRequest):
                 user.email = request.POST["email"]
                 user.save()
 
+            
                 try:
                     profile : Profile = request.user.profile
                 except Exception as e:
-                    profile = Profile(user=user)
-     
+                    profile = Profile(user=user, age=request.POST["age"])
+                    profile.save()
+
+                profile.age = request.POST["age"]
 
                 if 'personal_image' in request.FILES: profile.personal_image = request.FILES["personal_image"]
                 profile.phone_number = request.POST["phone_number"]
                 profile.gender = request.POST["gender"]
-                profile.age = request.POST["age"]
                 profile.about = request.POST["about"]
                 profile.language = request.POST["language"]
                 profile.nationality = request.POST["nationality"]
@@ -94,7 +99,7 @@ def update_user_view(request: HttpRequest):
         except Exception as e:
             msg = f"something went wrong {e}"
 
-    return render(request, "accounts/update.html", {"msg" : msg})
+    return render(request, "accounts/update.html", {"msg" : msg,'languages':Profile.languages, "genders":Profile.genders,"nationalities":Profile.nationalities})
 
 
 

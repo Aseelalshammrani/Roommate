@@ -23,6 +23,9 @@
         </ul>
       </div>
       <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#send_request">Send Request</a>
+
+      <h6><a href="https://wa.me/{{user.profile.phone_number}}"> chat on whatsapp</a></h6>
+      
       <div>
         {% if not is_favored %}
           <a href="{% url 'accounts:add_favorite_view' advertisement.id %}" class="favored badge rounded-pill text-bg-danger"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">

@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block title %}Add image{% endblock%}
+{% block content%}
+<div class="container">
+    <h1 class="text-center my-3">Search results for "{{ request.GET.search }}</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for advertisement in advertisements %}
+        <div class="col">
+          <div class="card">
+            <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="..."></a>
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title">{{advertisement.title}}</h5>
+              </div>  
+              <div class="d-flex align-items-center gap-1">
+                {% if advertisement.type_of_residential == 'House' %}
+                <span class="material-symbols-outlined">home</span>
+                {% elif advertisement.type_of_residential == 'Room' %}
+                <span class="material-symbols-outlined">night_shelter</span>
+                {%else%}
+                <span class="material-symbols-outlined">apartment</span>
+                {% endif %}
+            <h6>{{advertisement.type_of_residential}}</h6>
+            </div>
+              <div class="d-flex align-items-center">
+              <span class="material-symbols-outlined">timer</span>
+              <h6 class="card-text">The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+    </div>
+{% endblock %}
