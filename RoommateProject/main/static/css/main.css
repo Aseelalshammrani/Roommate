@@ -60,3 +60,10 @@
 .profile img{
 border-radius: 20px;
 }
+
+
+#map {
+    width: 400px;
+    height: 400px;
+}
+

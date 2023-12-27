@@ -33,10 +33,11 @@
         <label class="form-check-label" for="{{key}}">{{value}}</label>
     </div>
     {% endfor %}
-    <label>Longitude:</label>
-    <input class="form-control" type="number" name="longitude" placeholder="longitude" />
-    <label>Latitiiude:</label>
-    <input class="form-control" type="number" name="latitiiude" placeholder="latitiiude" />
+
+    <input class="form-control" type="hidden" name="longitude" id="lng" placeholder="longitude"   />
+
+    <input class="form-control" type="hidden" name="latitiiude" id="lat" placeholder="latitiiude"  />
+
     <label>Space:</label>
     <input class="form-control" type="number" name="space" placeholder="space" />
     <label>Price:</label>
@@ -83,5 +84,44 @@
 </form>
 </div>
 </div>
+
+<div id="map" class=""></div> 
 </div>
+</div>
+
+<script>
+    let map;
+    let currentMarker = null;
+
+async function initMap() {
+  const { Map } = await google.maps.importLibrary("maps");
+  map = new Map(document.getElementById("map"), {
+    center: { lat: 24.774265, lng: 46.738586 },
+    zoom: 8,
+  });
+
+
+  map.addListener('click', (event)=> {
+    console.log(event.latLng.lat(), event.latLng.lng());
+    document.getElementById("lat").value = event.latLng.lat();
+    document.getElementById("lng").value = event.latLng.lng();
+    addMarker(event.latLng, map);
+  });
+
+
+  function addMarker(location, map){
+    if(currentMarker) currentMarker.setMap(null);
+
+    currentMarker = new google.maps.Marker({position:location, map: map});
+    map.setCenter(location);
+
+  }
+}
+
+
+
+
+initMap();
+</script>
+
 {% endblock %}
