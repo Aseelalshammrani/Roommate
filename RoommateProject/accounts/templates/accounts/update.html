@@ -4,6 +4,13 @@
 
 
 {% block content %}
+<style>
+
+p{
+    font-size: small;
+    color: rgb(216, 104, 104);
+}
+</style>
 <section class="container mt-5">
     <h1>Update your profile</h1>
 
@@ -28,13 +35,16 @@
                     <input class="form-control" type="file" name="personal_image"  placeholder="choose avatar"/>
                 </div>
                 <label>Phone number</label>
-                <input class="form-control" type="text" name="phone_number" required minlength="2" placeholder="phone number" value="{{ request.user.profile.phone_number }}"/>
+
+                <input class="form-control" type="text" name="phone_number"  placeholder="966555555555" value="{{ request.user.profile.phone_number }}"/>
+                <p  class="fw-light text-nowrap">*Please enter the number with the country code, such as: 966555555555</p>
+
                 <label>Age</label>
                 <input class="form-control" type="number" name="age"  placeholder="age" value="{{ request.user.profile.age }}"/>
          
              
                 <label>gendar:</label>
-                {% for key, value in user.profile.genders.choices %}
+                {% for key, value in genders.choices %}
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}" {% if user.profile.gender == key %} checked {% endif %}>
                     <label class="form-check-label" for="{{key}}">{{value}}</label>
@@ -42,7 +52,7 @@
                 {% endfor %}
             
                 <label>language:</label>
-                {% for key, value in user.profile.languages.choices %}
+                {% for key, value in languages.choices %}
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="language" id="{{key}}" value="{{value}}" {% if user.profile.language == key %} checked {% endif %}>
                     <label class="form-check-label" for="{{key}}">{{value}}</label>
@@ -50,10 +60,13 @@
                 {% endfor %}
 
                 <label>nationality:</label>
-                <select class="form-control" name="nationality">
-                    <option value="Saudi">Saudi</option>
-                    <option value="Emirati">non-Saudi</option>
-                </select>
+                 {% for key, value in nationalities.choices  %}
+                
+                 <div class="form-check">
+                    <input class="form-check-input" type="radio" name="nationality" id="{{key}}" value="{{value}}" {% if user.profile.nationality == key %} checked {% endif %}>
+                    <label class="form-check-label" for="{{key}}">{{value}}</label>
+                </div>
+                {% endfor %}
          
                 <label>About:</label>
                 <textarea class="form-control" name="about" placeholder="About you..">{{ request.user.profile.about }}</textarea>

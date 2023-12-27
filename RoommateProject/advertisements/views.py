@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Advertisement, Rent_Request, Advertisement_Image
 from django.contrib.auth.models import User
-from accounts.models import Favorite, Profile, Review, Validation
+from accounts.models import Favorite, Profile, Validation
 
 # Create your views here.
 
@@ -29,6 +29,7 @@ def add_advertisement_view(request:HttpRequest):
         rooms_number = request.POST["rooms_number"],
         bathroom = request.POST["bathroom"],
         city=request.POST['city']
+
         )
         if 'animal_allowed' in request.POST:
             advertisement.animal_allowed = request.POST["animal_allowed"]
@@ -78,6 +79,7 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         advertisement.space = request.POST["space"]
         advertisement.price = request.POST["price"]
         advertisement.number_of_people = request.POST["number_of_people"]
+
         if 'animal_allowed' in request.POST:
             advertisement.animal_allowed = request.POST['animal_allowed']
         else:
@@ -127,5 +129,15 @@ def delete_advertisement_view(request:HttpRequest, advertisement_id):
     advertisement=Advertisement.objects.get(id=advertisement_id)
     advertisement.delete()
     return redirect("advertisements:browse_advertisements_view")
+
+
+
+def search(request: HttpRequest):
+    if 'search' in request.GET:
+        query = request.GET['search']
+        advertisements = Advertisement.objects.filter(title__contains=query)
+    else:
+        advertisements = Advertisement.objects.all()   
+    return render(request, 'advertisements/search.html',  {"advertisements" : advertisements})
 
 

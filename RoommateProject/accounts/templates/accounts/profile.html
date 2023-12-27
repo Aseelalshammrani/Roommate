@@ -8,6 +8,17 @@
 <style>
 body{
     background-color: rgba(182, 196, 206, 0.695);
+    
+}
+.data a{
+    background-color: rgb(124, 146, 172);
+    width: 90%;
+    border: rgb(124, 146, 172) ;
+    border-radius: 0px;
+    color: azure;
+    padding:1%;
+    border-bottom: none;
+
 }
 
 </style>
@@ -25,7 +36,7 @@ body{
             <div class="transitions2">
                 <ul class="gap-1 mt-5 mx-1 transitions2">
                     
-                    <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn  ">My Profile</a></li>
+                    <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn">My Profile</a></li>
                     <li><a href="{% url 'accounts:update_user_view'%}"class="btn  mt-2">Update personal profile </a></li>
                     <li><a href="#"class="btn  mt-2"> Reviews</a></li>
                     <li><a href="{% url 'accounts:my_favorite_view'%}"class="btn  mt-2"> Favourites</a></li>
@@ -48,10 +59,10 @@ body{
                 <div class="data">
                     <h4>Name: {{user.first_name}} {{user.last_name}}</h4>
                     <h6>Gender: {{user.profile.gender}} </h6>
-                    <h6>Phone number: {{user.profile.phone_number}}</h6>
                     <h6>Age: {{user.profile.age}}</h6>
                     <h6>Language: {{user.profile.language}}</h6>
                     <h6>Nationality: {{user.profile.nationality}}</h6>
+                    <h6><a href="https://wa.me/{{user.profile.phone_number}}"> chat on whatsapp</a></h6>
                 </div>
                
                 <div class="data mt-4" >
@@ -61,6 +72,7 @@ body{
 
             </div>
           </div>
+        
         </div>
  </div>
 

@@ -51,3 +51,7 @@ class Rent_Request(models.Model):
     order_status_choice = models.CharField(max_length=500,default='Pending',choices=order_status.choices)
     created_at = models.DateTimeField(auto_now_add=True)
 
+ 
+
+
+

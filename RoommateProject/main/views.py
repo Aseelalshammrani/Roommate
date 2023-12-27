@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from accounts.models import Favorite, Profile, Review, Validation
+from accounts.models import Favorite, Profile, Validation
 
 
 

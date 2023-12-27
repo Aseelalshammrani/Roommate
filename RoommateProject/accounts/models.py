@@ -6,16 +6,16 @@ from advertisements.models import Advertisement
 
 class Profile(models.Model):
     genders = models.TextChoices("genders" , ["Male","Female"])
-    languages = models.TextChoices ("languages" , ["Einglish","Arabic"])
-    nationalitys= models.TextChoices("nationalitys", ["Saudi","Emirati", "etc"])
+    languages = models.TextChoices ("languages" , ["English","Arabic"])
+    nationalities= models.TextChoices("nationalities", ["Saudi","Non-Saudi"])
     user = models.OneToOneField(User ,on_delete=models.CASCADE)
     personal_image = models.ImageField(upload_to="images/", default="images/ge.jpg")
     phone_number = models.CharField(max_length=64)
-    gender = models.CharField( max_length=64, choices=genders.choices , default=genders.choices)
+    gender = models.CharField( max_length=64, choices=genders.choices)
     age = models.IntegerField()
     about= models.TextField()
-    language = models.CharField( max_length=64, choices=languages.choices , default=languages.choices )
-    nationality = models.CharField( max_length=64 ,choices= nationalitys.choices ,default=nationalitys.choices )
+    language = models.CharField( max_length=64, choices=languages.choices)
+    nationality = models.CharField( max_length=64 ,choices= nationalities.choices)
 
     def __str__(self):
         return f"{self.user.first_name} profile"
@@ -34,16 +34,6 @@ class Validation(models.Model):
     id_image = models.ImageField(upload_to="images/")
     validated = models.BooleanField(default=False)
 
-class Review(models.Model):
-    user = models.ForeignKey(User ,on_delete=models.CASCADE)
-    host = models.ForeignKey(User ,  on_delete=models.CASCADE , related_name="host")
-    content = models.TextField()
-    rating = models.IntegerField()
-    created_at= models.DateField(auto_now_add=True)
-
-
-    def __str__(self):
-        return f"{self.user} : {self.content}"
 
 
 
