@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+{% block title %}  Gender Page {% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between text-center">
+  <h1 class="display-3 mt-3 p-3">
+    All Advertisements by Gender 
+    </h1>
+  <div class="dropdown mt-5 p-3">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Order by
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'main:advertisements_female_gender_view' %}">Gender Female</a></li>
+      <li><a class="dropdown-item" href="{% url 'main:advertisements_male_gender_view' %}">Gender Male</a></li>
+    </ul>
+  </div>
+</div>
+  <hr/>
+
+<div class="container1 m-5">
+  <div class="row gap-3 d-flex justify-content-center align-items-center">
+      {% for advertisement in advertisements %}
+      <div class="col-3 border border-warning-subtle shadow p-3 mb-5 bg-body-tertiary rounded">
+          <img src="{{advertisement.image.url}}" class="card-img-top p-3" style="height: 20rem;" alt="Event image">
+          <h5 class="fst-italic">Title : {{ advertisement.title }}</h5>
+          <h5 class="fst-italic">Advertisement date:{{ advertisement.advertisement_date }}</h5>
+          <h6 class="fst-italic">Gender : {{ advertisement.gender }}</h6>
+          <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}" class="btn btn-secondary">Explore</a>
+      </div>
+      {% endfor %}
+
+  </div>
+
+</div>
+
+
+
+
+
+{% endblock %}

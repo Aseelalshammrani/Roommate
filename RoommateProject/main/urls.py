@@ -3,5 +3,12 @@ from . import views
 app_name = "main"
 urlpatterns = [
     path('',views.home_page,name='home_page'),
-    path('approve/', views.approve_accounts_view, name="approve_accounts_view")
+    path('genders/', views.advertisements_genders_view, name="advertisements_genders_view"),
+    path("female/", views.advertisements_female_gender_view, name="advertisements_female_gender_view"),
+    path('male/', views.advertisements_male_gender_view, name='advertisements_male_gender_view'),
+    path('less/cost/', views.cost_less_filter_view, name='cost_less_filter_view'),
+    path('more/cost/',views.cost_more_filter_view, name='cost_more_filter_view'),
+    path('cost/',views.cost_view, name="cost_view"),
+    path('city/', views.location_view, name='location_view'),
+
 ]

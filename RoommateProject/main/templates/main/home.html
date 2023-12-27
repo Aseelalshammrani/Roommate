@@ -7,28 +7,75 @@
     <h1 class="display-3 mt-3 p-3">
         Welcome to Roommate Website
     </h1>
-    <div class="dropdown mt-5 p-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Order by
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{% url 'main:approve_accounts_view' %}">Approved users</a></li>
-      </ul>
-    </div>
+    <div class="dropdown m-5">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Order by
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'main:advertisements_genders_view' %}">Genders</a></li>
+          <li><a class="dropdown-item" href="{% url 'main:cost_view' %}">Cost</a></li>
+          <li><a class="dropdown-item" href="#">Age</a></li>
+          <li><a class="dropdown-item" href="{% url 'main:location_view' %}">Location</a></li>
+        </ul>
+      </div>
   </div>
     <hr/>
-  
-  <div class="container1 m-5">
-    <div class="row gap-3 d-flex justify-content-center align-items-center">
-        {% for approve in approves %}
-        <div class="col-3 border border-warning-subtle shadow p-3 mb-5 bg-body-tertiary rounded">
-            <a href="{% url 'accounts:user_profile' approve.user.id %}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h1>{{ approve.user.first_name }}<span class="material-symbols-outlined">verified</span></h1></a>
+    <div class="container1 m-5">
+        <div class="row gap-3 d-flex justify-content-center align-items-center">
+            {% for approve in approves %}
+            <div class="col-3 border border-warning-subtle shadow p-3 mb-5 bg-body-tertiary rounded">
+                <a href="{% url 'main:profile_approved_users' approve.user.id %}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h1>{{ approve.user.first_name }}<span class="material-symbols-outlined">verified</span></h1></a>
+            </div>
+            {% endfor %}
+      
         </div>
-        {% endfor %}
-  
+      
+</div>
+</div>
+
+    
+<div class="container">
+<h1 class="text-center my-3">All advertisements</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for advertisement in advertisements %}
+    <div class="col">
+        <div class="card">
+        <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="..."></a>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title">{{advertisement.title}}</h5>
+            {% if advertisement.user.validation.validated == True %}
+            <h6 class="d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
+            {% else %}
+            <h6 class="d-flex justify-content-center align-items-center text-secondary">{{ advertisement.user.first_name }}</h6>
+            {% endif %}
+            </div>  
+            <div class="d-flex align-items-center gap-1">
+            {% if advertisement.type_of_residential == 'House' %}
+            <span class="material-symbols-outlined">home</span>
+            {% elif advertisement.type_of_residential == 'Room' %}
+            <span class="material-symbols-outlined">night_shelter</span>
+            {%else%}
+            <span class="material-symbols-outlined">apartment</span>
+            {% endif %}
+            <h6>{{advertisement.type_of_residential}}</h6>
+            </div>
+            <div class="d-flex align-items-center">
+            <span class="material-symbols-outlined">timer</span>
+            <h6 class="card-text">The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
+            </div>
+        </div>
     </div>
-  
-  </div>
+</div>
+{% endfor %} 
+</div>
+</div>
+<hr>
+
+
+<hr>
+<h1 class="display-3">Reviews</h1>
+<div class="container"></div>
 
 {% endblock %}
 
