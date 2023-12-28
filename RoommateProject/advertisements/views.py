@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Advertisement, Rent_Request, Advertisement_Image
+from .models import Advertisement, Rent_Request, Advertisement_Image ,Review
 from django.contrib.auth.models import User
 from accounts.models import Favorite, Profile, Validation
+from django.db.models import Avg, Sum, Max, Min
 
 # Create your views here.
 
@@ -58,7 +59,11 @@ def advertisement_details_view(request:HttpRequest,advertisement_id):
     is_requested=request.user.is_authenticated and Rent_Request.objects.filter(advertisement=advertisement).first()
     advertisement_images=Advertisement_Image.objects.filter(advertisement=advertisement)
     is_favored = request.user.is_authenticated and Favorite.objects.filter(advertisement=advertisement, user=request.user).exists()
-    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested,"is_favored":is_favored,'advertisement_images':advertisement_images })
+    reviews = Review.objects.filter(advertisement= advertisement)
+    reviews_avg = Review.objects.filter(advertisement=advertisement).aggregate(Avg("rating"))["rating__avg"]
+
+
+    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested,"is_favored":is_favored,'advertisement_images':advertisement_images,"reviews" : reviews,"reviews_avg": reviews_avg})
 
 
 #Update advertisement
@@ -144,3 +149,13 @@ def add_images_for_advertisements(request:HttpRequest, advertisement_id):
         advertisement_image.save()
     return render(request,'advertisements/add_image.html',{'advertisement':advertisement})
 
+
+def add_review_view(request: HttpRequest, advertisement_id):
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            return render(request, 'main/not_found.html')
+        advertisement= Advertisement.objects.get(id=advertisement_id)
+        new_rev = Review(advertisement=advertisement, user=request.user, rating=request.POST["rating"], content=request.POST["content"] )
+        new_rev.save()
+ 
+    return redirect ("advertisements:advertisement_details_view",advertisement_id=advertisement.id  )

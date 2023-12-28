@@ -10,5 +10,6 @@ urlpatterns = [
     path('more/cost/',views.cost_more_filter_view, name='cost_more_filter_view'),
     path('cost/',views.cost_view, name="cost_view"),
     path('city/', views.location_view, name='location_view'),
+    
 
 ]
