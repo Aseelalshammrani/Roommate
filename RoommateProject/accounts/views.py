@@ -237,3 +237,7 @@ def cancel_rent_request(request, rent_request_id):
     rent_request = Rent_Request.objects.get(id=rent_request_id)
     rent_request.delete()
     return redirect('accounts:my_requset',user_id=request.user.id)
+
+def my_comments(request:HttpRequest):
+
+    return render(request,'accounts/my_comments.html')

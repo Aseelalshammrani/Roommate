@@ -9,4 +9,6 @@ urlpatterns = [
     path('delete/advertisement/<advertisement_id>/',views.delete_advertisement_view,name='delete_advertisement_view'),
     path('search/',views.search,name="search"),
     path('add/images/for/advertisements/<advertisement_id>/',views.add_images_for_advertisements,name='add_images_for_advertisements'),
+    path("review/add/<advertisement_id>/", views.add_review_view, name="add_review_view"),
+
 ]

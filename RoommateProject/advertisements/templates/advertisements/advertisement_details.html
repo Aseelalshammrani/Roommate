@@ -12,8 +12,10 @@
 <div class="d-flex justify-content-between">
 <h2>Price {{advertisement.price}}SR</h2>
 
+
 <div class="d-flex gap-1 p-1">
     <div class="btn-group">
+ 
         <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           Edit</button>
         <ul class="dropdown-menu">
@@ -37,7 +39,14 @@
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
             </svg></a>
         {% endif %}
+     
       </div>
+      {% if reviews_avg %}
+      <h5 class="p-0 m-0">{{reviews_avg}}</h5>
+      <span class="material-symbols-outlined" style="color: goldenrod;">
+        star_rate
+        </span>
+      {% endif %}
 </div>
 
 </div>
@@ -235,5 +244,75 @@
   }
 initMap();
 </script>
+
+
+
+
+
+<section class="row mt-5">
+  <h2 class="mt-5">Reviews:</h2>
+    <div class="col">
+      <div class="d-flex flex-column gap-3">
+        {% for review in reviews %}
+        <div class="d-flex flex-column gap-2 border border-1 p-3 g-3">
+          <div class="d-flex align-items-center g-3">
+            <a href="{% url 'accounts:user_profile' review.user.id %}" ><h3 >{{ review.user.first_name }} {{ review.user.last_name }}</h3></a>
+            {% if advertisement.user.validation.validated == True %}
+            <span class="material-symbols-outlined text-success">verified</span> 
+           {% endif %}
+          </div>
+          <h6 class="text-muted">{{ review.created_at }}</h6>
+          <div class=" d-flex justify-content-between align-items-center">
+            <div class="d-flex ">
+               <p>{{review.rating}} <p>
+               <span class="material-symbols-outlined" style="color: goldenrod;">
+            star_rate
+            </span></p></div></div>
+          <p>{{ review.content }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+  
+
+</section>
+
+<section class="row mt-5">
+
+  {% if request.user.is_authenticated %}
+  <h2>Add Review Reviews:</h2>
+  <div class="col-6">
+
+    <form class="d-flex flex-column gap-2" action="{% url 'advertisements:add_review_view' advertisement.id  %}" method="POST" >
+      {% csrf_token %}
+      <select class="form-select" name="rating">
+        <option value="1">⭐️</option>
+        <option value="2">⭐️⭐️</option>
+        <option value="3">⭐️⭐️⭐️</option>
+        <option value="4">⭐️⭐️⭐️⭐️</option>
+        <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+      </select>
+
+      <textarea class="form-control" name="content" placeholder="Your Review" required minlength="5"></textarea>
+
+      <input type="submit" value="Add Review" class="btn btn-primary" />
+    </form>
+
+
+  </div>
+
+  {%  else %}
+
+  <p class="p-3 border border-1 ">
+    To post a review please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
+  </p>
+
+  {% endif %}
+</section>
+
+
+
+</section>
 
 {% endblock %}
