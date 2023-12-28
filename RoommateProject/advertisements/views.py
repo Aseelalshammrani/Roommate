@@ -8,7 +8,6 @@ from accounts.models import Favorite, Profile, Validation
 
 #Add a new advertisement
 def add_advertisement_view(request:HttpRequest):
-
     if request.method == "POST":
         advertisement = Advertisement(
         user = request.user,
@@ -46,6 +45,7 @@ def add_advertisement_view(request:HttpRequest):
 
         advertisement.save()
         return redirect("advertisements:add_images_for_advertisements",advertisement_id=advertisement.id)
+       
     return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration,'cities':Advertisement.cities})
 
 def browse_advertisements_view(request:HttpRequest):
@@ -142,3 +142,4 @@ def add_images_for_advertisements(request:HttpRequest, advertisement_id):
         advertisement_image=Advertisement_Image(advertisement=advertisement,image=request.FILES["image"])
         advertisement_image.save()
     return render(request,'advertisements/add_image.html',{'advertisement':advertisement})
+
