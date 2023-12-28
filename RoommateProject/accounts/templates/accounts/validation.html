@@ -6,37 +6,40 @@
 {% block content %}
 <style>
     body{
-        background-color: rgba(182, 196, 206, 0.695);
+        background-color: rgba(188, 222, 247, 0.836);
     }
     
     </style>
 <div class="">
     <div class="row">
-        
-        <div class="col-4 transitions" >
     
+        <div class="col-4 transitions" >
+        
             <div class="d-flex flex-column gap-1">
-                <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"   />
+                <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
                 <div class="d-flex align-items-center justify-content-center gap-2">
                     <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
                 </div>
-                
             </div>
         <div class="transitions2">
             <ul class="gap-1 mt-5 mx-1 transitions2">
-                <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn  ">My Profile</a></li>
+                
+                <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn">My Profile</a></li>
                 <li><a href="{% url 'accounts:update_user_view'%}"class="btn  mt-2">Update personal profile </a></li>
                 <li><a href="#"class="btn  mt-2"> Reviews</a></li>
-                <li><a href="#"class="btn  mt-2"> Favourites</a></li>
+                <li><a href="{% url 'accounts:my_favorite_view'%}"class="btn  mt-2"> Favourites</a></li>
                 <li><a href="#"class="btn  mt-2 "> My comments</a></li>
-                <li><a href="#"class="btn  mt-2"> Advertisement</a></li>
-                <li><a href="#"class="btn  mt-2"> Add Advertisement</a></li>
-                <li><a href="#"class="btn  mt-2 "> My requestes</a></li>
-                <li><a href="#"class="btn  mt-2 "> Validation</a></li>
+                <li><a href="{% url 'accounts:advertisement_user'%}"class="btn  mt-2"> Advertisement</a></li>
+                <li><a href="{% url 'advertisements:add_advertisement_view'%}" class="btn  mt-2"> Add Advertisement</a></li>
+                <li><a href="{% url 'accounts:my_requset' user.id %}"class="btn  mt-2 "> My requestes</a></li>
+                <li><a href="{% url 'accounts:receive_rent_request' user.id %}"class="btn  mt-2 "> My Roommate</a></li>
+                <li><a href="{% url 'accounts:validation_user_view'  %}"class="btn  mt-2 "> Validation</a></li>
+                <li><a href="{% url 'accounts:validate_detail_view' user.id %}" class="btn  mt-2 ">Validation status</a></li>
             </ul>
         </div>
            
         </div>
+       
 
     <div class="col-md-8">
         {% if msg %}
