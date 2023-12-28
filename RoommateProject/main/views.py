@@ -39,6 +39,3 @@ def cost_more_filter_view(request:HttpRequest):
     costs = Advertisement.objects.filter(price__gte=1900)
     return render(request,"main/cost_page.html",{"costs":costs})
 
-def location_view(request:HttpRequest):
-    location = Advertisement.objects.filter(city='Riyadh')
-    return render(request,"main/city_page.html",{"location":location})

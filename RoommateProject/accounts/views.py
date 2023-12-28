@@ -197,13 +197,13 @@ def my_requset(request:HttpRequest,user_id):
 
 def send_rent_request(request:HttpRequest, advertisement_id):
     advertisement = Advertisement.objects.get(id=advertisement_id)
-    user_id = request.user.id  # Get the user ID
-
-    rent_request = Rent_Request(
-        user_id=user_id,
-        advertisement=advertisement,
-    )
-    rent_request.save()
+    user_id = request.user.id  
+    if request.user != advertisement.user:
+        rent_request = Rent_Request(
+            user_id=user_id,
+            advertisement=advertisement,
+        )
+        rent_request.save()
     return redirect("advertisements:advertisement_details_view",  advertisement_id=advertisement.id)
 
 def receive_rent_request(request:HttpRequest,user_id):
