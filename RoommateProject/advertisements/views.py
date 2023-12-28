@@ -27,8 +27,8 @@ def add_advertisement_view(request:HttpRequest):
         note = request.POST["note"],
         rooms_number = request.POST["rooms_number"],
         bathroom = request.POST["bathroom"],
-        city=request.POST['city']
-
+        city=request.POST['city'],
+        neighborhood=request.POST['neighborhood']
         )
         if 'animal_allowed' in request.POST:
             advertisement.animal_allowed = request.POST["animal_allowed"]
@@ -74,6 +74,7 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         advertisement.space = request.POST["space"]
         advertisement.price = request.POST["price"]
         advertisement.number_of_people = request.POST["number_of_people"]
+        advertisement.neighborhood=request.POST["neighborhood"]
 
         if 'animal_allowed' in request.POST:
             advertisement.animal_allowed = request.POST['animal_allowed']

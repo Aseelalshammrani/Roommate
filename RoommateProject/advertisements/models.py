@@ -35,6 +35,7 @@ class Advertisement(models.Model):
     city=models.CharField(max_length=500,choices=cities.choices)
     dishwasher=models.BooleanField(default=False)
     washing_machine=models.BooleanField(default=False)
+    neighborhood=models.CharField(max_length=500)
     def __str__(self):
         return f"{self.title}"
     
