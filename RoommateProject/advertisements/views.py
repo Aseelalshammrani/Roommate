@@ -115,11 +115,7 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
         return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
     return render(request,"advertisements/update_advertisement.html", {"advertisement": advertisement,'types_of_duration':Advertisement.types_of_duration,'types_of_residential':Advertisement.types_of_residential,'types_of_gender':Advertisement.types_of_gender})
 
-def rent_request(request:HttpRequest,advertisement_id):
-    advertisement = Advertisement.objects.get(id=advertisement_id)
-    rent_request=Rent_Request(advertisement=advertisement,user=request.user)
-    if 'order_status' in request.POST:
-        rent_request.order_status=request.POST['order_status']
+
 
 def delete_advertisement_view(request:HttpRequest, advertisement_id):
     advertisement=Advertisement.objects.get(id=advertisement_id)
