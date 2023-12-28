@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 #Home page view
 def home_page(request:HttpRequest):
-    advertisements = Advertisement.objects.all()
+    advertisements = Advertisement.objects.all()[0:6]
     return render(request,"main/home.html",{"advertisements":advertisements})
 
 #Filter all the genders advertisements

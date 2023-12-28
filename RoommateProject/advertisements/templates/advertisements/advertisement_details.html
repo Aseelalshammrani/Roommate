@@ -24,7 +24,7 @@
       </div>
       <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#send_request">Send Request</a>
 
-      <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}"><i class="bi bi-whatsapp"> </i></a>
+      <h6><a href="https://wa.me/{{user.profile.phone_number}}"> chat on whatsapp</a></h6>
       
       <div>
         {% if not is_favored %}
@@ -220,7 +220,7 @@
     zoom: 16,
   });
 
- addMarker({"lat" :  {{ advertisement.latitiiude }}, "lng":  {{advertisement.longitude}}, map);
+ addMarker({"lat" :  {{ advertisement.latitiiude }}, "lng":  {{advertisement.longitude}}}, map);
 
 
   function addMarker(location, map){
@@ -234,6 +234,5 @@
   }
 initMap();
 </script>
-
 
 {% endblock %}
