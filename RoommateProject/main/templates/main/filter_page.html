@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Not Authorized {% endblock %}
+
+
+{% block content %}
+    <section class="container">
+        <div class="row">
+            <div class="col border border-5">
+                    <div>
+                        <h1 class="display-3">Filter Advertisements</h1>
+                        <form action="{% url 'main:advertisement_filter_view'%}" method="GET">
+                            {% csrf_token %}
+                            <input type="search" name="title" placeholder="title">
+                            <input type="search" name="duration_residence" placeholder="duration_residence">
+                            <input type="search" name="min_age" placeholder="min_age">
+                            <input type="search" name="max_age" placeholder="max_age">
+                            <input type="search" name="price_min" placeholder="price min">
+                            <input type="search" name="price_max" placeholder="price max">
+                            <input type="search" name="number_of_people" placeholder="number_of_people">
+                            <input type="search" name="city" placeholder="city">
+                            <input type="search" name="has_kitchen" placeholder="has_kitchen">
+                            <input type="search" name="bathroom" placeholder="bathroom">
+                            <input type="search" name="dishwasher" placeholder="dishwasher">
+                            <input type="search" name="washing_machine" placeholder="washing_machine">
+                            <input type="search" name="neighborhood" placeholder="neighborhood">
+                            <input type="search" name="smoke_allowed" placeholder="smoke_allowed">
+                            <input type="search" name="type_of_residential" placeholder="type_of_residential">
+                            <input type="search" name="type_of_duration" placeholder="type_of_duration">
+                            <input type="search" name="animal_allowed" placeholder="animal_allowed" >
+                            <input type="search" name="rooms_number" placeholder="rooms_number">
+                            <input type="search" name="gender" placeholder="gender">
+        
+                            <input class="btn btn-success" type="submit" value="search"/>
+                        </form>
+                    </div>
+                    <div class="row border-secondary">
+                        {% for adv in queryset %}
+                        <h6>{{ adv.title }} - {{ adv.duration_residence}} ({{ adv.advertisement_date }}) - {{adv.user.first_name}} - ({{ adv.max_age}} between {{adv.min_age}}) | price:{{ adv.price }} - number of people  {{ adv.number_of_people }} - gender: {{ adv.gender }} | city:{{ adv.city}} | has_kitchen: {{ adv.has_kitchen }} | bathroom: {{ adv.bathroom }} | dishwasher:{{ adv.dishwasher }} | washing_machine: {{ adv.washing_machine }} | neighborhood: {{ adv.neighborhood }} | smoke_allowed: {{ adv.smoke_allowed }} | type_of_residential: {{ adv.type_of_residential }} | type_of_duration : {{ adv.type_of_duration }} | animal_allowed: {{ adv.animal_allowed }} | rooms_number: {{ adv.rooms_number }}</h6>
+                        <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+        </div>
+    </section>
+<div>
+
+</div>
+
+    
+{% endblock %}

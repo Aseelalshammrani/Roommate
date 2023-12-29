@@ -9,12 +9,11 @@
     </h1>
     <div class="dropdown m-5">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Order by
+          Cost
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{% url 'main:advertisements_genders_view' %}">Genders</a></li>
-          <li><a class="dropdown-item" href="{% url 'main:cost_view' %}">Cost</a></li>
-          <li><a class="dropdown-item" href="#">Age</a></li>
+          <li><a class="dropdown-item" href="{% url 'main:cost_more_filter_view' %}">The highest price</a></li>
+          <li><a class="dropdown-item" href="{% url 'main:cost_less_filter_view' %}">The Lowest price</a></li>
         </ul>
       </div>
   </div>
@@ -33,6 +32,10 @@
 </div>
 
     
+</div>
+<div>
+</div>
+
 <div class="container">
 <h1 class="text-center my-3">All advertisements</h1>
 <div class="row row-cols-1 row-cols-md-3 g-4">
