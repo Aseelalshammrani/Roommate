@@ -9,5 +9,5 @@ urlpatterns = [
     path('less/cost/', views.cost_less_filter_view, name='cost_less_filter_view'),
     path('more/cost/',views.cost_more_filter_view, name='cost_more_filter_view'),
     path('cost/',views.cost_view, name="cost_view"),
-
+    path('filter/', views.advertisement_filter_view, name="advertisement_filter_view")
 ]
