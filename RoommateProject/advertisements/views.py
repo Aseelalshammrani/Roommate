@@ -4,13 +4,13 @@ from .models import Advertisement, Rent_Request, Advertisement_Image ,Review
 from django.contrib.auth.models import User
 from accounts.models import Favorite, Profile, Validation
 from django.db.models import Avg, Sum, Max, Min
-
+from django.core.exceptions import ValidationError
 # Create your views here.
 
 #Add a new advertisement
 def add_advertisement_view(request:HttpRequest):
     if not request.user.is_authenticated:
-        return render(request,'main/not_authorized.html')
+        return redirect('main:not_authorized')
     msg = None
     try:
         if request.method == "POST":
@@ -48,7 +48,9 @@ def add_advertisement_view(request:HttpRequest):
             if 'washing_machine' in request.POST:
                 advertisement.washing_machine=request.POST['washing_machine']
             advertisement.save()
-            return redirect("advertisements:add_images_for_advertisements",advertisement_id=advertisement.id)
+            return redirect("advertisements:add_images_to_advertisements",advertisement_id=advertisement.id)
+    except ValidationError as e:
+        msg=f'Please Specify the location'
     except Exception as e:
         msg = f"Please ensure all required fields are complete and try again. {e}"
     return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration,'cities':Advertisement.cities,'msg':msg})
@@ -142,12 +144,18 @@ def search(request: HttpRequest):
     return render(request, 'advertisements/search.html',  {"advertisements" : advertisements})
 
 
-def add_images_for_advertisements(request:HttpRequest, advertisement_id):
-    advertisement=Advertisement.objects.get(id=advertisement_id)
-    if request.method=='POST':
-        advertisement_image=Advertisement_Image(advertisement=advertisement,image=request.FILES["image"])
-        advertisement_image.save()
-    return render(request,'advertisements/add_image.html',{'advertisement':advertisement})
+def add_images_to_advertisements(request:HttpRequest, advertisement_id):
+    msg = None
+    try:
+        advertisement=Advertisement.objects.get(id=advertisement_id)
+        if request.user != advertisement.user :
+            return render(request,'main/not_authorized.html')
+        if request.method=='POST':
+            advertisement_image=Advertisement_Image(advertisement=advertisement,image=request.FILES["image"])
+            advertisement_image.save()
+    except Exception as e:
+        msg = f"Please ensure you upload images only.{e}"
+    return render(request,'advertisements/add_image.html',{'advertisement':advertisement,'msg':msg})
 
 
 def add_review_view(request: HttpRequest, advertisement_id):
