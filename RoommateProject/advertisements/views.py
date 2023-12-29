@@ -4,50 +4,56 @@ from .models import Advertisement, Rent_Request, Advertisement_Image ,Review
 from django.contrib.auth.models import User
 from accounts.models import Favorite, Profile, Validation
 from django.db.models import Avg, Sum, Max, Min
-
+from django.core.exceptions import ValidationError
 # Create your views here.
 
 #Add a new advertisement
 def add_advertisement_view(request:HttpRequest):
-    if request.method == "POST":
-        advertisement = Advertisement(
-        user = request.user,
-        title = request.POST["title"],
-        image = request.FILES["image"],
-        type_of_duration = request.POST["type_of_duration"],
-        duration_residence = request.POST["duration_residence"],
-        type_of_residential = request.POST["type_of_residential"],
-        longitude = request.POST["longitude"],
-        latitiiude = request.POST["latitiiude"],
-        space = request.POST["space"],
-        price = request.POST["price"],
-        number_of_people = request.POST["number_of_people"],
-        min_age = request.POST["min_age"],
-        max_age = request.POST["max_age"],
-        gender = request.POST["gender"],
-        note = request.POST["note"],
-        rooms_number = request.POST["rooms_number"],
-        bathroom = request.POST["bathroom"],
-        city=request.POST['city'],
-        neighborhood=request.POST['neighborhood']
-        )
-        if 'animal_allowed' in request.POST:
-            advertisement.animal_allowed = request.POST["animal_allowed"]
-        if 'smoke_allowed' in request.POST:
-            advertisement.animal_allowed = request.POST["smoke_allowed"]
-        if 'has_kitchen' in request.POST:
-            advertisement.animal_allowed = request.POST["has_kitchen"]
-        if 'approved_status' in request.POST:
-            advertisement.animal_allowed = request.POST["approved_status"]
-        if 'dishwasher' in request.POST:
-            advertisement.dishwasher=request.POST['dishwasher']
-        if 'washing_machine' in request.POST:
-            advertisement.washing_machine=request.POST['washing_machine']
-
-        advertisement.save()
-        return redirect("advertisements:add_images_for_advertisements",advertisement_id=advertisement.id)
-       
-    return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration,'cities':Advertisement.cities})
+    if not request.user.is_authenticated:
+        return redirect('main:not_authorized')
+    msg = None
+    try:
+        if request.method == "POST":
+            advertisement = Advertisement(
+            user = request.user,
+            title = request.POST["title"],
+            image = request.FILES["image"],
+            type_of_duration = request.POST["type_of_duration"],
+            duration_residence = request.POST["duration_residence"],
+            type_of_residential = request.POST["type_of_residential"],
+            longitude = request.POST["longitude"],
+            latitiiude = request.POST["latitiiude"],
+            space = request.POST["space"],
+            price = request.POST["price"],
+            number_of_people = request.POST["number_of_people"],
+            min_age = request.POST["min_age"],
+            max_age = request.POST["max_age"],
+            gender = request.POST["gender"],
+            note = request.POST["note"],
+            rooms_number = request.POST["rooms_number"],
+            bathroom = request.POST["bathroom"],
+            city=request.POST['city'],
+            neighborhood=request.POST['neighborhood']
+            )
+            if 'animal_allowed' in request.POST:
+                advertisement.animal_allowed = request.POST["animal_allowed"]
+            if 'smoke_allowed' in request.POST:
+                advertisement.animal_allowed = request.POST["smoke_allowed"]
+            if 'has_kitchen' in request.POST:
+                advertisement.animal_allowed = request.POST["has_kitchen"]
+            if 'approved_status' in request.POST:
+                advertisement.animal_allowed = request.POST["approved_status"]
+            if 'dishwasher' in request.POST:
+                advertisement.dishwasher=request.POST['dishwasher']
+            if 'washing_machine' in request.POST:
+                advertisement.washing_machine=request.POST['washing_machine']
+            advertisement.save()
+            return redirect("advertisements:add_images_to_advertisements",advertisement_id=advertisement.id)
+    except ValidationError as e:
+        msg=f'Please Specify the location'
+    except Exception as e:
+        msg = f"Please ensure all required fields are complete and try again. {e}"
+    return render (request,'advertisements/add_advertisement.html',{'types_of_gender':Advertisement.types_of_gender,'types_of_residential':Advertisement.types_of_residential,'types_of_duration':Advertisement.types_of_duration,'cities':Advertisement.cities,'msg':msg})
 
 def browse_advertisements_view(request:HttpRequest):
     advertisements=Advertisement.objects.all()
@@ -138,12 +144,18 @@ def search(request: HttpRequest):
     return render(request, 'advertisements/search.html',  {"advertisements" : advertisements})
 
 
-def add_images_for_advertisements(request:HttpRequest, advertisement_id):
-    advertisement=Advertisement.objects.get(id=advertisement_id)
-    if request.method=='POST':
-        advertisement_image=Advertisement_Image(advertisement=advertisement,image=request.FILES["image"])
-        advertisement_image.save()
-    return render(request,'advertisements/add_image.html',{'advertisement':advertisement})
+def add_images_to_advertisements(request:HttpRequest, advertisement_id):
+    msg = None
+    try:
+        advertisement=Advertisement.objects.get(id=advertisement_id)
+        if request.user != advertisement.user :
+            return render(request,'main/not_authorized.html')
+        if request.method=='POST':
+            advertisement_image=Advertisement_Image(advertisement=advertisement,image=request.FILES["image"])
+            advertisement_image.save()
+    except Exception as e:
+        msg = f"Please ensure you upload images only.{e}"
+    return render(request,'advertisements/add_image.html',{'advertisement':advertisement,'msg':msg})
 
 
 def add_review_view(request: HttpRequest, advertisement_id):

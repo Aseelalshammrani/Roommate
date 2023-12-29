@@ -40,6 +40,7 @@ def cost_more_filter_view(request:HttpRequest):
     costs = Advertisement.objects.all().order_by('-price')
     return render(request,"main/cost_page.html",{"costs":costs})
 
+
 def is_valid_queryparam(param):
     return param != '' and param is not None
 
@@ -111,4 +112,10 @@ def advertisement_filter_view(request:HttpRequest):
         'queryset':adv
     }
     return render(request, 'main/filter_page.html', context)
+
+def not_found(request:HttpRequest):
+    return render(request,'main/not_found.html')
+
+def not_authorized(request:HttpRequest):
+    return render(request,'main/not_authorized.html')
 

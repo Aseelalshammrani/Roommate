@@ -2,68 +2,79 @@
 {% block title %}Add Advertisement{% endblock%}
 {% block content%}
 <div class="container">
-<div class="row">
-<div class="col">
+  <div class="row my-2">
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+    </div>
+{% endif %}
+</div>
+  <h1 class="text-center">Add new advertisement</h1>
+<div class="row my-3">
+  <div class="col">
 <form action="{% url 'advertisements:add_advertisement_view'%}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <label>Title:</label>
-    <input class="form-control" type="text" name="title" placeholder="Title of Advertisement" />
-    <label>Image:</label>
-    <input type="file" name="image"  class="form-control" accept="image/*"/>
-    <label>Neighborhood:</label>
-    <input class="form-control" type="text" name="neighborhood" placeholder="neighborhood" />
-    <label>City</label>
+    <h5>Title</h5>
+    <input class="form-control" type="text" name="title" placeholder="Title of Advertisement" required minlength="6"/>
+    <h5>City</h5>
     {% for key, value in cities.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="city" id="{{key}}" value="{{value}}">
-        <label class="form-check-label" for="{{key}}">{{value}}</label>
+        <input class="form-check-input" type="radio" name="city" id="{{key}}" value="{{value}}" required>
+        <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
     </div>
     {% endfor %}
-    <label>Type of duration:</label>
+    <h5>Neighborhood</h5>
+    <input class="form-control" type="text" name="neighborhood" required minlength="4"/>
+    <h5>Type of duration</h5>
     {% for key, value in types_of_duration.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="type_of_duration" id="{{key}}" value="{{value}}">
-        <label class="form-check-label" for="{{key}}">{{value}}</label>
+        <input class="form-check-input" type="radio" name="type_of_duration" id="{{key}}" value="{{value}}" required>
+        <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
     </div>
     {% endfor %}
-    <label>Duration of residence:</label>
-    <input class="form-control" type="number" name="duration_residence" placeholder="Duration of residence" />
-    <label>Type of residential:</label>
+    <h5>Duration of residence</h5>
+    <input class="form-control" type="number" name="duration_residence" placeholder="Duration of residence" required/>
+    <h5>Type of residential</h5>
     {% for key, value in types_of_residential.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}">
-        <label class="form-check-label" for="{{key}}">{{value}}</label>
+        <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}" required>
+        <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
     </div>
     {% endfor %}
 
     <input class="form-control" type="hidden" name="longitude" id="lng" placeholder="longitude"   />
-
     <input class="form-control" type="hidden" name="latitiiude" id="lat" placeholder="latitiiude"  />
 
-    <label>Space:</label>
-    <input class="form-control" type="number" name="space" placeholder="space" />
-    <label>Price:</label>
-    <input class="form-control" type="number" name="price" placeholder="price" />
-    <label>Number of people:</label>
-    <input class="form-control" type="number" name="number_of_people" placeholder="number of people" />
-    <label>minimum age:</label>
-    <input class="form-control" type="number" name="min_age" placeholder="min_age"/>
-    <label>maximum age:</label>
-    <input class="form-control" type="number" name="max_age" placeholder="max_age"/>
-    <label>Gender:</label>
+    <h5>Area in metres</h5>
+    <input class="form-control" type="number" name="space" placeholder="" required/>
+    <h5>Price</h5>
+    <input class="form-control" type="number" name="price" placeholder="2000SAR" required/>
+    <h5>Gender</h5>
     {% for key, value in types_of_gender.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}">
-        <label class="form-check-label" for="{{key}}">{{value}}</label>
+        <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}" required>
+        <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
     </div>
     {% endfor %}
-    <label>Note:</label>
-    <textarea class="form-control" name="note"></textarea>
-    <label>Rooms number:</label>
-    <input class="form-control" type="number" name="rooms_number" placeholder="rooms number"/>
-    <label>Bathroom:</label>
-    <input class="form-control" type="number" name="bathroom" placeholder="bathroom"/>
-    <h5>Features:</h5>
+    <h5>Rooms number</h5>
+    <input class="form-control" type="number" name="rooms_number" placeholder="" required/>
+    <h5>Bathroom</h5>
+    <input class="form-control" type="number" name="bathroom" placeholder="" required/>
+    <h5>Image</h5>
+    <input type="file" name="image"  class="form-control" accept="image/*" required/>
+  </div>
+
+  <div class="col">
+    <h5>Number of people</h5>
+    <input class="form-control" type="number" name="number_of_people" placeholder="" required/>
+    <h4>Favres age range</h4>
+    <h5>Minimum age</h5>
+    <input class="form-control" type="number" name="min_age" placeholder="" required/>
+    <h5>Maximum age</h5>
+    <input class="form-control" type="number" name="max_age" placeholder="" required/>
+    <h5>Note</h5>
+    <textarea class="form-control" name="note" required minlength="10"></textarea>
+    <h4>Features:</h4>
     <label>Has kitchen:</label>
     <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True">
     <br>
@@ -80,16 +91,19 @@
     <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True">
     <br>
 
-    <input class="btn btn-success" type="submit" value="add_advertisement" />
+    <h4>Specify the location</h4>
+    <div id="map" class=""></div> 
+  </div>
+    <input class="btn btn-success my-3" type="submit" value="Add Advertisement" />
 
 
 </form>
-</div>
+
 </div>
 
-<div id="map" class=""></div> 
+
 </div>
-</div>
+
 
 <script>
     let map;

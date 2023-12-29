@@ -20,7 +20,7 @@
           Edit</button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="{% url 'advertisements:update_advertisement_view' advertisement.id %}">Update</a></li>
-          <li><a class="dropdown-item" href="{% url 'advertisements:add_images_for_advertisements' advertisement.id %}">Add Image</a></li>
+          <li><a class="dropdown-item" href="{% url 'advertisements:add_images_to_advertisements' advertisement.id %}">Add Image</a></li>
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteadvertisement">Delete</a></li>
         </ul>
       </div>
@@ -216,7 +216,7 @@
   {%endfor%}
 </div>
 </div>
-</div>
+
 <h1 class="m-5">Location:</h1>
 <div id="map"></div> 
 <script>
@@ -247,7 +247,41 @@ initMap();
 
 
 
+  <div class="row g-3 mt-5">
+    <div class="col-3">
+ 
+            <div class="d-flex flex-column gap-1">
+              <img src="{{advertisement.user.profile.personal_image.url}}" width="150px" height="250px" class="w-100 rounded-circle" >
+         
+            </div>
 
+    </div>
+    <div class="col">
+        <div class=" d-flex justify-content-between align-items-center">
+          {% if advertisement.user.validation.validated == True %}
+          <h4><a href="{% url 'accounts:user_profile' advertisement.user.id %}" >Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}<span class="material-symbols-outlined text-success">verified</span></h6></a></h4>
+          {% else %}
+          <h4><a href="{% url 'accounts:user_profile' advertisement.user.id %}" >Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h6></a></h4>
+          {% endif %}
+      
+        </div>
+
+        <h5>@{{ advertisement.user.username}}</h5>
+        <br>
+        <div class="d-flex align-items-center justify-content- gap-2 mx-2">
+            
+        </div>
+        <h6>Gender: {{advertisement.user.profile.gender}} </h6>
+        <h6>Age: {{advertisement.user.profile.age}}</h6>
+        <h6>Language: {{advertisement.user.profile.language}}</h6>
+        <h6>Nationality: {{advertisement.user.profile.nationality}}</h6>
+        <br>
+        <h5>about: </h5>
+        <p>  {{advertisement.user.profile.about}}/<p>
+          <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> Contact the host</i></a>
+
+         </div>
+    </div>
 
 <section class="row mt-5">
   <h2 class="mt-5">Reviews:</h2>
@@ -314,5 +348,6 @@ initMap();
 
 
 </section>
+</div>
 
 {% endblock %}
