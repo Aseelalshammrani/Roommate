@@ -4,48 +4,262 @@
 
 
 {% block content %}
-    <section class="container">
-        <div class="row">
-            <div class="col border border-5">
-                    <div>
-                        <h1 class="display-3">Filter Advertisements</h1>
-                        <form action="{% url 'main:advertisement_filter_view'%}" method="GET">
-                            {% csrf_token %}
-                            <input type="search" name="title" placeholder="title">
-                            <input type="search" name="duration_residence" placeholder="duration_residence">
-                            <input type="search" name="min_age" placeholder="min_age">
-                            <input type="search" name="max_age" placeholder="max_age">
-                            <input type="search" name="price_min" placeholder="price min">
-                            <input type="search" name="price_max" placeholder="price max">
-                            <input type="search" name="number_of_people" placeholder="number_of_people">
-                            <input type="search" name="city" placeholder="city">
-                            <input type="search" name="has_kitchen" placeholder="has_kitchen">
-                            <input type="search" name="bathroom" placeholder="bathroom">
-                            <input type="search" name="dishwasher" placeholder="dishwasher">
-                            <input type="search" name="washing_machine" placeholder="washing_machine">
-                            <input type="search" name="neighborhood" placeholder="neighborhood">
-                            <input type="search" name="smoke_allowed" placeholder="smoke_allowed">
-                            <input type="search" name="type_of_residential" placeholder="type_of_residential">
-                            <input type="search" name="type_of_duration" placeholder="type_of_duration">
-                            <input type="search" name="animal_allowed" placeholder="animal_allowed" >
-                            <input type="search" name="rooms_number" placeholder="rooms_number">
-                            <input type="search" name="gender" placeholder="gender">
-        
-                            <input class="btn btn-success" type="submit" value="search"/>
-                        </form>
-                    </div>
-                    <div class="row border-secondary">
-                        {% for adv in queryset %}
-                        <h6>{{ adv.title }} - {{ adv.duration_residence}} ({{ adv.advertisement_date }}) - {{adv.user.first_name}} - ({{ adv.max_age}} between {{adv.min_age}}) | price:{{ adv.price }} - number of people  {{ adv.number_of_people }} - gender: {{ adv.gender }} | city:{{ adv.city}} | has_kitchen: {{ adv.has_kitchen }} | bathroom: {{ adv.bathroom }} | dishwasher:{{ adv.dishwasher }} | washing_machine: {{ adv.washing_machine }} | neighborhood: {{ adv.neighborhood }} | smoke_allowed: {{ adv.smoke_allowed }} | type_of_residential: {{ adv.type_of_residential }} | type_of_duration : {{ adv.type_of_duration }} | animal_allowed: {{ adv.animal_allowed }} | rooms_number: {{ adv.rooms_number }}</h6>
-                        <hr>
-                        {% endfor %}
-                    </div>
-                </div>
+<div class="container">
+    <div class="row shadow-lg p-3 mb-5 bg-body-tertiary rounded m-5">
+        <div class="col d-flex justify-content-center align-items-center">
+            <h1>Find your Roommate in our Website</h1>
         </div>
-    </section>
-<div>
+
+    </div>
 
 </div>
+<section class="container">
+<div class="row">
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+    </div>
+    {% endif %}
+<div class="col">
+<div>
+    <h1 class="display-3">Filter Advertisements</h1>
+    <hr>
+   
+</div>
+</div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            <form action="{% url 'main:advertisement_filter_view'%}" method="GET">
+                {% csrf_token %}
+            <label>Duration residence:</label>
+            <input type="search" name="duration_residence" placeholder="duration_residence">
+            <br>
+            <label>types_of_duration:</label>
+            {% for key, value in types_of_duration.choices %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="types_of_duration" id="{{key}}" value="{{value}}">
+                <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
+            </div>
+            {% endfor %}
+            <label>Gender:</label>
+            {% for key, value in types_of_gender.choices %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}">
+                <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
+            </div>
+            {% endfor %}
+            <br>
+            <label>type_of_residential:</label>
+            {% for key, value in types_of_residential.choices %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}">
+                <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
+            </div>
+            {% endfor %}
+            <br>
+            <label>Age:</label>
+            <div class="d-flex justify-content-start align-items-center">
+                <input type="search" name="min_age" placeholder="min_age" >
+                <input type="search" name="max_age" placeholder="max_age">
+            </div>
+            <br>
+        
+            <label>Price:</label>
+            <div class="d-flex justify-content-start align-items-center">
+                <input type="search" name="price_min" placeholder="price min">
+                <input type="search" name="price_max" placeholder="price max">
+            </div>
+            <br>
+            <label>Number of people:</label>
+            <input type="search" name="number_of_people" placeholder="number_of_people">
+            <br>
+            <label>City:</label>
+            <input type="search" name="city" placeholder="city">
+            <br>
+            <label>Rooms number:</label>
+            <input type="search" name="rooms_number" placeholder="rooms_number">
+            <br>
+            <label>Bathroom:</label>
+            <input type="search" name="bathroom" placeholder="bathroom">
+            <br>
+            <label>Neighborhood:</label>
+            <input type="search" name="neighborhood" placeholder="neighborhood">
+            <br>        
+            <h3 class="display-6">Features</h3>
+            <label>Has kitchen:</label>
+            <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True">
+            <br>
+            <label>Dishwaser:</label>
+            <input type="checkbox" name="dishwasher"  value="True">
+            <br>
+            <label>Washing Machine:</label>
+            <input type="checkbox" name="washing_machine" value="True">
+            <br>
+            <label>Smoke allowed:</label>
+            <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True">
+            <br>
+            <label>Animal allowed:</label>
+            <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True">
+            <br>
+            <input class="btn btn-success" type="submit" value="search"/>
+            </form>
+
+        </div>
+        <div class="col-8 ">
+            {% for adv in Advertisements %}
+            <div class="d-flex position-relative border border-success p-2 mb-2 border-opacity-50">
+                <div>
+                    <img src="{{ adv.image.url }}" style="height:100px;width: 130px;" class="flex-shrink-0 me-3" alt="...">
+                    <h6 class="fst-italic"><a href="{% url 'accounts:user_profile' adv.user.id %}" class="text-dark-emphasis link-offset-2 link-underline link-underline-opacity-0">{{adv.user.first_name}} {{adv.user.last_name}}</a></h6>
+                    <div class="d-flex justify-content-start align-items-center">
+                        {% if not is_favored %}
+                          <a href="{% url 'accounts:add_favorite_view' adv.id %}" class="favored badge rounded-pill text-bg-danger"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                            </svg></h5></a>
+                          {% else %}
+                              <a href="{% url 'accounts:add_favorite_view' adv.id %}" class="favored badge rounded-pill text-bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"  class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                            </svg></a>
+                        {% endif %}
+                        <a class="btn btn-success p-2 m-1" href="https://wa.me/{{user.profile.phone_number}}"><i class="bi bi-whatsapp"> </i></a>
+                    </div>
+                </div>
+                <div>
+                    <h6> Date: {{ adv.advertisement_date }}</h6>
+                    <div class="d-flex align-items-center gap-1">
+                        {% if adv.type_of_residential == 'House' %}
+                        <span class="material-symbols-outlined">home</span>
+                        {% elif adv.type_of_residential == 'Room' %}
+                        <span class="material-symbols-outlined">night_shelter</span>
+                        {%else%}
+                        <span class="material-symbols-outlined">apartment</span>
+                        {% endif %}
+                    <h6>{{adv.type_of_residential}}</h6>
+                    
+                    </div>
+                  <h5 class="mt-0">Custom component with stretched link</h5>
+                  <p>This is some placeholder content for the custom component. It is intended to mimic what some real-world content would look like, and we're using it here to give the component a bit of body and size.</p>
+                  <a href="{% url 'advertisements:advertisement_details_view' adv.id %}" class="stretched-link">{{ adv.title }}</a>
+                </div>
+              </div>
+              <hr>
+            {% endfor %}
+             
+    {% for adv in Advertisements %}
+        <div class="row border border-5">
+            <div class="col-4">
+                <div class="d-flex justify-content-start align-items-center">
+                    {% if not is_favored %}
+                      <a href="{% url 'accounts:add_favorite_view' adv.id %}" class="favored badge rounded-pill text-bg-danger"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg></h5></a>
+                      {% else %}
+                          <a href="{% url 'accounts:add_favorite_view' adv.id %}" class="favored badge rounded-pill text-bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"  class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                        </svg></a>
+                    {% endif %}
+                </div>
+                <a href="{% url 'advertisements:advertisement_details_view' adv.id %}">{{ adv.title }}</a>
+                <h6 class="d-flex justify-content-start align-items-center"><span class="material-symbols-outlined"> payments</span>Price:{{ adv.price }}</h6>
+                <h6><span class="material-symbols-outlined">home_pin</span>city:{{ adv.city}} -  {{ adv.neighborhood }}</h6>
+                <div class="d-flex">
+                    {% if adv.gender == 'Male' %}
+                    <span class="material-symbols-outlined">man</span>
+                    {% else %}
+                    <span class="material-symbols-outlined">woman</span>
+                    {% endif %}
+                    <h6>{{adv.gender}}</h6>
+                </div>          
+                <div class="d-flex align-items-center">
+                    <span class="material-symbols-outlined">person_search</span>
+                    <h6>Favred age: From {{adv.min_age}} to {{adv.max_age}} </h6>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                    <span class="material-symbols-outlined">timer</span>
+                    <h6>The Duration :{{adv.duration_residence}} {{adv.type_of_duration}}</h6>
+                    </div>        
+                <div class="d-flex align-items-center gap-1">
+                    <span class="material-symbols-outlined">dishwasher_gen</span>
+                    {% if adv.dishwasher == True %}
+                    <h6>Dishwasher:Yes</h6>
+                    {%else%}
+                    <h6>Dishwasher:No</h6>
+                    {%endif%}
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                    <span class="material-symbols-outlined">local_laundry_service</span>
+                    {% if adv.washing_machine == True %}
+                    <h6>Washing machine:Yes</h6>
+                    {%else%}
+                    <h6>Washing machine:No</h6>
+                    {%endif%}
+                </div>
+                                
+                <div class="d-flex align-items-center gap-1">
+                    <span class="material-symbols-outlined">kitchen</span>
+                    {% if adv.has_kitchen == True %}
+                    <h6>Kitchen:Yes</h6>
+                    {%else%}
+                    <h6>Kitchen:No</h6>
+                    {%endif%}
+                </div>
+                                
+                <div class="d-flex align-items-center gap-1">
+                    <span class="material-symbols-outlined">bedroom_child</span>
+                    <h6>Room: {{adv.rooms_number}}</h6>
+                </div>
+                                
+                <div class="d-flex align-items-center gap-1">
+                    {% if adv.smoke_allowed == False %}
+                    <span class="material-symbols-outlined">smoke_free</span>
+                    <h6>Not allowed</h6>
+                    {% else %}
+                    <span class="material-symbols-outlined">smoking_rooms</span>
+                    <h6>Allowed.</h6>
+                    {% endif %}
+                </div>
+                                
+                <div class="d-flex align-items-center gap-1">
+                    <span class="material-symbols-outlined">pets</span>
+                    {% if adv.animal_allowed == False %}
+                    <h6>Not allowed</h6>
+                    {% else %}
+                    <h6>Allowed</h6>
+                    {% endif %}
+                </div>
+                                
+                <div class="d-flex align-items-center gap-1">
+                    <span class="material-symbols-outlined">group</span>
+                    <h6>Number of people: {{adv.number_of_people}}</h6>
+                </div>
+                                
+                <div class="d-flex align-items-center gap-1">
+                    {% if adv.type_of_residential == 'House' %}
+                    <span class="material-symbols-outlined">home</span>
+                    {% elif adv.type_of_residential == 'Room' %}
+                    <span class="material-symbols-outlined">night_shelter</span>
+                    {%else%}
+                    <span class="material-symbols-outlined">apartment</span>
+                    {% endif %}
+                <h6>{{adv.type_of_residential}}</h6>
+                </div>
+            </div>
+            <div class="col-6">
+                <img src="{{ adv.image.url }}" class="object-fit-none border rounded" style="height: 100px; width: 200px;" alt="image">
+            </div>
+        </div>
+    <hr>
+{% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
 
     
 {% endblock %}
