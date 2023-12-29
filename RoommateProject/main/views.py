@@ -39,3 +39,8 @@ def cost_more_filter_view(request:HttpRequest):
     costs = Advertisement.objects.filter(price__gte=1900)
     return render(request,"main/cost_page.html",{"costs":costs})
 
+def not_found(request:HttpRequest):
+    return render(request,'main/not_found.html')
+
+def not_authorized(request:HttpRequest):
+    return render(request,'main/not_authorized.html')
