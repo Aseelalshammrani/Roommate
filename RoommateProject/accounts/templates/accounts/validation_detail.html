@@ -4,36 +4,87 @@
 
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1>Your validation status:</h1>
-            <hr>
-            <h1>Hello {{user.first_name}}, we are excited to make your profile approved!</h1>
-            {% if not validation %}
-                <div class="p-3 mb-2 bg-secondary-subtle text-emphasis-secondary rounded-3 d-flex justify-content-between align-items-center">
-                    <h2>You don't have validation request. Please make a new request validation.</h2>
-                    <a href="{% url 'accounts:validation_user_view'  %}" class="btn btn-primary"> Validation</a>
+
+<style>
+    body{
+        background-color: rgba(202, 223, 238, 0.767);   
+    }
+    
+    
+    </style>
+
+        <div class="">
+            <div class="row">
+                
+                <div class="col-4 transitions" >
+            
+                    <div class="d-flex flex-column gap-1">
+                        <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                            <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
+                        </div>
+                    </div>
+                <div class="transitions2">
+                    <ul class="gap-1 mt-5 mx-1 transitions2">
+                        
+                        <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn">My Profile</a></li>
+                        <li><a href="{% url 'accounts:update_user_view'%}"class="btn  mt-2">Update personal profile </a></li>
+                        <li><a href="{% url 'accounts:my_favorite_view'%}"class="btn  mt-2"> Favourites</a></li>
+                        <li><a href="{% url 'accounts:my_comments'%}"class="btn  mt-2 "> My comments</a></li>
+                        <li><a href="{% url 'accounts:advertisement_user'%}"class="btn  mt-2"> Advertisement</a></li>
+                        <li><a href="{% url 'advertisements:add_advertisement_view'%}" class="btn  mt-2"> Add Advertisement</a></li>
+                        <li><a href="{% url 'accounts:my_requset' user.id %}"class="btn  mt-2 "> My requestes</a></li>
+                        <li><a href="{% url 'accounts:receive_rent_request' user.id %}"class="btn  mt-2 "> My Roommate</a></li>
+                        <li><a href="{% url 'accounts:validation_user_view'  %}"class="btn  mt-2 "> Validation</a></li>
+                        <li><a href="{% url 'accounts:validate_detail_view' user.id %}" class="btn  mt-2 ">Validation status</a></li>
+                    </ul>
                 </div>
-            {% elif validation and  validation.validated == False %}
-            <div class="p-3 mb-2 bg-secondary-subtle text-emphasis-secondary rounded-3">
-                <div class="d-flex justify-content-space-around align-items-start">
-                    <h4 class="p-2">Validation status:</h4>
-                    <h1 class="badge text-bg-secondary d-flex justify-content-center align-items-center p-2" style="width: 110px;">Disapprove<span class="material-symbols-outlined">error</span></h1>
+                   
                 </div>
-                <h5>Your validation request under proccess. </h5>
+               
+            <div class="col-md-8">
+                <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
+                    
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h1>Your validation status:</h1>
+                                <hr>
+                                <h1>Hello {{user.first_name}}, we are excited to make your profile approved!</h1>
+                                {% if not validation %}
+                                    <div class="p-3 mb-2 bg-secondary-subtle text-emphasis-secondary rounded-3 d-flex justify-content-between align-items-center">
+                                        <h2>You don't have validation request. Please make a new request validation.</h2>
+                                        <a href="{% url 'accounts:validation_user_view'  %}" class="btn btn-primary"> Validation</a>
+                                    </div>
+                                {% elif validation and  validation.validated == False %}
+                                <div class="p-3 mb-2 bg-secondary-subtle text-emphasis-secondary rounded-3">
+                                    <div class="d-flex justify-content-space-around align-items-start">
+                                        <h4 class="p-2">Validation status:</h4>
+                                        <h1 class="badge text-bg-secondary d-flex justify-content-center align-items-center p-2" style="width: 110px;">Disapprove<span class="material-symbols-outlined">error</span></h1>
+                                    </div>
+                                    <h5>Your validation request under proccess. </h5>
+                                </div>
+                                {% else %}
+                                <div class="p-3 mb-2 bg-success-subtle text-emphasis-success rounded-3">
+                                    <div class="d-flex justify-content-space-around align-items-start">
+                                        <h4 class="p-2">Validation status:</h4>
+                                        <h1 class="badge text-bg-success d-flex justify-content-center align-items-center" style="width: 90px;">Approve <span class="material-symbols-outlined">check_circle</span></h1>
+                                    </div>
+                                    <h5>Your validation request has been approved. You can now access the features of the website.</h5>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                  
+    
+                </div>
+              </div>
+            
             </div>
-            {% else %}
-            <div class="p-3 mb-2 bg-success-subtle text-emphasis-success rounded-3">
-                <div class="d-flex justify-content-space-around align-items-start">
-                    <h4 class="p-2">Validation status:</h4>
-                    <h1 class="badge text-bg-success d-flex justify-content-center align-items-center" style="width: 90px;">Approve <span class="material-symbols-outlined">check_circle</span></h1>
-                </div>
-                <h5>Your validation request has been approved. You can now access the features of the website.</h5>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
+     </div>
+    
+
+
 
 {% endblock %}

@@ -37,12 +37,16 @@ def register_user_view(request: HttpRequest):
 def login_user_view(request: HttpRequest):
     msg = None
     if request.method == "POST":
-       user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
-       if user:
-           login(request, user)
-           return redirect("main:home_page")
-       else:
-          msg = "Please provide correct username and password"
+        try:
+            user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
+            if user:
+                login(request, user)
+                return redirect("main:home_page")
+            else:
+                msg = "Please provide correct username and password"
+        except Exception as e:
+            msg = f"something went wrong {e}"
+            
     return render(request, "accounts/login.html", {"msg" : msg})
 
 
@@ -196,6 +200,8 @@ def my_requset(request:HttpRequest,user_id):
     return render(request,'accounts/rent_request.html',{'requsets':requsets})
 
 def send_rent_request(request:HttpRequest, advertisement_id):
+    if not request.user.is_authenticated:
+        return redirect("accounts:login_user_view")
     advertisement = Advertisement.objects.get(id=advertisement_id)
     user_id = request.user.id  
     if request.user != advertisement.user:

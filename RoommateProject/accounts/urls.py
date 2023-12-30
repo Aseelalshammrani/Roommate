@@ -23,7 +23,7 @@ urlpatterns = [
      path('my/roommate/<user_id>/',views.receive_rent_request,name='receive_rent_request'),
      path('accept/rent/request/<rent_request_id>/',views.accept_rent_request,name='accept_rent_request'),
      path('cancel/rent/request/<rent_request_id>/',views.cancel_rent_request,name='cancel_rent_request'),
-     path('my_comments',views.my_comments,name="my_comments")
+     path('my_comments',views.my_comments,name="my_comments"),
      
 
 ]

@@ -2,48 +2,96 @@
 
 {% block title %}Rent requset {% endblock %}
 {% block content %}
-<div class="container">
-    <div class="row">
-      {% if msg %}
-          <div class="alert alert-info m-5" role="alert">
-          {{ msg }}
-          </div>
-      {% endif %}
-        <div class="col">
-            {% for receive in receives %}
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="{{receive.advertisement.image.url}}" class="img-fluid rounded-start" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title"><a href="{% url 'advertisements:advertisement_details_view' receive.advertisement.id %}">{{receive.advertisement.title}}</a></h5>
-                      <p class="card-text">{{receive.user.username}}</p>
-                      
-                      <form action="{% url 'accounts:accept_rent_request' receive.id %}" method="get">
-                      
-                    
-                    {% for key, value in order_status.choices %}
 
-                      <div class="form-check">
-                          <input class="form-check-input" type="radio" name="order_status_choice" id="{{key}}" value="{{value}}" {% if receive.order_status_choice == key %} checked {% endif %}>
-                          <label class="form-check-label" for="{{key}}">{{value}}</label>
+<style>
+  body{
+      background-color: rgba(202, 223, 238, 0.767);   
+  }
+  
+  
+  </style>
+
+      <div class="">
+          <div class="row">
+              
+              <div class="col-4 transitions" >
+          
+                  <div class="d-flex flex-column gap-1">
+                      <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
+                      <div class="d-flex align-items-center justify-content-center gap-2">
+                          <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
                       </div>
-
-                    {%endfor%}
-                      <input type="submit" />
-                    </form>
-                      <p class="card-text">{{receive.created_at}}</p>
-                      <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                    </div>
                   </div>
-                </div>
+              <div class="transitions2">
+                  <ul class="gap-1 mt-5 mx-1 transitions2">
+                      
+                      <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn">My Profile</a></li>
+                      <li><a href="{% url 'accounts:update_user_view'%}"class="btn  mt-2">Update personal profile </a></li>
+                      <li><a href="{% url 'accounts:my_favorite_view'%}"class="btn  mt-2"> Favourites</a></li>
+                      <li><a href="{% url 'accounts:my_comments'%}"class="btn  mt-2 "> My comments</a></li>
+                      <li><a href="{% url 'accounts:advertisement_user'%}"class="btn  mt-2"> Advertisement</a></li>
+                      <li><a href="{% url 'advertisements:add_advertisement_view'%}" class="btn  mt-2"> Add Advertisement</a></li>
+                      <li><a href="{% url 'accounts:my_requset' user.id %}"class="btn  mt-2 "> My requestes</a></li>
+                      <li><a href="{% url 'accounts:receive_rent_request' user.id %}"class="btn  mt-2 "> My Roommate</a></li>
+                      <li><a href="{% url 'accounts:validation_user_view'  %}"class="btn  mt-2 "> Validation</a></li>
+                      <li><a href="{% url 'accounts:validate_detail_view' user.id %}" class="btn  mt-2 ">Validation status</a></li>
+                  </ul>
               </div>
-              {% endfor %}
-        </div>
+                 
+              </div>
+             
+          <div class="col-md-8">
+              <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
+                  
+                <div class="container">
+                  <div class="row">
+                    {% if msg %}
+                        <div class="alert alert-info m-5" role="alert">
+                        {{ msg }}
+                        </div>
+                    {% endif %}
+                      <div class="col">
+                          {% for receive in receives %}
+                          <div class="card mb-3" style="max-width: 540px;">
+                              <div class="row g-0">
+                                <div class="col-md-4">
+                                  <img src="{{receive.advertisement.image.url}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                  <div class="card-body">
+                                    <h5 class="card-title"><a href="{% url 'advertisements:advertisement_details_view' receive.advertisement.id %}">{{receive.advertisement.title}}</a></h5>
+                                    <p class="card-text">{{receive.user.username}}</p>
+                                    
+                                    <form action="{% url 'accounts:accept_rent_request' receive.id %}" method="get">
+                                                      
+                                  {% for key, value in order_status.choices %}
+              
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="order_status_choice" id="{{key}}" value="{{value}}" {% if receive.order_status_choice == key %} checked {% endif %}>
+                                        <label class="form-check-label" for="{{key}}">{{value}}</label>
+                                    </div>
+              
+                                  {%endfor%}
+                                    <input type="submit" />
+                                  </form>
+                                    <p class="card-text">{{receive.created_at}}</p>
+                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {% endfor %}
+                      </div>
+              
+                  </div>
+              
+               
+  
+              </div>
+            </div>
+          
+          </div>
+   </div>
+  
 
-    </div>
-
-</div>
 {%endblock%}
