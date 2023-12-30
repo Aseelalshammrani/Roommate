@@ -6,9 +6,9 @@
 }
 
 .transitions2 a{
-    background-color: rgb(124, 146, 172);
+    background-color:  rgba(170, 161, 138, 0.899);
     width: 90%;
-    border: rgb(124, 146, 172) ;
+    border:  rgba(170, 161, 138, 0.899) ;
     border-radius: 0px;
     
 }
@@ -17,11 +17,11 @@
 }
 
 .transitions2 a:hover {
-    color: rgb(129, 136, 157);
+    color: rgba(170, 161, 138, 0.899);
 }
 .btn:hover{
     color: rgb(3, 21, 50);
-    background-color: rgb(144, 157, 184);
+    background-color:  rgba(170, 161, 138, 0.899);
 
     
 }
@@ -70,7 +70,7 @@ border-radius: 20px;
 
 .footer{
 background-color:lightslategray;
-margin-top: 100px;
+
 padding: 20px 0;
 }
 
