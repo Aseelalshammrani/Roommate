@@ -36,13 +36,15 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
+              {% if request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'advertisements:add_advertisement_view'%}">Add Advertisement</a>
               </li>
+              {% endif %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'advertisements:browse_advertisements_view'%}">Browse advertisements</a>
               </li>
-              {% if superuser %}
+              {% if request.user.is_superuser %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:admin_validation_requests' %}">Admin Page</a>
               </li>
@@ -53,15 +55,20 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'main:contact_us_view' %}">Contact us</a>
               </li>
+              {% if not request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:login_user_view' %}">login</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:logout_user_view' %}">logout</a>
-              </li>
+              {% endif %}
               {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:user_profile' request.user.id %}">Profile</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  My Account  
+                </a>
+                <ul class="dropdown-menu">
+                  <li> <a class="nav-link" href="{% url 'accounts:user_profile' request.user.id %}">Profile</a></li>
+                  <li> <a class="nav-link" href="{% url 'accounts:logout_user_view' %}">logout</a></li>
+                </ul>
               </li>
               {% endif %}
             </ul>

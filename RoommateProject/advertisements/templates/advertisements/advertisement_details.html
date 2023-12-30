@@ -3,7 +3,7 @@
 {% block content%}
 <div class="container">
 <!--row 1-->
-<div class="row">
+<div class="row my-2">
 <div class="d-flex justify-content-between align-items-center">
 <h1>{{advertisement.title}}</h1>
 <div>
@@ -21,7 +21,7 @@
 </div>
 
 <!--row 3-->
-<div class="row">
+<div class="row mt-2">
 
   <div class="d-flex justify-content-between">
     <div class="d-flex align-items-center gap-1">
@@ -55,12 +55,6 @@
         <a class="btn btn-success">Request sent</a>
         {%endif%}
         <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> </i></a>
-        {% if reviews_avg %}
-        <h5 class="p-0 m-0">{{reviews_avg}}</h5>
-        <span class="material-symbols-outlined" style="color: goldenrod;">
-          star_rate
-          </span>
-        {% endif %}
   </div> 
   </div>
 </div>
@@ -69,9 +63,10 @@
   <div class="d-flex justify-content-between">
   <div class="d-flex align-items-center gap-1">
     <span class="material-symbols-outlined">group</span>
-    <h3>{{advertisement.number_of_people}} guests |</h3>
+    <h4>{{advertisement.number_of_people}} guests |</h4>
     <span class="material-symbols-outlined">bathtub</span>
     <h4>{{advertisement.bathroom}} Bathroom |</h4>
+    <span class="material-symbols-outlined">bedroom_child</span>
     <h4>{{advertisement.rooms_number}} Room |</h4>
     <div class="d-flex align-items-center">
     {% if advertisement.gender == 'Male' %}
@@ -82,10 +77,32 @@
     <h4>{{advertisement.gender}}</h4>
   </div>
   </div>
-  <h4>Price {{advertisement.price}}SAR</h3>
+  <h4>Price {{advertisement.price}}SAR</h4>
   </div>
   </div>
-  <hr>
+
+<!--row-->
+<div class="row">
+  <div class="d-flex justify-content-between">
+  <div class="d-flex">
+    {% if reviews_avg %}
+    <div class="d-flex align-items-center">
+  <h4>{{reviews_avg}}</h4>
+  <span class="material-symbols-outlined" style="color: goldenrod;">star_rate</span>
+  </div>
+  {% endif %}
+  {% if reviews%}
+  <h4>{{reviews.count}} Reviews</h4>
+  {%endif%}
+</div>
+<div class="d-flex align-items-center gap-1">
+  <span class="material-symbols-outlined">timer</span>
+  <h4>{{advertisement.duration_residence}} {{advertisement.type_of_duration}} |</h4>
+  <h4>Area:{{advertisement.space}} m</h4>
+  </div>
+</div>
+</div>
+<hr>
 <!--row 5-->
 <div class="row">
   <div class="d-flex justify-content-between">
@@ -93,17 +110,11 @@
       <a href="{% url 'accounts:user_profile' advertisement.user.id %}"><img src="{{advertisement.user.profile.personal_image.url}}" height="50" width="50" class="rounded"></a>
     <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h4>
     </div>
-  <div class="d-flex align-items-center gap-1">
-  <span class="material-symbols-outlined">timer</span>
-  <h4>{{advertisement.duration_residence}} {{advertisement.type_of_duration}} |</h4>
-  <h4>Area:{{advertisement.space}} m</h4>
   </div>
-  </div>
-
 </div>
-
+<hr>
 <!--row 6-->
-<div class="row my-3">
+<div class="row my-4">
   <div class="col">
   <h2>What this place offers</h2>
 
@@ -167,22 +178,26 @@
 {% endif %}
   </div>
 <!--row 7-->
-<div class="row">
+<div class="row my-3 note p-3">
   <h2>Note</h2>
   <h4>{{advertisement.note}}</h4>
   </div>
 <!--row 8-->
-<div class="image-container">
-  <div class="gallery">
+{% if advertisement_images.count > 0 %}
+<div class="row row-cols-1 row-cols-md-2 g-4 mb-3">
   {% for images in advertisement_images %}
-  <img src="{{images.image.url}}">
+  <div class="col">
+    <div class="card">
+      <img src="{{images.image.url}}" class="card-img-top" alt="..." height="250px">
+    </div>
+  </div>
   {%endfor%}
 </div>
-</div>
+{%endif%}
 <!--row 9-->
 <div class="row">
 <div class="col">
-  <div class="d-flex flex-column gap-3">
+  <div class="d-flex flex-column gap-3 mb-2">
     {% for review in reviews %}
     <div class="d-flex flex-column gap-2 border border-1 p-3 g-3">
       <div class="d-flex align-items-center g-3">
@@ -204,13 +219,58 @@
   </div>
 </div>
 </div>
-<!-- row 10-->
+
+<!--row 11-->
 <div class="row">
+<h2>Location:</h2>
+<div id="map"></div>
+</div>
+<!--row 12-->
+<div class="row g-3 mt-2">
+  <div class="col-3">
+          <div class="d-flex flex-column gap-1">
+           <a href="{% url 'accounts:user_profile' advertisement.user.id %}"><img src="{{advertisement.user.profile.personal_image.url}}" width="150px" height="250px" class="w-100 rounded-circle" ></a>
+          </div>
+  </div>
+  <div class="col">
+      <div class=" d-flex justify-content-between align-items-center">
+        {% if advertisement.user.validation.validated == True %}
+        <div class="align-items-center">
+        <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}<span class="material-symbols-outlined text-success">verified</span></h4>
+        </div>
+        {% else %}
+        <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h4>
+        {% endif %}
+      </div>
+      <h5>@{{ advertisement.user.username}}</h5>
+      <div class="d-flex align-items-center justify-content- gap-2 mx-2">
+          
+      </div>
+      {% if advertisement.user.profile.gender%}
+      <h6>Gender: {{advertisement.user.profile.gender}} </h6>
+      {%endif%}
+      {% if advertisement.user.profile.age%}
+      <h6>Age: {{advertisement.user.profile.age}}</h6>
+      {%endif%}
+      {% if advertisement.user.profile.language%}
+      <h6>Language: {{advertisement.user.profile.language}}</h6>
+      {%endif%}
+      {% if advertisement.user.profile.nationality%}
+      <h6>Nationality: {{advertisement.user.profile.nationality}}</h6>
+      {%endif%}
+        {% if user.profile.phone_number%}
+        <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> Contact the host</i></a>
+        {%endif%}
+       </div>
+  </div>
+<!-- row 10-->
+<div class="row mt-3">
   {% if request.user.is_authenticated %}
-  <h2>Add Review Reviews:</h2>
+  <h2>Add Review</h2>
 <div class="col-8">
   <form class="d-flex flex-column gap-2" action="{% url 'advertisements:add_review_view' advertisement.id  %}" method="POST" >
     {% csrf_token %}
+    <h5>Rating</h5>
     <select class="form-select" name="rating">
       <option value="1">⭐️</option>
       <option value="2">⭐️⭐️</option>
@@ -230,47 +290,6 @@
 </div>
 {% endif %}
 </div>
-<!--row 11-->
-<div class="row">
-<h1>Location:</h1>
-<div id="map"></div>
-</div>
-<!--row 12-->
-<div class="row g-3 mt-5">
-  <div class="col-3">
-
-          <div class="d-flex flex-column gap-1">
-           <a href="{% url 'accounts:user_profile' advertisement.user.id %}"><img src="{{advertisement.user.profile.personal_image.url}}" width="150px" height="250px" class="w-100 rounded-circle" ></a>
-       
-          </div>
-
-  </div>
-  <div class="col">
-      <div class=" d-flex justify-content-between align-items-center">
-        {% if advertisement.user.validation.validated == True %}
-        <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}<span class="material-symbols-outlined text-success">verified</span></h4>
-        {% else %}
-        <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h4>
-        {% endif %}
-    
-      </div>
-
-      <h5>@{{ advertisement.user.username}}</h5>
-      <br>
-      <div class="d-flex align-items-center justify-content- gap-2 mx-2">
-          
-      </div>
-      <h6>Gender: {{advertisement.user.profile.gender}} </h6>
-      <h6>Age: {{advertisement.user.profile.age}}</h6>
-      <h6>Language: {{advertisement.user.profile.language}}</h6>
-      <h6>Nationality: {{advertisement.user.profile.nationality}}</h6>
-      <br>
-      <h5>about: </h5>
-      <p>  {{advertisement.user.profile.about}}/<p>
-        <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> Contact the host</i></a>
-
-       </div>
-  </div>
 
   <div class="modal fade" id="send_request" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
