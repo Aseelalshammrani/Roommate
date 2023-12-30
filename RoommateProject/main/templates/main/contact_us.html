@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Contact us {% endblock %}
+
+{% block content %}
+
+
+<div class="d-flex justify-content-between text-center">
+    <h1 class="display-3 mt-3 p-3">
+      Contact us
+      </h1>
+</div>
+<hr/>
+
+       
+<div class="container1 text-center m-5 p-3 shadow-sm p-3 mb-5 bg-body-tertiary rounded p-3 mb-2 bg-warning-subtle text-emphasis-warning">
+    <p class="fw-lighter">For any information, you can reach us via email.</p>
+    <div class="row m-5">
+        <div class="col text-center">
+            {% if email_sent %}
+                <h3 class="display-4">Thank you, We received your message.<span class="material-symbols-outlined">check_circle</span></h3>
+            {% else %}
+            <form action="{% url 'main:contact_us_view' %}" method="POST">
+                {% csrf_token %}
+                <label>Full name*</label>
+                <input class="form-control m-2" type="text" name="name" required minlength="3" placeholder="Name"/>
+                <label>Email*</label>
+                <input class="form-control m-2" type="email" name="email" required minlength="5" placeholder="email"/>
+                <label>Message</label>
+                <textarea class="form-control m-2" name="message" placeholder="write message"></textarea>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <input class="btn btn-success" type="submit" value="Submit"/>
+                </div>
+            </form>
+            {% endif %}
+            
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
+

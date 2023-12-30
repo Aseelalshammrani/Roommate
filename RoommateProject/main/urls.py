@@ -3,6 +3,7 @@ from . import views
 app_name = "main"
 urlpatterns = [
     path('',views.home_page,name='home_page'),
+    path("contact_us/", views.contact_us_view , name="contact_us_view"),
     path('genders/', views.advertisements_genders_view, name="advertisements_genders_view"),
     path("female/", views.advertisements_female_gender_view, name="advertisements_female_gender_view"),
     path('male/', views.advertisements_male_gender_view, name='advertisements_male_gender_view'),
