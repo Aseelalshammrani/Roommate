@@ -2,179 +2,278 @@
 {% block title %}Advertisement details {% endblock%}
 {% block content%}
 <div class="container">
-
-<div class="row">
-<h1 class="text-center">{{advertisement.title}}</h1>
-<img src="{{advertisement.image.url}}" height="300px" alt="...">
-</div>
-
-<div class="row">
-<div class="d-flex justify-content-between">
-<h2>Price {{advertisement.price}}SR</h2>
-
-
-<div class="d-flex gap-1 p-1">
-    <div class="btn-group">
- 
-        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          Edit</button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{% url 'advertisements:update_advertisement_view' advertisement.id %}">Update</a></li>
-          <li><a class="dropdown-item" href="{% url 'advertisements:add_images_to_advertisements' advertisement.id %}">Add Image</a></li>
-          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteadvertisement">Delete</a></li>
-        </ul>
-      </div>
-
-      <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#send_request">Send Request</a>
-
-      <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> </i></a>
-      
-      <div>
-        {% if not is_favored %}
-          <a href="{% url 'accounts:add_favorite_view' advertisement.id %}" class="favored badge rounded-pill text-bg-danger"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-            </svg></h5></a>
-          {% else %}
-              <a href="{% url 'accounts:add_favorite_view' advertisement.id %}" class="favored badge rounded-pill text-bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"  class="bi bi-heart-fill" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-            </svg></a>
-        {% endif %}
-     
-      </div>
-      {% if reviews_avg %}
-      <h5 class="p-0 m-0">{{reviews_avg}}</h5>
-      <span class="material-symbols-outlined" style="color: goldenrod;">
-        star_rate
-        </span>
-      {% endif %}
-</div>
-
-</div>
-</div>
-
+<!--row 1-->
 <div class="row">
 <div class="d-flex justify-content-between align-items-center">
-<div class="profile d-flex gap-2 align-items-center p-2">
-<img src="{{advertisement.user.profile.personal_image.url}}" height="50" width="50" class="rounded">
-<h4><a href="{% url 'accounts:user_profile' advertisement.user.id %}">Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</a></h4>
-
-</div>
-
-<div class="d-flex align-items-center gap-1">
-    {% if advertisement.type_of_residential == 'House' %}
-    <span class="material-symbols-outlined">home</span>
-    {% elif advertisement.type_of_residential == 'Room' %}
-    <span class="material-symbols-outlined">night_shelter</span>
-    {%else%}
-    <span class="material-symbols-outlined">apartment</span>
-    {% endif %}
-<h2>{{advertisement.type_of_residential}}</h2>
-</div>
-
-</div>
-</div>
-
-
-<div class="row my-3">
-<div class="d-flex justify-content-between">
-<div class="col">
-<div class="d-flex align-items-center gap-1">
-<span class="material-symbols-outlined">timer</span>
-<h4>The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h4>
-</div>
-
-<div class="d-flex align-items-center gap-1">
-<h4>Space: {{advertisement.space}}m</h4>
-</div>
-
-<div class="d-flex align-items-center gap-1">
-<span class="material-symbols-outlined">group</span>
-<h4>Number of people: {{advertisement.number_of_people}}</h4>
-</div>
-
-
-<div class="d-flex align-items-center gap-1">
-<span class="material-symbols-outlined">pets</span>
-{% if advertisement.animal_allowed == False %}
-<h4>Not allowed</h4>
-{% else %}
-<h4>Allowed</h4>
-{% endif %}
-</div>
-
-<div class="d-flex align-items-center">
-<span class="material-symbols-outlined">person_search</span>
-<h4>Favred age: From {{advertisement.min_age}} to {{advertisement.max_age}} </h4>
-</div>
-
-<div class="d-flex align-items-center gap-1">
-<span class="material-symbols-outlined">bathtub</span>
-<h4>Bathroom: {{advertisement.bathroom}}</h4>
-</div>
-
-</div>
-<div class="col">
-<div class="d-flex">
-{% if advertisement.gender == 'Male' %}
-<span class="material-symbols-outlined">man</span>
-{% else %}
-<span class="material-symbols-outlined">woman</span>
-{% endif %}
-<h4>{{advertisement.gender}}</h4>
-</div>
-
-<div class="d-flex align-items-center gap-1">
-    {% if advertisement.smoke_allowed == False %}
-    <span class="material-symbols-outlined">smoke_free</span>
-    <h4>Not allowed</h4>
+<h1>{{advertisement.title}}</h1>
+<div>
+  {% if not is_favored %}
+  <a href="{% url 'accounts:add_favorite_view' advertisement.id %}"><i class="bi bi-heart"></i>Save</a>
     {% else %}
-    <span class="material-symbols-outlined">smoking_rooms</span>
-    <h4>Allowed.</h4>
-    {% endif %}
-</div>
-
-<div class="d-flex align-items-center gap-1">
-<span class="material-symbols-outlined">bedroom_child</span>
-<h4>Room: {{advertisement.rooms_number}}</h4>
-</div>
-
-<div class="d-flex align-items-center gap-1">
-    <span class="material-symbols-outlined">kitchen</span>
-    {% if advertisement.has_kitchen == True %}
-    <h4>Kitchen:Yes</h4>
-    {%else%}
-    <h4>Kitchen:No</h4>
-    {%endif%}
-</div>
-
-
-<div class="d-flex align-items-center gap-1">
-    <span class="material-symbols-outlined">dishwasher_gen</span>
-    {% if advertisement.dishwasher == True %}
-    <h4>Dishwasher:Yes</h4>
-    {%else%}
-    <h4>Dishwasher:No</h4>
-    {%endif%}
-</div>
-
-<div class="d-flex align-items-center gap-1">
-    <span class="material-symbols-outlined">local_laundry_service</span>
-    {% if advertisement.washing_machine == True %}
-    <h4>Washing machine:Yes</h4>
-    {%else%}
-    <h4>Washing machine:No</h4>
-    {%endif%}
+  <a href="{% url 'accounts:add_favorite_view' advertisement.id %}"><i class="bi bi-heart-fill"></i>Saved</a>
+  {% endif %}
 </div>
 </div>
 </div>
-</div>
-
+<!--row 2-->
 <div class="row">
-<h2>Note</h2>
-<h4>{{advertisement.note}}</h4>
+<img src="{{advertisement.image.url}}" height="400px" alt="...">
 </div>
 
-<div class="modal fade" id="send_request" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--row 3-->
+<div class="row">
+
+  <div class="d-flex justify-content-between">
+    <div class="d-flex align-items-center gap-1">
+      {% if advertisement.type_of_residential == 'House' %}
+      <span class="material-symbols-outlined">home</span>
+      {% elif advertisement.type_of_residential == 'Room' %}
+      <span class="material-symbols-outlined">night_shelter</span>
+      {%else%}
+      <span class="material-symbols-outlined">apartment</span>
+      {% endif %}
+  <h2>{{advertisement.type_of_residential}} in {{advertisement.neighborhood}},{{advertisement.city}}</h2>
+  </div>
+
+  <div class="d-flex gap-1 p-1">
+    {% if request.user == advertisement.user %}
+      <div class="btn-group">
+          <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Edit</button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'advertisements:update_advertisement_view' advertisement.id %}">Update</a></li>
+            <li><a class="dropdown-item" href="{% url 'advertisements:add_images_to_advertisements' advertisement.id %}">Add Image</a></li>
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteadvertisement">Delete</a></li>
+          </ul>
+        </div>
+      {%endif%}
+  
+        {% if not is_requested %}
+        {% if request.user != advertisement.user %}
+        <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#send_request">Send Request</a>
+        {%endif%}
+        {%else%}
+        <a class="btn btn-success">Request sent</a>
+        {%endif%}
+        <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> </i></a>
+        {% if reviews_avg %}
+        <h5 class="p-0 m-0">{{reviews_avg}}</h5>
+        <span class="material-symbols-outlined" style="color: goldenrod;">
+          star_rate
+          </span>
+        {% endif %}
+  </div> 
+  </div>
+</div>
+<!--row 4-->
+<div class="row">
+  <div class="d-flex justify-content-between">
+  <div class="d-flex align-items-center gap-1">
+    <span class="material-symbols-outlined">group</span>
+    <h3>{{advertisement.number_of_people}} guests |</h3>
+    <span class="material-symbols-outlined">bathtub</span>
+    <h4>{{advertisement.bathroom}} Bathroom |</h4>
+    <h4>{{advertisement.rooms_number}} Room |</h4>
+    <div class="d-flex align-items-center">
+    {% if advertisement.gender == 'Male' %}
+    <span class="material-symbols-outlined">man</span>
+    {% else %}
+    <span class="material-symbols-outlined">woman</span>
+    {% endif %}
+    <h4>{{advertisement.gender}}</h4>
+  </div>
+  </div>
+  <h4>Price {{advertisement.price}}SAR</h3>
+  </div>
+  </div>
+  <hr>
+<!--row 5-->
+<div class="row">
+  <div class="d-flex justify-content-between">
+    <div class="profile d-flex gap-2 align-items-center p-2">
+      <a href="{% url 'accounts:user_profile' advertisement.user.id %}"><img src="{{advertisement.user.profile.personal_image.url}}" height="50" width="50" class="rounded"></a>
+    <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h4>
+    </div>
+  <div class="d-flex align-items-center gap-1">
+  <span class="material-symbols-outlined">timer</span>
+  <h4>{{advertisement.duration_residence}} {{advertisement.type_of_duration}} |</h4>
+  <h4>Area:{{advertisement.space}} m</h4>
+  </div>
+  </div>
+
+</div>
+
+<!--row 6-->
+<div class="row my-3">
+  <div class="col">
+  <h2>What this place offers</h2>
+
+  <div class="d-flex align-items-center">
+  <span class="material-symbols-outlined">person_search</span>
+  <h4>Favred age: From {{advertisement.min_age}} to {{advertisement.max_age}} </h4>
+  </div>
+
+  <div class="d-flex align-items-center gap-1">
+  {% if advertisement.animal_allowed == True %}
+  <span class="material-symbols-outlined">pets</span>
+  <h4>Allowed</h4>
+  {% endif %}
+  </div>
+  
+  <div class="d-flex align-items-center gap-1">
+      {% if advertisement.smoke_allowed == True %}
+      <span class="material-symbols-outlined">smoking_rooms</span>
+      <h4>Allowed</h4>
+      {% endif %}
+  </div>
+  
+  <div class="d-flex align-items-center gap-1">
+      {% if advertisement.has_kitchen == True %}
+      <span class="material-symbols-outlined">kitchen</span>
+      <h4>Kitchen</h4>
+      {%endif%}
+  </div>
+  
+  <div class="d-flex align-items-center gap-1">
+      {% if advertisement.dishwasher == True %}
+      <span class="material-symbols-outlined">dishwasher_gen</span>
+      <h4>Dishwasher</h4>
+      {%endif%}
+  </div>
+
+  <div class="d-flex align-items-center gap-1">
+      {% if advertisement.washing_machine == True %}
+      <span class="material-symbols-outlined">local_laundry_service</span>
+      <h4>Washing machine</h4>
+      {%endif%}
+  </div>
+  </div>
+{% if advertisement.animal_allowed == False or advertisement.smoke_allowed == False %}
+  <div class="col">
+  <h2>What this place prevents</h2>
+  <div class="d-flex align-items-center gap-1">
+    {% if advertisement.animal_allowed == False %}
+    <span class="material-symbols-outlined">pets</span>
+    <h4>Animal</h4>
+    {% endif %}
+    </div>
+
+    <div class="d-flex align-items-center gap-1">
+      {% if advertisement.smoke_allowed == False %}
+      <span class="material-symbols-outlined">smoke_free</span>
+      <h4>Smoke</h4>
+      {% endif %}
+  </div>
+  </div>
+{% endif %}
+  </div>
+<!--row 7-->
+<div class="row">
+  <h2>Note</h2>
+  <h4>{{advertisement.note}}</h4>
+  </div>
+<!--row 8-->
+<div class="image-container">
+  <div class="gallery">
+  {% for images in advertisement_images %}
+  <img src="{{images.image.url}}">
+  {%endfor%}
+</div>
+</div>
+<!--row 9-->
+<div class="row">
+<div class="col">
+  <div class="d-flex flex-column gap-3">
+    {% for review in reviews %}
+    <div class="d-flex flex-column gap-2 border border-1 p-3 g-3">
+      <div class="d-flex align-items-center g-3">
+        <a href="{% url 'accounts:user_profile' review.user.id %}" ><h3 >{{ review.user.first_name }} {{ review.user.last_name }}</h3></a>
+        {% if advertisement.user.validation.validated == True %}
+        <span class="material-symbols-outlined text-success">verified</span> 
+       {% endif %}
+      </div>
+      <h6 class="text-muted">{{ review.created_at }}</h6>
+      <div class=" d-flex justify-content-between align-items-center">
+        <div class="d-flex ">
+           <p>{{review.rating}} <p>
+           <span class="material-symbols-outlined" style="color: goldenrod;">
+        star_rate
+        </span></p></div></div>
+      <p>{{ review.content }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+<!-- row 10-->
+<div class="row">
+  {% if request.user.is_authenticated %}
+  <h2>Add Review Reviews:</h2>
+<div class="col-8">
+  <form class="d-flex flex-column gap-2" action="{% url 'advertisements:add_review_view' advertisement.id  %}" method="POST" >
+    {% csrf_token %}
+    <select class="form-select" name="rating">
+      <option value="1">⭐️</option>
+      <option value="2">⭐️⭐️</option>
+      <option value="3">⭐️⭐️⭐️</option>
+      <option value="4">⭐️⭐️⭐️⭐️</option>
+      <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+    </select>
+
+    <textarea class="form-control" name="content" placeholder="Your Review" required minlength="5"></textarea>
+
+    <input type="submit" value="Add Review" class="btn btn-primary" />
+  </form>
+</div>
+{%  else %}
+<div class="p-3 border border-1 ">
+  To post a review please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
+</div>
+{% endif %}
+</div>
+<!--row 11-->
+<div class="row">
+<h1>Location:</h1>
+<div id="map"></div>
+</div>
+<!--row 12-->
+<div class="row g-3 mt-5">
+  <div class="col-3">
+
+          <div class="d-flex flex-column gap-1">
+           <a href="{% url 'accounts:user_profile' advertisement.user.id %}"><img src="{{advertisement.user.profile.personal_image.url}}" width="150px" height="250px" class="w-100 rounded-circle" ></a>
+       
+          </div>
+
+  </div>
+  <div class="col">
+      <div class=" d-flex justify-content-between align-items-center">
+        {% if advertisement.user.validation.validated == True %}
+        <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}<span class="material-symbols-outlined text-success">verified</span></h4>
+        {% else %}
+        <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h4>
+        {% endif %}
+    
+      </div>
+
+      <h5>@{{ advertisement.user.username}}</h5>
+      <br>
+      <div class="d-flex align-items-center justify-content- gap-2 mx-2">
+          
+      </div>
+      <h6>Gender: {{advertisement.user.profile.gender}} </h6>
+      <h6>Age: {{advertisement.user.profile.age}}</h6>
+      <h6>Language: {{advertisement.user.profile.language}}</h6>
+      <h6>Nationality: {{advertisement.user.profile.nationality}}</h6>
+      <br>
+      <h5>about: </h5>
+      <p>  {{advertisement.user.profile.about}}/<p>
+        <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> Contact the host</i></a>
+
+       </div>
+  </div>
+
+  <div class="modal fade" id="send_request" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -186,7 +285,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <a href="{% url 'accounts:send_rent_request' advertisement.id  %}" class="btn btn-success">Yes</a>
+          <a href="{% url 'accounts:send_rent_request' advertisement.id  %}" class="btn btn-success" >Yes</a>
         </div>
       </div>
     </div>
@@ -209,145 +308,33 @@
       </div>
     </div>
   </div>
-<div class="row">
-<div class="col">
-  {% for images in advertisement_images %}
-  <img src="{{images.image.url}}" height="200" width="150">
-  {%endfor%}
-</div>
-</div>
 
-<h1 class="m-5">Location:</h1>
-<div id="map"></div> 
-<script>
-  let map;
-  let currentMarker = null;
-
-  async function initMap() {
-  const { Map } = await google.maps.importLibrary("maps");
-  map = new Map(document.getElementById("map"), {
-  center: { lat: {{ advertisement.latitiiude }}, lng:{{advertisement.longitude}} },
-    zoom: 16,
-  });
-
- addMarker({"lat" :  {{ advertisement.latitiiude }}, "lng":  {{advertisement.longitude}}}, map);
-
-
-  function addMarker(location, map){
-    if(currentMarker) currentMarker.setMap(null);
-
-    currentMarker = new google.maps.Marker({position:location, map: map});
-    map.setCenter(location);
-
-  }
-
-  }
-initMap();
-</script>
-
-
-
-  <div class="row g-3 mt-5">
-    <div class="col-3">
- 
-            <div class="d-flex flex-column gap-1">
-              <img src="{{advertisement.user.profile.personal_image.url}}" width="150px" height="250px" class="w-100 rounded-circle" >
-         
-            </div>
-
-    </div>
-    <div class="col">
-        <div class=" d-flex justify-content-between align-items-center">
-          {% if advertisement.user.validation.validated == True %}
-          <h4><a href="{% url 'accounts:user_profile' advertisement.user.id %}" >Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}<span class="material-symbols-outlined text-success">verified</span></h6></a></h4>
-          {% else %}
-          <h4><a href="{% url 'accounts:user_profile' advertisement.user.id %}" >Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h6></a></h4>
-          {% endif %}
-      
-        </div>
-
-        <h5>@{{ advertisement.user.username}}</h5>
-        <br>
-        <div class="d-flex align-items-center justify-content- gap-2 mx-2">
-            
-        </div>
-        <h6>Gender: {{advertisement.user.profile.gender}} </h6>
-        <h6>Age: {{advertisement.user.profile.age}}</h6>
-        <h6>Language: {{advertisement.user.profile.language}}</h6>
-        <h6>Nationality: {{advertisement.user.profile.nationality}}</h6>
-        <br>
-        <h5>about: </h5>
-        <p>  {{advertisement.user.profile.about}}/<p>
-          <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> Contact the host</i></a>
-
-         </div>
-    </div>
-
-<section class="row mt-5">
-  <h2 class="mt-5">Reviews:</h2>
-    <div class="col">
-      <div class="d-flex flex-column gap-3">
-        {% for review in reviews %}
-        <div class="d-flex flex-column gap-2 border border-1 p-3 g-3">
-          <div class="d-flex align-items-center g-3">
-            <a href="{% url 'accounts:user_profile' review.user.id %}" ><h3 >{{ review.user.first_name }} {{ review.user.last_name }}</h3></a>
-            {% if advertisement.user.validation.validated == True %}
-            <span class="material-symbols-outlined text-success">verified</span> 
-           {% endif %}
-          </div>
-          <h6 class="text-muted">{{ review.created_at }}</h6>
-          <div class=" d-flex justify-content-between align-items-center">
-            <div class="d-flex ">
-               <p>{{review.rating}} <p>
-               <span class="material-symbols-outlined" style="color: goldenrod;">
-            star_rate
-            </span></p></div></div>
-          <p>{{ review.content }}</p>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    
+  <script>
+    let map;
+    let currentMarker = null;
   
+    async function initMap() {
+    const { Map } = await google.maps.importLibrary("maps");
+    map = new Map(document.getElementById("map"), {
+    center: { lat: {{ advertisement.latitiiude }}, lng:{{advertisement.longitude}} },
+      zoom: 16,
+    });
+  
+   addMarker({"lat" :  {{ advertisement.latitiiude }}, "lng":  {{advertisement.longitude}}}, map);
+  
+  
+    function addMarker(location, map){
+      if(currentMarker) currentMarker.setMap(null);
+  
+      currentMarker = new google.maps.Marker({position:location, map: map});
+      map.setCenter(location);
+  
+    }
+  
+    }
+  initMap();
+  </script>
 
-</section>
-
-<section class="row mt-5">
-
-  {% if request.user.is_authenticated %}
-  <h2>Add Review Reviews:</h2>
-  <div class="col-6">
-
-    <form class="d-flex flex-column gap-2" action="{% url 'advertisements:add_review_view' advertisement.id  %}" method="POST" >
-      {% csrf_token %}
-      <select class="form-select" name="rating">
-        <option value="1">⭐️</option>
-        <option value="2">⭐️⭐️</option>
-        <option value="3">⭐️⭐️⭐️</option>
-        <option value="4">⭐️⭐️⭐️⭐️</option>
-        <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-      </select>
-
-      <textarea class="form-control" name="content" placeholder="Your Review" required minlength="5"></textarea>
-
-      <input type="submit" value="Add Review" class="btn btn-primary" />
-    </form>
-
-
-  </div>
-
-  {%  else %}
-
-  <p class="p-3 border border-1 ">
-    To post a review please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
-  </p>
-
-  {% endif %}
-</section>
-
-
-
-</section>
 </div>
 
 {% endblock %}
