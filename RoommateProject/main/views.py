@@ -11,19 +11,9 @@ def home_page(request: HttpRequest):
     advertisements = Advertisement.objects.all()[0:6]
     reviews = Review.objects.all().order_by("-rating")[0:4]
 
-    # Incorporate cost-related views:
-    costs = Advertisement.objects.all()  # Default cost view
-    cost_ordering = request.GET.get('cost_ordering')
-
-    if cost_ordering == 'less':
-        costs = costs.order_by('price')  # Apply ascending price filter
-    elif cost_ordering == 'more':
-        costs = costs.order_by('-price')  # Apply descending price filter
-
     context = {
         "advertisements": advertisements,
         "reviews": reviews,
-        "costs": costs,
     }
 
     return render(request, "main/home.html", context)
@@ -102,12 +92,12 @@ def advertisement_filter_view(request:HttpRequest):
         if smoke_allowed:
             adv = adv.filter(smoke_allowed=True)
     except Exception as e:
-        msg=f'{e}'
+        msg=f'Something went wrong:{e}'
     context = {
         'Advertisements':adv,
         'types_of_gender': Advertisement.types_of_gender,
         'types_of_residential':Advertisement.types_of_residential,
-        'types_of_duration':Advertisement.types_of_duration,
+        'types_of_duration': Advertisement.types_of_duration,
         'msg':msg,
     }
     return render(request, 'main/filter_page.html', context)

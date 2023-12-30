@@ -4,38 +4,47 @@
 
 
 <div class="d-flex justify-content-between text-center">
-    <h1 class="display-3 mt-3 p-3">
-        Welcome to Roommate Website
-    </h1>
-    <div class="dropdown m-5">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Cost
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{% url 'main:home_page' %}">The highest price</a></li>
-          <li><a class="dropdown-item" href="{% url 'main:home_page' %}">The Lowest price</a></li>
-        </ul>
-      </div>
-  </div>
-    <hr/>
-    <div class="container1 m-5">
-        <div class="row gap-3 d-flex justify-content-center align-items-center">
-            {% for approve in approves %}
-            <div class="col-3 border border-warning-subtle shadow p-3 mb-5 bg-body-tertiary rounded">
-                <a href="{% url 'main:profile_approved_users' approve.user.id %}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h1>{{ approve.user.first_name }}<span class="material-symbols-outlined">verified</span></h1></a>
-            </div>
-            {% endfor %}
-      
+<h1 class="display-3 mt-3 p-3">Welcome to Roommate Website</h1>
+</div>
+
+<hr/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1>About us:</h1>
+            <p>Short paragraph</p>
+            test
         </div>
-      
-</div>
-</div>
-
-    
-</div>
-<div>
+        <div class="col-6">
+            test
+        </div>
+    </div>
 </div>
 
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1>Our features:</h1>
+            <p>Short paragraph</p>
+            test
+        </div>
+        <div class="col-6">
+            test
+        </div>
+    </div>
+</div>
+
+<div class="container1 m-5">
+<div class="row gap-3 d-flex justify-content-center align-items-center">
+{% for approve in approves %}
+<div class="col-3 border border-warning-subtle shadow p-3 mb-5 bg-body-tertiary rounded">
+<a href="{% url 'main:profile_approved_users' approve.user.id %}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h1>{{ approve.user.first_name }}<span class="material-symbols-outlined">verified</span></h1></a>
+</div>
+{% endfor %}
+</div>
+</div>
 <div class="container">
 <h1 class="text-center my-3">All advertisements</h1>
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -74,27 +83,21 @@
 </div>
 </div>
 <hr>
-
-
-<hr>
 <h1 class="display-3">Reviews</h1>
-
 <div class="container1 shadow p-3 mb-5 bg-body-tertiary rounded">
     <div class="row">
       {% for review in reviews %}
         <div class="col shadow p-3 mb-5 bg-body-tertiary rounded m-3 p-3 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-3">
           <a href="{% url 'advertisements:advertisement_details_view' review.advertisement.id %}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h6>{{ review.event.title }}</h6></a>
           <h6>Comment by : {{ review.user.first_name }}</h6></a>
-          <p>{{ review.comment }}</p>
+          <p>{{ review.content }}</p>
           <div class="d-flex gap-1 align-items-center">
             <h6 class="p-0 m-0">{{ review.rating }}</h6>
             <span class="material-symbols-outlined">grade</span>
         </div>
       </div>
       {% endfor %}
-  
     </div>
   </div>
-
 {% endblock %}
 

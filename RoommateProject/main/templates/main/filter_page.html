@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row shadow-lg p-3 mb-5 bg-body-tertiary rounded m-5">
         <div class="col d-flex justify-content-center align-items-center">
-            <h1>Find your Roommate in our Website</h1>
+            <h1 class="display-2">Find your Roommate in our Website</h1>
         </div>
 
     </div>
@@ -34,10 +34,39 @@
         <div class="col-4 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
             <form action="{% url 'main:advertisement_filter_view'%}" method="GET">
                 {% csrf_token %}
-            <label>Duration residence:</label>
-            <input type="search" name="duration_residence" placeholder="duration_residence">
+            <h3 class="display-6">Features:</h3>
+            <label>Age:</label>
+            <div class="d-flex justify-content-start align-items-center">
+                <input type="search" name="min_age" placeholder="min_age" class="form-control border-success m-1" >
+                <input type="search" name="max_age" placeholder="max_age" class="form-control border-success m-1">
+            </div>
             <br>
-            <label>types_of_duration:</label>
+        
+            <label>Price:</label>
+            <div class="d-flex justify-content-start align-items-center">
+                <input type="search" name="price_min" placeholder="price min" class="form-control border-success m-1">
+                <input type="search" name="price_max" placeholder="price max" class="form-control border-success m-1">
+            </div>
+            <br>
+            <label>Number of people:</label>
+            <input type="search" name="number_of_people" placeholder="number_of_people" class="form-control border-success m-1">
+            <br>
+            <label>City:</label>
+            <input type="search" name="city" placeholder="city" class="form-control border-success m-1">
+            <br>
+            <label>Rooms number:</label>
+            <input type="search" name="rooms_number" placeholder="rooms_number" class="form-control border-success m-1">
+            <br>
+            <label>Bathroom:</label>
+            <input type="search" name="bathroom" placeholder="bathroom" class="form-control border-success m-1">
+            <br>
+            <label>Neighborhood:</label>
+            <input type="search" name="neighborhood" placeholder="neighborhood" class="form-control border-success m-1">
+            <br>
+            <label>Duration residence:</label>
+            <input type="search" name="duration_residence" placeholder="duration_residence" class="form-control border-success m-1">
+            <br>
+            <label>Types of duration:</label>
             {% for key, value in types_of_duration.choices %}
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="types_of_duration" id="{{key}}" value="{{value}}">
@@ -51,8 +80,7 @@
                 <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
             </div>
             {% endfor %}
-            <br>
-            <label>type_of_residential:</label>
+            <label>Type of residential:</label>
             {% for key, value in types_of_residential.choices %}
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}">
@@ -60,35 +88,6 @@
             </div>
             {% endfor %}
             <br>
-            <label>Age:</label>
-            <div class="d-flex justify-content-start align-items-center">
-                <input type="search" name="min_age" placeholder="min_age" >
-                <input type="search" name="max_age" placeholder="max_age">
-            </div>
-            <br>
-        
-            <label>Price:</label>
-            <div class="d-flex justify-content-start align-items-center">
-                <input type="search" name="price_min" placeholder="price min">
-                <input type="search" name="price_max" placeholder="price max">
-            </div>
-            <br>
-            <label>Number of people:</label>
-            <input type="search" name="number_of_people" placeholder="number_of_people">
-            <br>
-            <label>City:</label>
-            <input type="search" name="city" placeholder="city">
-            <br>
-            <label>Rooms number:</label>
-            <input type="search" name="rooms_number" placeholder="rooms_number">
-            <br>
-            <label>Bathroom:</label>
-            <input type="search" name="bathroom" placeholder="bathroom">
-            <br>
-            <label>Neighborhood:</label>
-            <input type="search" name="neighborhood" placeholder="neighborhood">
-            <br>        
-            <h3 class="display-6">Features</h3>
             <label>Has kitchen:</label>
             <input type="checkbox" name="has_kitchen" id="has_kitchen" value="True">
             <br>
@@ -104,139 +103,77 @@
             <label>Animal allowed:</label>
             <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True">
             <br>
-            <input class="btn btn-success" type="submit" value="search"/>
+            <div class="d-grid gap-2">
+                <input class="btn btn-success btn-lg m-4" type="submit" value="search"/>
+              </div>
             </form>
-
         </div>
         <div class="col-8 ">
             {% for adv in Advertisements %}
-            <div class="d-flex position-relative border border-success p-2 mb-2 border-opacity-50">
+            <div class="d-flex position-relative border border-3 rounded-3 shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                 <div>
-                    <img src="{{ adv.image.url }}" style="height:100px;width: 130px;" class="flex-shrink-0 me-3" alt="...">
-                    <h6 class="fst-italic"><a href="{% url 'accounts:user_profile' adv.user.id %}" class="text-dark-emphasis link-offset-2 link-underline link-underline-opacity-0">{{adv.user.first_name}} {{adv.user.last_name}}</a></h6>
-                    <div class="d-flex justify-content-start align-items-center">
-                        {% if not is_favored %}
-                          <a href="{% url 'accounts:add_favorite_view' adv.id %}" class="favored badge rounded-pill text-bg-danger"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                            </svg></h5></a>
-                          {% else %}
-                              <a href="{% url 'accounts:add_favorite_view' adv.id %}" class="favored badge rounded-pill text-bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"  class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                            </svg></a>
-                        {% endif %}
-                        <a class="btn btn-success p-2 m-1" href="https://wa.me/{{user.profile.phone_number}}"><i class="bi bi-whatsapp"> </i></a>
-                    </div>
+                    <img src="{{ adv.image.url }}" style="height:190px;width: 130px;" class="flex-shrink-0 me-3" alt="Home image">
                 </div>
                 <div>
-                    <h6> Date: {{ adv.advertisement_date }}</h6>
                     <div class="d-flex align-items-center gap-1">
-                        {% if adv.type_of_residential == 'House' %}
-                        <span class="material-symbols-outlined">home</span>
-                        {% elif adv.type_of_residential == 'Room' %}
-                        <span class="material-symbols-outlined">night_shelter</span>
-                        {%else%}
-                        <span class="material-symbols-outlined">apartment</span>
+                        {% if adv.user.validation.validated == True %}
+                        <h4 class="fst-italic"><a href="{% url 'accounts:user_profile' adv.user.id %}" class="text-dark-emphasis link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center align-items-center">{{adv.user.first_name}} {{adv.user.last_name}}<span class="material-symbols-outlined  text-success">verified</span>  ( {{ adv.city }} - {{ adv.neighborhood }} ) </a></h4>
+                        {% else %}
+                        <h4 class="fst-italic"><a href="{% url 'accounts:user_profile' adv.user.id %}" class="text-dark-emphasis link-offset-2 link-underline link-underline-opacity-0">{{adv.user.first_name}} {{adv.user.last_name}}<span class="material-symbols-outlined text-secondary">info</span> ( {{ adv.city }} - {{ adv.neighborhood }} )</a></h4>
                         {% endif %}
-                    <h6>{{adv.type_of_residential}}</h6>
-                    
                     </div>
-                  <h5 class="mt-0">Custom component with stretched link</h5>
-                  <p>This is some placeholder content for the custom component. It is intended to mimic what some real-world content would look like, and we're using it here to give the component a bit of body and size.</p>
-                  <a href="{% url 'advertisements:advertisement_details_view' adv.id %}" class="stretched-link">{{ adv.title }}</a>
-                </div>
-              </div>
-              <hr>
-            {% endfor %}
-             
-    {% for adv in Advertisements %}
-        <div class="row border border-5">
-            <div class="col-4">
-                <div class="d-flex justify-content-start align-items-center">
-                    {% if not is_favored %}
-                      <a href="{% url 'accounts:add_favorite_view' adv.id %}" class="favored badge rounded-pill text-bg-danger"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                        </svg></h5></a>
-                      {% else %}
-                          <a href="{% url 'accounts:add_favorite_view' adv.id %}" class="favored badge rounded-pill text-bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"  class="bi bi-heart-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                        </svg></a>
-                    {% endif %}
-                </div>
-                <a href="{% url 'advertisements:advertisement_details_view' adv.id %}">{{ adv.title }}</a>
-                <h6 class="d-flex justify-content-start align-items-center"><span class="material-symbols-outlined"> payments</span>Price:{{ adv.price }}</h6>
-                <h6><span class="material-symbols-outlined">home_pin</span>city:{{ adv.city}} -  {{ adv.neighborhood }}</h6>
-                <div class="d-flex">
+                    <div>
+                        <h5 class="fst-italic text-dark-emphasis">Price: {{ adv.price }}</h5>
+                        <p class="fst-italic"> Date: {{ adv.advertisement_date.day }}/{{ adv.advertisement_date.month}}/{{ adv.advertisement_date.year }}</p>
+                    </div>
+                  <div class="d-flex justify-content-start gap-1">
                     {% if adv.gender == 'Male' %}
                     <span class="material-symbols-outlined">man</span>
                     {% else %}
                     <span class="material-symbols-outlined">woman</span>
                     {% endif %}
-                    <h6>{{adv.gender}}</h6>
-                </div>          
-                <div class="d-flex align-items-center">
-                    <span class="material-symbols-outlined">person_search</span>
-                    <h6>Favred age: From {{adv.min_age}} to {{adv.max_age}} </h6>
-                </div>
-                <div class="d-flex align-items-center gap-1">
-                    <span class="material-symbols-outlined">timer</span>
-                    <h6>The Duration :{{adv.duration_residence}} {{adv.type_of_duration}}</h6>
-                    </div>        
-                <div class="d-flex align-items-center gap-1">
+                    <p>{{adv.gender}}</p>
+                    <h5>|</h5>
+                    <span class="material-symbols-outlined">bedroom_child</span>
+                    <p>Room: {{adv.rooms_number}}</p>
+                    <h5>|</h5>
                     <span class="material-symbols-outlined">dishwasher_gen</span>
                     {% if adv.dishwasher == True %}
-                    <h6>Dishwasher:Yes</h6>
+                    <p>Dishwasher:Yes</p>
                     {%else%}
-                    <h6>Dishwasher:No</h6>
+                    <p>Dishwasher:No</p>
                     {%endif%}
-                </div>
-                <div class="d-flex align-items-center gap-1">
+                    <h5>|</h5>
                     <span class="material-symbols-outlined">local_laundry_service</span>
                     {% if adv.washing_machine == True %}
-                    <h6>Washing machine:Yes</h6>
+                    <p>Washing machine:Yes</p>
                     {%else%}
-                    <h6>Washing machine:No</h6>
+                    <p>Washing machine:No</p>
                     {%endif%}
-                </div>
-                                
-                <div class="d-flex align-items-center gap-1">
+                    <h5>|</h5>
                     <span class="material-symbols-outlined">kitchen</span>
                     {% if adv.has_kitchen == True %}
-                    <h6>Kitchen:Yes</h6>
+                    <p>Kitchen:Yes</p>
                     {%else%}
-                    <h6>Kitchen:No</h6>
+                    <p>Kitchen:No</p>
                     {%endif%}
-                </div>
-                                
-                <div class="d-flex align-items-center gap-1">
-                    <span class="material-symbols-outlined">bedroom_child</span>
-                    <h6>Room: {{adv.rooms_number}}</h6>
-                </div>
-                                
-                <div class="d-flex align-items-center gap-1">
-                    {% if adv.smoke_allowed == False %}
-                    <span class="material-symbols-outlined">smoke_free</span>
-                    <h6>Not allowed</h6>
-                    {% else %}
-                    <span class="material-symbols-outlined">smoking_rooms</span>
-                    <h6>Allowed.</h6>
-                    {% endif %}
-                </div>
-                                
-                <div class="d-flex align-items-center gap-1">
+                  </div>
+                  <div class="d-flex justify-content-start gap-1">
                     <span class="material-symbols-outlined">pets</span>
                     {% if adv.animal_allowed == False %}
-                    <h6>Not allowed</h6>
+                    <p>Not allowed</p>
                     {% else %}
-                    <h6>Allowed</h6>
+                    <p>Allowed</p>
                     {% endif %}
-                </div>
-                                
-                <div class="d-flex align-items-center gap-1">
-                    <span class="material-symbols-outlined">group</span>
-                    <h6>Number of people: {{adv.number_of_people}}</h6>
-                </div>
-                                
-                <div class="d-flex align-items-center gap-1">
+                    <h5>|</h5>
+                    {% if adv.smoke_allowed == False %}
+                    <span class="material-symbols-outlined">smoke_free</span>
+                    <p>Not allowed</p>
+                    {% else %}
+                    <span class="material-symbols-outlined">smoking_rooms</span>
+                    <p>Allowed.</p>
+                    {% endif %}
+                    <h5>|</h5>
                     {% if adv.type_of_residential == 'House' %}
                     <span class="material-symbols-outlined">home</span>
                     {% elif adv.type_of_residential == 'Room' %}
@@ -244,20 +181,25 @@
                     {%else%}
                     <span class="material-symbols-outlined">apartment</span>
                     {% endif %}
-                <h6>{{adv.type_of_residential}}</h6>
+                    <p>{{adv.type_of_residential}}</p>
+                    <h5>|</h5>
+                    <span class="material-symbols-outlined">timer</span>
+                    <p>The Duration :{{adv.duration_residence}} {{adv.type_of_duration}}</p>
                 </div>
-            </div>
-            <div class="col-6">
-                <img src="{{ adv.image.url }}" class="object-fit-none border rounded" style="height: 100px; width: 200px;" alt="image">
-            </div>
+                    <div class="d-flex justify-content-start gap-1">
+                    <span class="material-symbols-outlined">person_search</span>
+                    <p>Favred age: From {{adv.min_age}} to {{adv.max_age}} </p>
+                    <h5>|</h5>
+                    <span class="material-symbols-outlined">group</span>
+                    <p>Number of people: {{adv.number_of_people}}</p>
+                  </div>
+                  <p>Note:{{ adv.note }}</p>
+                </div>
+              </div>
+              <hr>
+            {% endfor %}
         </div>
-    <hr>
-{% endfor %}
-
-        </div>
-
     </div>
-
 </div>
 
 
