@@ -61,11 +61,11 @@
 border-radius: 20px;
 }
 
-
 #map {
-    width: 600px;
+    width: 100%;
     height: 400px;
 }
+
 
 
 .footer{
@@ -168,3 +168,22 @@ background-color: #ffffff;
 }
 
 }
+
+.image-container{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gallery{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    grid-gap:15px
+}
+.gallery img{
+    width: 100%;
+
+}
+
+

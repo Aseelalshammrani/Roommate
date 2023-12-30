@@ -56,12 +56,6 @@
         <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
     </div>
     {% endfor %}
-    <h5>Rooms number</h5>
-    <input class="form-control" type="number" name="rooms_number" placeholder="" required/>
-    <h5>Bathroom</h5>
-    <input class="form-control" type="number" name="bathroom" placeholder="" required/>
-    <h5>Image</h5>
-    <input type="file" name="image"  class="form-control" accept="image/*" required/>
   </div>
 
   <div class="col">
@@ -90,18 +84,24 @@
     <label>Smoke allowed:</label>
     <input type="checkbox" name="smoke_allowed" id="smoke_allowed" value="True">
     <br>
-
-    <h4>Specify the location</h4>
-    <div id="map" class=""></div> 
+    <h5>Rooms number</h5>
+    <input class="form-control" type="number" name="rooms_number" placeholder="" required/>
+    <h5>Bathroom</h5>
+    <input class="form-control" type="number" name="bathroom" placeholder="" required/>
+    <h5>Image</h5>
+    <input type="file" name="image"  class="form-control" accept="image/*" required/>
   </div>
-    <input class="btn btn-success my-3" type="submit" value="Add Advertisement" />
-
-
-</form>
-
+   
 </div>
 
-
+<div class="row">
+  <h4>Specify the location</h4>
+  <div id="map"></div> 
+</div>
+<div class="row">
+<input class="btn btn-success my-3" type="submit" value="Add Advertisement" />
+</div>
+</form>
 </div>
 
 

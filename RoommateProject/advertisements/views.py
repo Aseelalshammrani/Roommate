@@ -62,13 +62,11 @@ def browse_advertisements_view(request:HttpRequest):
 
 def advertisement_details_view(request:HttpRequest,advertisement_id):
     advertisement=Advertisement.objects.get(id=advertisement_id)
-    is_requested=request.user.is_authenticated and Rent_Request.objects.filter(advertisement=advertisement).first()
+    is_requested=request.user.is_authenticated and Rent_Request.objects.filter(user=request.user,advertisement=advertisement).exists()
     advertisement_images=Advertisement_Image.objects.filter(advertisement=advertisement)
     is_favored = request.user.is_authenticated and Favorite.objects.filter(advertisement=advertisement, user=request.user).exists()
     reviews = Review.objects.filter(advertisement= advertisement)
     reviews_avg = Review.objects.filter(advertisement=advertisement).aggregate(Avg("rating"))["rating__avg"]
-
-
     return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested,"is_favored":is_favored,'advertisement_images':advertisement_images,"reviews" : reviews,"reviews_avg": reviews_avg})
 
 
