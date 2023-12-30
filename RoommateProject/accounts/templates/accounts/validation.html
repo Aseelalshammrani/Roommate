@@ -5,10 +5,10 @@
 
 {% block content %}
 <style>
-    body{
-        background-color: rgba(188, 222, 247, 0.836);
-    }
-    
+  body{
+      background-color: rgba(202, 223, 238, 0.767);   
+  }
+  
     </style>
 <div class="">
     <div class="row">
@@ -36,9 +36,7 @@
                 <li><a href="{% url 'accounts:validate_detail_view' user.id %}" class="btn  mt-2 ">Validation status</a></li>
             </ul>
         </div>
-           
         </div>
-       
 
     <div class="col-md-8">
         {% if msg %}

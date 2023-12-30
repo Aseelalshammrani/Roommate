@@ -7,8 +7,7 @@
 
 <style>
 body{
-    background-color: rgba(202, 223, 238, 0.767);
-    
+    background-color: rgba(219, 201, 160, 0.767);   
 }
 
 
@@ -22,6 +21,7 @@ body{
                 <div class="d-flex flex-column gap-1">
                     <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
                     <div class="d-flex align-items-center justify-content-center gap-2">
+                        
                         <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
                     </div>
                 </div>
@@ -70,6 +70,7 @@ body{
  </div>
 
  {% endif %}
+
 
 
     {% if not request.user.id == user.id %}
