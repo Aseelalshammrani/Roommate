@@ -62,6 +62,9 @@ def advertisement_filter_view(request:HttpRequest):
         #gender
         if gender:
             adv = adv.filter(gender=gender)
+        #type_of_duration
+        if type_of_duration:
+            adv = adv.filter(type_of_duration=type_of_duration)
         #min age
         if is_valid_queryparam(min_age):
             adv = adv.filter(min_age__icontains=min_age)
@@ -73,9 +76,6 @@ def advertisement_filter_view(request:HttpRequest):
             adv = adv.filter(price__gte=price_min)
         if is_valid_queryparam(price_max):
             adv = adv.filter(price__lte=price_max)
-        #type_of_duration
-        if type_of_duration:
-            adv = adv.filter(type_of_duration=type_of_duration)
         #has_kitchen
         if has_kitchen:
             adv = adv.filter(has_kitchen=True)
