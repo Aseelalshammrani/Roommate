@@ -55,20 +55,17 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'main:contact_us_view' %}">Contact us</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'accounts:login_user_view' %}">login</a></li>
-                  {% if request.user.is_authenticated %}
-                  <li><a class="dropdown-item" href="{% url 'accounts:logout_user_view' %}">logout</a></li>
-                  <li><a class="dropdown-item" href="{% url 'accounts:user_profile' request.user.id %}">Profile</a></li>
-                  {% endif %}
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:login_user_view' %}">login</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:logout_user_view' %}">logout</a>
+              </li>
+              {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:user_profile' request.user.id %}">Profile</a>
+              </li>
+              {% endif %}
             </ul>
             <form class="d-flex" role="search" action="{% url 'advertisements:search' %}" method="GET">
               <input class="form-control me-sm-2"  type="search" name="search" placeholder="Search...">
@@ -81,7 +78,6 @@
 
     {% endblock %}
 
-    
     
 <footer class="footer">
   <div class="container-footer">
