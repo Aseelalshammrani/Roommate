@@ -6,7 +6,21 @@
 <style>
   body{
     background-color: rgba(210, 201, 182, 0.643);  }
-  
+    h1{
+  color:rgba(153, 144, 120, 0.984) ;
+}
+.card{
+  background-color: rgba(220, 208, 175, 0.331);
+}
+
+.title {
+  list-style-type: none;
+  display: inline-block;
+  border-bottom: none;
+  align-items: center;
+  text-decoration: none; 
+  color: #2a2929;
+}
   
   </style>
       <div class="">
@@ -51,38 +65,44 @@
                         {{ msg }}
                         </div>
                     {% endif %}
+                    <h1 class="d-flex flex-column justify-content-center align-items-center">My Roommate</h1>
+
                       <div class="col">
                           {% for receive in receives %}
-                          <div class="card mb-3" style="max-width: 540px;">
+                          <div class="card mb-3" style="max-width: 940px;">
                               <div class="row g-0">
-                                <div class="col-md-4">
-                                  <img src="{{receive.advertisement.image.url}}" class="img-fluid rounded-start" alt="...">
+                                <div class="col-4">
+                                  <img src="{{receive.advertisement.image.url}}" class="img-fluid rounded-start" >
                                 </div>
-                                <div class="col-md-8">
-                                  <div class="card-body">
-                                    <h5 class="card-title"><a href="{% url 'advertisements:advertisement_details_view' receive.advertisement.id %}">{{receive.advertisement.title}}</a></h5>
+                                <div class="col-8">
+                                  <div class="row g-0">
+                                      <div class="col-8 part1">
+                                          <div class="card-body">
+                                    <h5 class="card-title"><a class="title"  href="{% url 'advertisements:advertisement_details_view' receive.advertisement.id %}">{{receive.advertisement.title}}</a></h5>
                                     <p class="card-text">{{receive.user.username}}</p>
-                                    
+                                    <p class="card-text">{{receive.created_at}}</p>
+                                  </div>
+                                </div>
+                                <div class="col-2 part2 mt-4 " style="margin-bottom: 2px;">
                                     <form action="{% url 'accounts:accept_rent_request' receive.id %}" method="get">
                                                       
                                   {% for key, value in order_status.choices %}
               
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="order_status_choice" id="{{key}}" value="{{value}}" {% if receive.order_status_choice == key %} checked {% endif %}>
-                                        <label class="form-check-label" for="{{key}}">{{value}}</label>
-                                    </div>
+                                  <div class="form-check choices">
+                                    <input class="form-check-input" type="radio" name="order_status_choice" id="{{ key }}" value="{{ value }}" {% if receive.order_status_choice == key %} checked {% endif %}>
+                                    <label class="form-check-label" for="{{ key }}">{{ value }}</label>
+                                </div>
               
                                   {%endfor%}
-                                    <input type="submit" />
+                                    <input class="btn mt-1 " type="submit" />
                                   </form>
-                                    <p class="card-text">{{receive.created_at}}</p>
-                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                                   </div>
                                 </div>
-                              </div>
                             </div>
-                            {% endfor %}
-                      </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
               
                   </div>
               </div>

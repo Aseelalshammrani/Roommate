@@ -9,6 +9,12 @@
 body{
     background-color: rgba(210, 201, 182, 0.643);    
 }
+h1{
+  color:rgba(153, 144, 120, 0.984) ;
+}
+.review_p{
+    background-color: rgba(107, 121, 147, 0.364);
+}
 
 
 </style>
@@ -49,12 +55,12 @@ body{
             <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
                 
             {% if user.review_set.count > 0 %}
-            <section class="row mt-5">
-              <h2>Reviews ({{user.review_set.count}}):</h2>
-                <div class="col">
+            <section class="row ">
+              <h1>Reviews ({{user.review_set.count}}):</h1>
+                <div class="col ">
                   <div class="d-flex flex-column gap-2 ">
                     {% for review in user.review_set.all %}
-                    <div class="d-flex flex-column gap-2 border border-1 p-3">
+                    <div class="d-flex flex-column gap-2 border border-1 p-3 ">
                         <div class=" d-flex align-items-center g-4">
                       <a href="{% url 'accounts:user_profile' user_id=review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
                     </div>

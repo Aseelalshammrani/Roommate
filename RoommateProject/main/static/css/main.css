@@ -47,11 +47,10 @@
     
 }
 .username{
-    background-color:  rgb(124, 146, 172);
+    background-color: rgba(170, 161, 138, 0.899);
     color: rgb(255, 255, 255);
     padding: 2%;
     width: 50%;
-  
     height: 20px;
  
 }
@@ -76,7 +75,7 @@ border-radius: 20px;
 
 .footer{
 background-color:lightslategray;
-margin-top: 100px;
+margin-top: 50px;
 padding: 20px 0;
 }
 

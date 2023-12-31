@@ -1,11 +1,107 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Rent requset {% endblock %}
+{% block title %}My requset {% endblock %}
 {% block content %}
 <style>
   body{
     background-color: rgba(210, 201, 182, 0.643);  }
   
+
+.finish{
+  border-color: rgb(32, 30, 30);
+  box-sizing: content-box;
+  background-color: rgba(148, 143, 143, 0.33);
+  height: 10%;
+  border-radius: 20px;
+
+  border-style: solid;
+  border-width: 1px;
+  
+}
+.finish h3{
+  color: rgb(86, 81, 81);
+}
+
+.cancel{
+  padding-left: 100%;
+  padding-bottom: 10px;
+ 
+}
+.cancelp{
+  background-color: rgb(58, 102, 172);
+}
+.canceld{
+  background-color:rgb(168, 10, 10) ;
+}
+.cancela{
+  background-color:rgb(11, 94, 44);
+}
+.cancelf{
+  background-color:rgb(86, 81, 81);
+}
+
+
+.denied{
+  
+  box-sizing: content-box;
+  background-color: rgba(228, 193, 193, 0.722);
+  height: 10%;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: rgb(194, 9, 9);
+  border-width: 1px;
+}
+.denied h3{
+  color: rgb(168, 10, 10);
+}
+.img{
+  height: 100%;
+  width: 400px;
+ 
+  
+}
+.Pending{
+  border-color: rgb(9, 84, 105);
+  box-sizing: content-box;
+  background-color: rgba(202, 222, 229, 0.648);
+  height: 10%;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+}
+.Pending h3{
+  color: rgb(58, 102, 172);
+}
+.Approved{
+  border-color: rgb(9, 87, 28);
+  box-sizing: content-box;
+  background-color: rgba(202, 229, 207, 0.648);
+  height: 10%;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+
+}
+.Approved h3{
+  color: rgb(11, 94, 44);
+}
+h1{
+  color:rgba(153, 144, 120, 0.984) ;
+}
+.content{
+  margin-bottom: 2%;
+}
+
+
+
+.title {
+  list-style-type: none;
+  display: inline-block;
+  border-bottom: none;
+  align-items: center;
+  text-decoration: none; 
+  color: #2a2929;
+}
 
 
   </style>
@@ -43,59 +139,227 @@
                  
               </div>
              
-          <div class="col-md-8">
-              <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
-        
-              {% if requset.order_status_choice == Approved %}
-              <h1>{{requset.order_status_choice}}</h1>
-
-              <h1>Approved</h1>
-
-              {%endif%}
-        
+    <div class="col-md-8 content">
+        <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
+          <h1 class="d-flex flex-column justify-content-center align-items-center">My requestes</h1>
+          {% if requsets.count == 0 %}
+          <div class="alert alert-dark">You don't have any requsets yet.</div>
+          {% endif %}
+          {% for requset in requsets %}
+              {% if requset.order_status_choice == "Pending" %}
+              <div class="Pending mt-3 ">
+                <div class="  mb-8" style="max-width:900px;">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img src="{{requset.advertisement.image.url}}" class="img img-fluid align-items-center " height="100%" alt="...">
+                    </div>
+                    <div class="col-md-6 " style="margin-left:4%;">
+                      <div class="card-body">
+                        <h4 class="card-title mt-3 "><a class="title"  href="{% url 'advertisements:advertisement_details_view' requset.advertisement.id %}">{{requset.advertisement.title}}</a></h4>
+                        <div class="d-flex align-items-center  gap-1">
+                          {% if advertisement.type_of_residential == 'House' %}
+                          <span class="material-symbols-outlined">home</span>
+                          {% elif advertisement.type_of_residential == 'Room' %}
+                          <span class="material-symbols-outlined">night_shelter</span>
+                          {%else%}
+                          <span class="material-symbols-outlined">apartment</span>
+                          {% endif %}
+                          <h5 class="mt-2">{{requset.advertisement.type_of_residential}} in {{requset.advertisement.neighborhood}},{{requset.advertisement.city}}</h5>
+                      </div>
+                      <div class="row">
+                        <div class=" justify-content-between">
+                        <div class="align-items-center gap-1">
+                          <div class="d-flex align-items-center">
+                          {% if requset.advertisement.gender == 'Male' %}<br>
+                          <span class="material-symbols-outlined">man</span><br>
+                          {% else %}
+                          <span class="material-symbols-outlined">woman</span>
+                          {% endif %}
+                          <h5 class="mt-2">{{requset.advertisement.gender}}</h5>
+                        </div>
+                        </div>
+                        <h5>Price {{requset.advertisement.price}} SAR</h5>
+                        </div>
+                        </div>
+                      <div class="status">
+                        <div class="d-flex align-items-center gap-1  ">
+                          <h4 style="color: rgb(54, 52, 52);">Order status:</h4>
+                          <h3><strong>{{requset.order_status_choice}}</strong></h3>
+                        </div>
+                      </div>
+                      </div>
+                      <div class="cancel">
+                        <a class="btn btn-light cancelp" data-bs-toggle="modal" data-bs-target="#cancelrequest">Cancel</a>
   
-                {% for requset in requsets %}
-                <div class="card mb-8" style="max-width: 840px;">
-                    <div class="row g-0">
-                      <div class="col-md-4">
-                        <img src="{{requset.advertisement.image.url}}" class="img-fluid rounded-start" alt="...">
+                      </div> 
+            {% elif requset.order_status_choice == "Approved" %}
+            <div class="Approved mt-3 ">
+              <div class="  mb-8" style="max-width:900px;">
+                <div class="row g-0">
+                  <div class="col-md-5">
+                    <img src="{{requset.advertisement.image.url}}" class="img img-fluid align-items-center" height="100%" alt="...">
+                  </div>
+                  <div class="col-md-6 " style="margin-left:4%;">
+                    <div class="card-body">
+                      <h4 class="card-title mt-3"><a class="title" href="{% url 'advertisements:advertisement_details_view' requset.advertisement.id %}">{{requset.advertisement.title}}</a></h4>
+                      <div class="d-flex align-items-center  gap-1">
+                        {% if advertisement.type_of_residential == 'House' %}
+                        <span class="material-symbols-outlined">home</span>
+                        {% elif advertisement.type_of_residential == 'Room' %}
+                        <span class="material-symbols-outlined">night_shelter</span>
+                        {%else%}
+                        <span class="material-symbols-outlined">apartment</span>
+                        {% endif %}
+                        <h5 class="mt-2">{{requset.advertisement.type_of_residential}} in {{requset.advertisement.neighborhood}},{{requset.advertisement.city}}</h5>
+                    </div>
+                    <div class="row">
+                      <div class=" justify-content-between">
+                      <div class="align-items-center gap-1">
+                        <div class="d-flex align-items-center">
+                        {% if requset.advertisement.gender == 'Male' %}<br>
+                        <span class="material-symbols-outlined">man</span><br>
+                        {% else %}
+                        <span class="material-symbols-outlined">woman</span>
+                        {% endif %}
+                        <h5 class="mt-2">{{requset.advertisement.gender}}</h5>
                       </div>
-                      <div class="col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title"><a href="{% url 'advertisements:advertisement_details_view' requset.advertisement.id %}">{{requset.advertisement.title}}</a></h5>
-                          <p class="card-text"></p>
-                          <h1>{{requset.order_status_choice}}</h1>
-                         
+                      </div>
+                      <h5>Price {{requset.advertisement.price}} SAR</h5>
+                      </div>
+                      </div>
+                    <div class="status">
+                      <div class="d-flex align-items-center gap-1  ">
+                        <h4 style="color: rgb(54, 52, 52);">Order status:</h4>
+                        <h3><strong>{{requset.order_status_choice}}</strong></h3>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="cancel">
+                      <a class="btn btn-light cancela" data-bs-toggle="modal" data-bs-target="#cancelrequest">Cancel</a>
 
-                          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                          <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelrequest">Delete</a>
-                        </div>
+                    </div> 
+                {% elif requset.order_status_choice == "Denied" %}
+                <div class="denied mt-3 ">
+                  <div class="  mb-8" style="max-width:900px;">
+                    <div class="row g-0">
+                      <div class="col-md-5">
+                        <img src="{{requset.advertisement.image.url}}" class="img img-fluid align-items-cente" alt="...">
                       </div>
+                <div class="col-md-6 " style="margin-left:4%;">
+                  <div class="card-body">
+                    <h4 class="card-title mt-3"><a class="title" href="{% url 'advertisements:advertisement_details_view' requset.advertisement.id %}">{{requset.advertisement.title}}</a></h4>
+                    <div class="d-flex align-items-center  gap-1">
+                      {% if advertisement.type_of_residential == 'House' %}
+                      <span class="material-symbols-outlined">home</span>
+                      {% elif advertisement.type_of_residential == 'Room' %}
+                      <span class="material-symbols-outlined">night_shelter</span>
+                      {%else%}
+                      <span class="material-symbols-outlined">apartment</span>
+                      {% endif %}
+                      <h5 class="mt-2">{{requset.advertisement.type_of_residential}} in {{requset.advertisement.neighborhood}},{{requset.advertisement.city}}</h5>
+                  </div>
+                  <div class="row">
+                    <div class=" justify-content-between">
+                    <div class="align-items-center gap-1">
+                      <div class="d-flex align-items-center">
+                      {% if requset.advertisement.gender == 'Male' %}<br>
+                      <span class="material-symbols-outlined">man</span><br>
+                      {% else %}
+                      <span class="material-symbols-outlined">woman</span>
+                      {% endif %}
+                      <h5 class="mt-2">{{requset.advertisement.gender}}</h5>
+                    </div>
+                    </div>
+                    <h5>Price {{requset.advertisement.price}} SAR</h5>
+                    </div>
+                    </div>
+                  <div class="status">
+                    <div class="d-flex align-items-center gap-1  ">
+                      <h4 style="color: rgb(54, 52, 52);">Order status:</h4>
+                      <h3><strong>{{requset.order_status_choice}}</strong></h3>
                     </div>
                   </div>
-                  <div class="modal fade" id="cancelrequest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="cancelrequest">Cancel Request</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to Cancel Request?
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                          <a href="{% url 'accounts:cancel_rent_request' requset.id %}" class="btn btn-danger">Yes, I want to Cancel it.</a>
-                        </div>
+                  </div>
+                  <div class="cancel">
+                    <a class="btn btn-light canceld" data-bs-toggle="modal" data-bs-target="#cancelrequest">Cancel</a>
+
+                  </div> 
+              {% elif requset.order_status_choice == "Finish" %}
+              <div class="finish mt-3 ">
+              <div class="  mb-8" style="max-width:900px;">
+                <div class="row g-0">
+                  <div class="col-md-5">
+                    <img src="{{requset.advertisement.image.url}}" class="img img-fluid align-items-center" height="100%" alt="...">
+                  </div>
+                  <div class="col-md-6 " style="margin-left:4%;">
+                    <div class="card-body">
+                      <h4 class="card-title mt-3"><a class="title" href="{% url 'advertisements:advertisement_details_view' requset.advertisement.id %}">{{requset.advertisement.title}}</a></h4>
+                      <div class="d-flex align-items-center  gap-1">
+                        {% if advertisement.type_of_residential == 'House' %}
+                        <span class="material-symbols-outlined">home</span>
+                        {% elif advertisement.type_of_residential == 'Room' %}
+                        <span class="material-symbols-outlined">night_shelter</span>
+                        {%else%}
+                        <span class="material-symbols-outlined">apartment</span>
+                        {% endif %}
+                        <h5 class="mt-2">{{requset.advertisement.type_of_residential}} in {{requset.advertisement.neighborhood}},{{requset.advertisement.city}}</h5>
+                    </div>
+                    <div class="row">
+                      <div class=" justify-content-between">
+                      <div class="align-items-center gap-1">
+                        <div class="d-flex align-items-center">
+                        {% if requset.advertisement.gender == 'Male' %}<br>
+                        <span class="material-symbols-outlined">man</span><br>
+                        {% else %}
+                        <span class="material-symbols-outlined">woman</span>
+                        {% endif %}
+                        <h5 class="mt-2">{{requset.advertisement.gender}}</h5>
+                      </div>
+                      </div>
+                      <h5>Price {{requset.advertisement.price}} SAR</h5>
+                      </div>
+                      </div>
+                    <div class="status">
+                      <div class="d-flex align-items-center gap-1  ">
+                        <h4 style="color: rgb(54, 52, 52);">Order status:</h4>
+                        <h3><strong>{{requset.order_status_choice}}</strong></h3>
                       </div>
                     </div>
+                    
+                    </div>
+                    <div class="cancel">
+                      <a class="btn btn-light cancelf" data-bs-toggle="modal" data-bs-target="#cancelrequest">Cancel</a>
+
+                    </div> 
+                    {%endif%}
+                 
                   </div>
-                
-                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="cancelrequest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="cancelrequest">Cancel Request</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      Are you sure you want to Cancel Request?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="{% url 'accounts:cancel_rent_request' requset.id %}" class="btn btn-danger">Yes, I want to Cancel it.</a>
+                  </div>
+                </div>
               </div>
             </div>
           
-          </div>
+            {% endfor %}
+        </div>
+      </div>
+    
+    </div>
    </div>
   
 
