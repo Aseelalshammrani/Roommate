@@ -15,7 +15,6 @@ def home_page(request: HttpRequest):
         "advertisements": advertisements,
         "reviews": reviews,
     }
-
     return render(request, "main/home.html", context)
 
 

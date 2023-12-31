@@ -1,23 +1,27 @@
 {% extends 'main/base.html' %}
+{% load static %}
+
 {% block title %}Home{% endblock%}
 {% block content%}
 
 
-<div class="d-flex justify-content-between text-center">
-<h1 class="display-3 mt-3 p-3">Welcome to Roommate Website</h1>
+
+<div class="wrapper homepage-content">
+    <div class="sub-content">
+        <h1 class="title display-1">ROOMMATE</h1>
+        <p class="display-6 bg-success-subtle">Find your perfect match... for your apartment.</p>
+        <form role="search" action="{% url 'advertisements:search' %}" method="GET">
+            <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+        </form>
+    </div>
 </div>
 
-<hr/>
-
+<hr>
 <div class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="sub-text col-12">
             <h1>About us:</h1>
-            <p>Short paragraph</p>
-            test
-        </div>
-        <div class="col-6">
-            test
+            <p>our intuitive platform connects you with compatible roommates based on shared interests, lifestyle preferences, and even cleaning habits. Imagine finding someone who loves board games as much as you do, respects your quiet mornings, and splits the grocery bill without a flinch. That's the roommate website magic. So ditch the solo apartment hunt and join our community. Your ideal co-pilot awaits, ready to embark on the adventure of shared living.</p>
         </div>
     </div>
 </div>
@@ -25,13 +29,22 @@
 <hr>
 <div class="container">
     <div class="row">
-        <div class="col-6">
-            <h1>Our features:</h1>
-            <p>Short paragraph</p>
-            test
-        </div>
-        <div class="col-6">
-            test
+        <div class="sub-text col-12">
+            <h1 class="text-center mb-4">Our features</h1>
+            <div class="d-flex justify-content-evenly align-items-center">
+                <div class="text-img">
+                    <img src="{% static 'images/dinner-table.jpg' %}" style="width: 300px; height: 400px;" class="shadow p-3 mb-5 bg-body-tertiary rounded" alt="room">
+                    <h3>Exclusive prices</h3>
+                </div>
+                <div class="text-img">
+                    <img src="{% static 'images/washing-room.jpg' %}" style="width: 300px; height: 400px;" class="shadow p-3 mb-5 bg-body-tertiary rounded" alt="room">
+                    <h3>Room type</h3>
+                </div>
+                <div class="text-img">
+                    <img src="{% static 'images/room2.jpg' %}" style="width: 300px; height: 400px;" class="shadow p-3 mb-5 bg-body-tertiary rounded" alt="room">
+                    <h3>Living space</h3>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -44,9 +57,10 @@
 </div>
 {% endfor %}
 </div>
+<hr>
 </div>
 <div class="container">
-<h1 class="text-center my-3">All advertisements</h1>
+<h1 class="adv-title text-center">All advertisements</h1>
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for advertisement in advertisements %}
     <div class="col">
@@ -54,11 +68,11 @@
         <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="..."></a>
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-            <h5 class="card-title">{{advertisement.title}}</h5>
+            <h5 class="adv-title card-title">{{ advertisement.title}}-{{advertisement.city}}</h5>
             {% if advertisement.user.validation.validated == True %}
-            <h6 class="d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
+            <h6 class="adv-title d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
             {% else %}
-            <h6 class="d-flex justify-content-center align-items-center text-secondary">{{ advertisement.user.first_name }}</h6>
+            <h6 class="adv-title d-flex justify-content-center align-items-center text-secondary">{{ advertisement.user.first_name }}</h6>
             {% endif %}
             </div>  
             <div class="d-flex align-items-center gap-1">
@@ -73,7 +87,7 @@
             </div>
             <div class="d-flex align-items-center">
             <span class="material-symbols-outlined">timer</span>
-            <h6 class="card-text">The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
+            <h6 class="adv-title card-text">The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
             </div>
         </div>
     </div>
@@ -82,14 +96,15 @@
 </div>
 </div>
 <hr>
-<h1 class="display-3">Reviews</h1>
-<div class="container1 shadow p-3 mb-5 bg-body-tertiary rounded">
+<h1 class="adv-title text-center">Reviews</h1>
+<div class="container">
     <div class="row">
       {% for review in reviews %}
-        <div class="col shadow p-3 mb-5 bg-body-tertiary rounded m-3 p-3 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-3">
+        <div class="col bg-warning p-2 text-dark bg-opacity-10 rounded-3 text-body-secondary p-4 m-4 ">
           <a href="{% url 'advertisements:advertisement_details_view' review.advertisement.id %}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h6>{{ review.event.title }}</h6></a>
-          <h6>Comment by : {{ review.user.first_name }}</h6></a>
-          <p>{{ review.content }}</p>
+          <h6 class="fw-normal">Reviewd by: {{ review.user.first_name }} {{ review.user.last_name }}</h6></a>
+          <hr>
+          <a class="link-offset-2 link-underline link-underline-opacity-0 text-body-secondary fst-italic" href="{% url 'advertisements:advertisement_details_view' review.advertisement.id %}"><h5>{{ review.content }}</h5></a>
           <div class="d-flex gap-1 align-items-center">
             <h6 class="p-0 m-0">{{ review.rating }}</h6>
             <span class="material-symbols-outlined">grade</span>
