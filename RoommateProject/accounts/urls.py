@@ -24,6 +24,7 @@ urlpatterns = [
      path('accept/rent/request/<rent_request_id>/',views.accept_rent_request,name='accept_rent_request'),
      path('cancel/rent/request/<rent_request_id>/',views.cancel_rent_request,name='cancel_rent_request'),
      path('my_comments',views.my_comments,name="my_comments"),
+     path('delete/favorite/<advertisement_id>',views.delete_favorite,name='delete_favorite')
      
 
 ]

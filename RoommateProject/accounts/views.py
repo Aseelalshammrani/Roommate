@@ -129,11 +129,14 @@ def add_favorite_view(request:HttpRequest, advertisement_id):
 
 
 def my_favorite_view(request: HttpRequest):
-
     favorites = Favorite.objects.filter(user=request.user)
-
     return render(request, 'accounts/my_favorite.html', {"favorites" : favorites})
 
+def delete_favorite(request: HttpRequest,advertisement_id):
+    advertisement = Advertisement.objects.get(id=advertisement_id)
+    favorite= Favorite.objects.filter(user=request.user,advertisement=advertisement)
+    favorite.delete()
+    return redirect('accounts:my_favorite_view')
 
 def validation_user_view(request: HttpRequest):
     msg =None
