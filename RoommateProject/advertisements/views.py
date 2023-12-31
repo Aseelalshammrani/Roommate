@@ -134,7 +134,7 @@ def update_advertisement_view(request:HttpRequest, advertisement_id):
             advertisement.save()
             return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
     except Exception as e:
-        msg = f"Unfortunately, we encountered an issue. Please try again later. {e}"
+        msg = f"Please ensure all required fields are complete and try again. {e}"
     return render(request,"advertisements/update_advertisement.html", {"advertisement": advertisement,'types_of_duration':Advertisement.types_of_duration,'types_of_residential':Advertisement.types_of_residential,'types_of_gender':Advertisement.types_of_gender,'msg':msg})
 
 

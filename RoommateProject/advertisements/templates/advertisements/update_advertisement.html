@@ -15,33 +15,33 @@
 <form action="{% url 'advertisements:update_advertisement_view' advertisement.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <h5>Title</h5>
-    <input class="form-control" type="text" name="title" value="{{advertisement.title}}"/>
+    <input class="form-control" type="text" name="title" value="{{advertisement.title}}" required minlength="6"/>
     <h5>Neighborhood</h5>
-    <input class="form-control" type="text" name="neighborhood" value="{{advertisement.neighborhood}}" />
+    <input class="form-control" type="text" name="neighborhood" value="{{advertisement.neighborhood}}" required minlength="4"/>
     <h5>Type of duration:</h5>
     {% for key, value in types_of_duration.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="type_of_duration" id="{{key}}" value="{{value}}" {% if advertisement.type_of_duration == key %} checked {% endif %}>
+        <input class="form-check-input" type="radio" name="type_of_duration" id="{{key}}" value="{{value}}" {% if advertisement.type_of_duration == key %} checked {% endif %} required>
         <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
     </div>
     {% endfor %}
     <h5>Duration of residence</h5>
-    <input class="form-control" type="number" name="duration_residence" value="{{advertisement.duration_residence}}" />
+    <input class="form-control" type="number" name="duration_residence" value="{{advertisement.duration_residence}}" required/>
     <h5>Type of residential</h5>
     {% for key, value in types_of_residential.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}" {% if advertisement.type_of_residential == key %} checked {% endif %}>
+        <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}" {% if advertisement.type_of_residential == key %} checked {% endif %} required>
         <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
     </div>
     {% endfor %}
     <h5>Area in metres</h5>
-    <input class="form-control" type="number" name="space" value="{{advertisement.space}}" />
+    <input class="form-control" type="number" name="space" value="{{advertisement.space}}" required/>
     <h5>Price</h5>
-    <input class="form-control" type="number" name="price" value="{{advertisement.price}}"/>
+    <input class="form-control" type="number" name="price" value="{{advertisement.price}}" required/>
     <h5>Gender:</h5>
     {% for key, value in types_of_gender.choices %}
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}" {% if advertisement.gender == key %} checked {% endif %}>
+        <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}" {% if advertisement.gender == key %} checked {% endif %} required>
         <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
     </div>
     {% endfor %}
@@ -51,14 +51,14 @@
 </div>
 <div class="col">
     <h5>Number of people</h5>
-    <input class="form-control" type="number" name="number_of_people" value="{{advertisement.number_of_people}}"/>
+    <input class="form-control" type="number" name="number_of_people" value="{{advertisement.number_of_people}}" required/>
     <h4>Favres age range</h4>
     <h5>Minimum age</h5>
-    <input class="form-control" type="number" name="min_age" value="{{advertisement.min_age}}"/>
+    <input class="form-control" type="number" name="min_age" value="{{advertisement.min_age}}" required/>
     <h5>Maximum age</h5>
-    <input class="form-control" type="number" name="max_age" value="{{advertisement.max_age}}"/>
+    <input class="form-control" type="number" name="max_age" value="{{advertisement.max_age}}" required/>
     <h5>Note</h5>
-    <textarea class="form-control" name="note">{{advertisement.note}}</textarea>
+    <textarea class="form-control" name="note" required minlength="10">{{advertisement.note}}</textarea>
     <h5>Features:</h5>
     <label>Animal allowed:</label>
     <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True" {% if advertisement.animal_allowed%} checked {% endif %}>
@@ -76,9 +76,9 @@
     <input type="checkbox" name="washing_machine" value="True" {% if advertisement.washing_machine%} checked {% endif %}>
     <br>
     <h5>Rooms number</h5>
-    <input class="form-control" type="number" name="rooms_number" value="{{advertisement.rooms_number}}"/>
+    <input class="form-control" type="number" name="rooms_number" value="{{advertisement.rooms_number}}" required/>
     <h5>Bathroom</h5>
-    <input class="form-control" type="number" name="bathroom" value="{{advertisement.bathroom}}"/>
+    <input class="form-control" type="number" name="bathroom" value="{{advertisement.bathroom}}"required/>
     <h5>Image</h5>
     <input type="file" name="image"  class="form-control" accept="image/*"/>
 </div>
