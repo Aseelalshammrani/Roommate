@@ -60,7 +60,7 @@ def browse_advertisements_view(request:HttpRequest):
     try:
         advertisements=Advertisement.objects.all()
     except Exception as e:
-        msg = f"Unfortunately, we encountered an issue. Please try again later. {e}"
+        msg = f"Unfortunately, we encountered an issue.{e}"
     return render(request,'advertisements/browse_advertisements.html',{'advertisements':advertisements,'msg':msg})
 
 
@@ -71,10 +71,14 @@ def advertisement_details_view(request:HttpRequest,advertisement_id):
         advertisement_images=Advertisement_Image.objects.filter(advertisement=advertisement)
         is_favored = request.user.is_authenticated and Favorite.objects.filter(advertisement=advertisement, user=request.user).exists()
         reviews = Review.objects.filter(advertisement= advertisement)
-        reviews_avg = Review.objects.filter(advertisement=advertisement).aggregate(Avg("rating"))["rating__avg"]
+        reviews_avg = None
+        formatted_reviews_avg = None
+        if reviews.exists():
+            reviews_avg = Review.objects.filter(advertisement=advertisement).aggregate(Avg("rating"))["rating__avg"]
+            formatted_reviews_avg = "{:.2f}".format(reviews_avg)
     except Exception:
         return redirect('main:not_found')
-    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested,"is_favored":is_favored,'advertisement_images':advertisement_images,"reviews" : reviews,"reviews_avg": reviews_avg})
+    return render(request,"advertisements/advertisement_details.html",{'advertisement':advertisement,'is_requested':is_requested,"is_favored":is_favored,'advertisement_images':advertisement_images,"reviews" : reviews,"reviews_avg": reviews_avg,'formatted_reviews_avg':formatted_reviews_avg})
 
 
 #Update advertisement
@@ -158,7 +162,7 @@ def search(request: HttpRequest):
         else:
             advertisements = Advertisement.objects.all()
     except Exception as e:
-        msg = f"Unfortunately, we encountered an issue. Please try again later. {e}"
+        msg = f"Unfortunately, we encountered an issue.{e}"
     return render(request, 'advertisements/search.html',  {"advertisements" : advertisements,'msg':msg})
 
 

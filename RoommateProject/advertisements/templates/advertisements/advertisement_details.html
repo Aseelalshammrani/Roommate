@@ -85,15 +85,10 @@
 <div class="row">
   <div class="d-flex justify-content-between">
   <div class="d-flex">
-    {% if reviews_avg %}
     <div class="d-flex align-items-center">
-  <h4>{{reviews_avg}}</h4>
-  <span class="material-symbols-outlined" style="color: goldenrod;">star_rate</span>
-  </div>
-  {% endif %}
-  {% if reviews%}
-  <h4>{{reviews.count}} Reviews</h4>
-  {%endif%}
+      <span class="material-symbols-outlined">person_search</span>
+      <h4>Favred age: From {{advertisement.min_age}} to {{advertisement.max_age}} </h4>
+      </div>
 </div>
 <div class="d-flex align-items-center gap-1">
   <span class="material-symbols-outlined">timer</span>
@@ -103,11 +98,16 @@
 </div>
 </div>
 <!--row-->
-<div>
-  <div class="d-flex align-items-center">
-    <span class="material-symbols-outlined">person_search</span>
-    <h4>Favred age: From {{advertisement.min_age}} to {{advertisement.max_age}} </h4>
-    </div>
+<div class="row">
+  {% if formatted_reviews_avg %}
+    <div class="d-flex align-items-center">
+  <h4>{{formatted_reviews_avg}}</h4>
+  <span class="material-symbols-outlined" style="color: goldenrod;">star_rate</span>
+  {% endif %}
+  {% if reviews%}
+  <h4>{{reviews.count}} Reviews</h4>
+  </div>
+  {%endif%}
 </div>
 <hr>
 <!--row-->
