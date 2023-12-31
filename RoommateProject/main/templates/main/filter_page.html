@@ -22,7 +22,6 @@
     {% endif %}
 <div class="col">
 <div>
-    <h1 class="display-3">Filter Advertisements</h1>
     <hr>
    
 </div>
@@ -34,53 +33,53 @@
         <div class="col-4 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
             <form action="{% url 'main:advertisement_filter_view'%}" method="GET">
                 {% csrf_token %}
-            <h3 class="display-6">Features:</h3>
-            <label>Age:</label>
+            <h4 class="display-6">Features:</h4>
+            <h5>Age:</h5>
             <div class="d-flex justify-content-start align-items-center">
-                <input type="search" name="min_age" placeholder="min_age" class="form-control border-success m-1" >
-                <input type="search" name="max_age" placeholder="max_age" class="form-control border-success m-1">
+                <input type="search" name="min_age" placeholder="mininum age" class="form-control border-warning m-1" >
+                <input type="search" name="max_age" placeholder="maximum age" class="form-control border-warning m-1">
             </div>
             <br>
         
-            <label>Price:</label>
+            <h5>Price:</h5>
             <div class="d-flex justify-content-start align-items-center">
-                <input type="search" name="price_min" placeholder="price min" class="form-control border-success m-1">
-                <input type="search" name="price_max" placeholder="price max" class="form-control border-success m-1">
+                <input type="search" name="price_min" placeholder="mininum price" class="form-control border-warning m-1">
+                <input type="search" name="price_max" placeholder="maximum price" class="form-control border-warning m-1">
             </div>
             <br>
-            <label>Number of people:</label>
-            <input type="search" name="number_of_people" placeholder="number_of_people" class="form-control border-success m-1">
+            <h5>Number of people:</h5>
+            <input type="search" name="number_of_people" placeholder="number of people" class="form-control border-warning m-1">
             <br>
-            <label>City:</label>
-            <input type="search" name="city" placeholder="city" class="form-control border-success m-1">
+            <h5>City:</h5>
+            <input type="search" name="city" placeholder="city" class="form-control border-warning m-1">
             <br>
-            <label>Rooms number:</label>
-            <input type="search" name="rooms_number" placeholder="rooms_number" class="form-control border-success m-1">
+            <h5>Rooms number:</h5>
+            <input type="search" name="rooms_number" placeholder="rooms_number" class="form-control border-warning m-1">
             <br>
-            <label>Bathroom:</label>
-            <input type="search" name="bathroom" placeholder="bathroom" class="form-control border-success m-1">
+            <h5>Bathroom:</h5>
+            <input type="search" name="bathroom" placeholder="bathroom" class="form-control border-warning m-1">
             <br>
-            <label>Neighborhood:</label>
-            <input type="search" name="neighborhood" placeholder="neighborhood" class="form-control border-success m-1">
+            <h5>Neighborhood:</h5>
+            <input type="search" name="neighborhood" placeholder="neighborhood" class="form-control border-warning m-1">
             <br>
-            <label>Duration residence:</label>
-            <input type="search" name="duration_residence" placeholder="duration_residence" class="form-control border-success m-1">
+            <h5>Duration residence:</h5>
+            <input type="search" name="duration_residence" placeholder="duration_residence" class="form-control border-warning m-1">
             <br>
-            <label>Types of duration:</label>
+            <h5>Types of duration:</h5>
             {% for key, value in types_of_duration.choices %}
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="type_of_duration" id="{{key}}" value="{{value}}">
                 <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
             </div>
             {% endfor %}
-            <label>Gender:</label>
+            <h5>Gender:</h5>
             {% for key, value in types_of_gender.choices %}
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="gender" id="{{key}}" value="{{value}}">
                 <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
             </div>
             {% endfor %}
-            <label>Type of residential:</label>
+            <h5>Type of residential:</h5>
             {% for key, value in types_of_residential.choices %}
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="type_of_residential" id="{{key}}" value="{{value}}">
@@ -104,7 +103,7 @@
             <input type="checkbox" name="animal_allowed" id="animal_allowed" value="True">
             <br>
             <div class="d-grid gap-2">
-                <input class="btn btn-success btn-lg m-4" type="submit" value="search"/>
+                <input class="butn m-2" type="submit" value="search"/>
               </div>
             </form>
         </div>
@@ -112,7 +111,7 @@
             {% for adv in Advertisements %}
             <div class="d-flex position-relative border border-3 rounded-3 shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                 <div>
-                    <img src="{{ adv.image.url }}" style="height:190px;width: 130px;" class="flex-shrink-0 me-3" alt="Home image">
+                    <img src="{{ adv.image.url }}" style="height:210px;width: 130px;" class="flex-shrink-0 me-3" alt="Home image">
                 </div>
                 <div>
                     <div class="d-flex align-items-center gap-1">
@@ -193,7 +192,6 @@
                     <span class="material-symbols-outlined">group</span>
                     <p>Number of people: {{adv.number_of_people}}</p>
                   </div>
-                  <p>Note:{{ adv.note }}</p>
                 </div>
               </div>
               <hr>

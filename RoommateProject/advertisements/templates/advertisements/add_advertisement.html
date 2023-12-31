@@ -9,9 +9,9 @@
     </div>
 {% endif %}
 </div>
-  <h1 class="text-center">Add new advertisement</h1>
-<div class="row my-3">
-  <div class="col">
+  <h1 class="text-center adv-title display-4">Add New Advertisement</h1>
+<div class="row my-3 gap-3">
+  <div class="col container-color p-3">
 <form action="{% url 'advertisements:add_advertisement_view'%}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <h5>Title</h5>
@@ -58,7 +58,7 @@
     {% endfor %}
   </div>
 
-  <div class="col">
+  <div class="col container-color p-3">
     <h5>Number of people</h5>
     <input class="form-control" type="number" name="number_of_people" placeholder="" required/>
     <h4>Favres age range</h4>
@@ -95,11 +95,11 @@
 </div>
 
 <div class="row">
-  <h4>Specify the location</h4>
+  <h4 class="adv-title display-6">Specify the location</h4>
   <div id="map"></div> 
 </div>
 <div class="row">
-<input class="btn btn-success my-3" type="submit" value="Add Advertisement" />
+<input class="btn my-3" type="submit" value="Add Advertisement" />
 </div>
 </form>
 </div>

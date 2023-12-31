@@ -10,14 +10,14 @@
     {% endif %}
     </div>
     <div class="row m-5 ">
-        <h3>Add some pictures about "{{advertisement.type_of_residential}}"</h3>
-        <div class="col">
-            <div class="d-flex flex-column card border-secondary mb-3 p-3 justify-content-center align-items-center">
+        <h3 class="adv-title display-6">Add some pictures about the "{{advertisement.type_of_residential}}"</h3>
+        <div class="col container-color">
+            <div class="d-flex flex-column mb-3 p-3 justify-content-center align-items-center">
                 <form class="d-flex flex-column gap-1"  style="width: 40vw;" action="{% url 'advertisements:add_images_to_advertisements' advertisement.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h5>Add Image:</h5>
                     <input type="file" name="image"  class="form-control" accept="image/*" required/>
-                    <button type="submit" class="btn-btn-primary">Upload image</button>
+                    <button type="submit" class="btn">Upload image</button>
                 </form>
                 
                 <a class="btn btn-secondary my-2" href="{% url 'advertisements:advertisement_details_view' advertisement.id %}">Skip</a>
