@@ -17,8 +17,12 @@
           <div class="d-flex flex-column gap-1">
               <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
               <div class="d-flex align-items-center justify-content-center gap-2">
-                  <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
-              </div>
+                        
+                <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
+                {% if user.validation.validated == True %}
+                <h6 class="d-flex justify-content-center align-items-center text-success"><span class="material-symbols-outlined">verified</span></h6>
+                {% endif %}
+            </div>
           </div>
       <div class="transitions2">
         <ul class="gap-1 mt-5 mx-1 transitions2">
@@ -56,13 +60,13 @@
         <div class="container1 m-5 p-5">
           <div class="row">
             {% for fav in favorites %}
-            <div class="col-3 t">
-              <div class="card shadow p-3 mb-5 bg-body-tertiary rounded text-center" style="width: 20rem; height: 24rem;">
+            <div class="col-6  t">
+              <div class="card shadow p-3 mb-5 bg-body-tertiary rounded text-center" style="width: 20rem; height: 30rem;">
                 <img src="{{ fav.advertisement.image.url }}" class="card-img-top" style="width: 18rem; height: 24rem;" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ fav.advertisement.title }}</h5>
                   <h5 class="fw-lighter">{{ fav.advertisement.category }}</h5>
-                  <a href="{% url 'advertisements:advertisement_details_view' fav.advertisement.id %}" class="btn btn-secondary">Advertisement Detail</a>
+                  <a href="{% url 'advertisements:advertisement_details_view' fav.advertisement.id %}" class="btn btn-secondary" style="margin-bottom: 5px;">Advertisement Detail</a>
                 </div>
               </div>
             </div>

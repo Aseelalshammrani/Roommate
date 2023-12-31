@@ -6,7 +6,8 @@
   body{
     background-color: rgba(210, 201, 182, 0.643);  }
   
-  
+
+
   </style>
 
       <div class="">
@@ -17,8 +18,12 @@
                   <div class="d-flex flex-column gap-1">
                       <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
                       <div class="d-flex align-items-center justify-content-center gap-2">
-                          <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
-                      </div>
+                        
+                        <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
+                        {% if user.validation.validated == True %}
+                        <h6 class="d-flex justify-content-center align-items-center text-success"><span class="material-symbols-outlined">verified</span></h6>
+                        {% endif %}
+                    </div>
                   </div>
               <div class="transitions2">
                   <ul class="gap-1 mt-5 mx-1 transitions2">
@@ -39,10 +44,18 @@
               </div>
              
           <div class="col-md-8">
-              <div class=" mx-5 mt-5  flex-column justify-content-center align-items-center ">
-                  
+              <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
+        
+              {% if requset.order_status_choice == Approved %}
+              <h1>{{requset.order_status_choice}}</h1>
+
+              <h1>Approved</h1>
+
+              {%endif%}
+        
+  
                 {% for requset in requsets %}
-                <div class="card mb-3" style="max-width: 540px;">
+                <div class="card mb-8" style="max-width: 840px;">
                     <div class="row g-0">
                       <div class="col-md-4">
                         <img src="{{requset.advertisement.image.url}}" class="img-fluid rounded-start" alt="...">
@@ -50,8 +63,10 @@
                       <div class="col-md-8">
                         <div class="card-body">
                           <h5 class="card-title"><a href="{% url 'advertisements:advertisement_details_view' requset.advertisement.id %}">{{requset.advertisement.title}}</a></h5>
-                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <p class="card-text"></p>
                           <h1>{{requset.order_status_choice}}</h1>
+                         
+
                           <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                           <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelrequest">Delete</a>
                         </div>
