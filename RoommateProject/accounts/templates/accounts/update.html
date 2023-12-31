@@ -23,7 +23,11 @@ body{
             <div class="d-flex flex-column gap-1">
                 <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
                 <div class="d-flex align-items-center justify-content-center gap-2">
+                        
                     <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
+                    {% if user.validation.validated == True %}
+                    <h6 class="d-flex justify-content-center align-items-center text-success"><span class="material-symbols-outlined">verified</span></h6>
+                    {% endif %}
                 </div>
             </div>
         <div class="transitions2">
@@ -43,10 +47,10 @@ body{
         </div>
            
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
        
-    <div class="col-md-5">
-        <div class=" mx-5 mt-5 flex-column justify-content-center align-items-center ">
+    <div class="col-md-6">
+        <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
 
                 <h1 class="d-flex flex-column align-items-center">Update your profile</h1>
             
@@ -68,43 +72,43 @@ body{
                             <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email" value="{{ request.user.email }}"/>
                             <label>Avatar</label>
                             <div class="d-flex align-items-center gap-2 ">
-                                <input class="form-control" type="file" name="personal_image"  placeholder="choose avatar"/>
+                                <input class="form-control" type="file" name="personal_image"  placeholder="choose avatar" accept="image/*"  />
                             </div>
-                            <label>Phone number</label>
+                            <h5>Phone number</h5>
             
                             <input class="form-control" type="text" name="phone_number" required placeholder="phone number" value="{{ request.user.profile.phone_number }}"/>
                             <p  class="fw-light text-nowrap">*Please enter the number with the country code, such as: 966555555555</p>
             
-                            <label>Age</label>
+                            <h5>Age</h5>
                             <input class="form-control" type="number" name="age" required  placeholder="age" value="{{ request.user.profile.age }}"/>
                      
                          
-                            <label>gendar:</label>
+                            <h5>gendar:</h5>
                             {% for key, value in genders.choices %}
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="gender" id="{{key}}" required value="{{value}}" {% if user.profile.gender == key %} checked {% endif %}>
-                                <label class="form-check-label" for="{{key}}">{{value}}</label>
+                                <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
                             </div>
                             {% endfor %}
                         
-                            <label>language:</label>
+                            <h5>language:</h5>
                             {% for key, value in languages.choices %}
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="language" required id="{{key}}" value="{{value}}" {% if user.profile.language == key %} checked {% endif %}>
-                                <label class="form-check-label" for="{{key}}">{{value}}</label>
+                                <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
                             </div>
                             {% endfor %}
             
-                            <label>nationality:</label>
+                            <h5>nationality:</h5>
                              {% for key, value in nationalities.choices  %}
                             
                              <div class="form-check">
                                 <input class="form-check-input" type="radio" name="nationality" required id="{{key}}" value="{{value}}" {% if user.profile.nationality == key %} checked {% endif %}>
-                                <label class="form-check-label" for="{{key}}">{{value}}</label>
+                                <h6 class="form-check-label" for="{{key}}">{{value}}</h6>
                             </div>
                             {% endfor %}
                      
-                            <label>About:</label>
+                            <h5>About:</h5>
                             <textarea class="form-control" name="about" required placeholder="About you..">{{ request.user.profile.about }}</textarea>
                          
             

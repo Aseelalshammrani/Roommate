@@ -9,17 +9,19 @@
   
   
   </style>
-
       <div class="">
           <div class="row">
-              
               <div class="col-4 transitions" >
           
                   <div class="d-flex flex-column gap-1">
                       <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
                       <div class="d-flex align-items-center justify-content-center gap-2">
-                          <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
-                      </div>
+                        
+                        <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
+                        {% if user.validation.validated == True %}
+                        <h6 class="d-flex justify-content-center align-items-center text-success"><span class="material-symbols-outlined">verified</span></h6>
+                        {% endif %}
+                    </div>
                   </div>
               <div class="transitions2">
                   <ul class="gap-1 mt-5 mx-1 transitions2">
@@ -83,9 +85,6 @@
                       </div>
               
                   </div>
-              
-               
-  
               </div>
             </div>
           

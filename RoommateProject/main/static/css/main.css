@@ -20,13 +20,16 @@
     background-color: rgba(213, 203, 177, 0.899);
 }
 .btn:hover{
-    color: rgb(3, 21, 50);
+    color: rgb(8, 5, 0);
     background-color: rgba(170, 161, 138, 0.899);
 
     
 }
 .btn{
     color: rgb(255, 255, 255);
+    background-color: rgba(170, 161, 138, 0.899);
+    border: rgba(170, 161, 138, 0.899);
+
 }
 .user_data{
     background-color: rgba(255, 255, 255, 0.606);
@@ -36,7 +39,7 @@
     align-items: center;
 }
 .data{
-    background-color: rgba(214, 214, 214, 0.619);
+    background-color: rgba(210, 201, 182, 0.543);
     padding: 2%;
     border-radius: 15px;
     align-items: center;

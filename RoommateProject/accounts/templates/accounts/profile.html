@@ -8,7 +8,11 @@
 <style>
 body{
     background-color: rgba(210, 201, 182, 0.643);}
+.whats{
+    color: rgb(255, 255, 255);
+    background-color: rgba(170, 161, 138, 0.899);
 
+}
 
 </style>
 {% if request.user.is_authenticated and request.user.id == user.id %}
@@ -22,6 +26,9 @@ body{
                     <div class="d-flex align-items-center justify-content-center gap-2">
                         
                         <p class="mt-2 username d-flex flex-column justify-content-center align-items-center"> @{{ user.username }}</p>
+                        {% if user.validation.validated == True %}
+                        <h6 class="d-flex justify-content-center align-items-center text-success"><span class="material-symbols-outlined">verified</span></h6>
+                        {% endif %}
                     </div>
                 </div>
             <div class="transitions2">
@@ -46,20 +53,21 @@ body{
             <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
                 
                 <h1 class=" d-flex flex-column justify-content-center align-items-center">Welcome  {{user.first_name}} to roommate</h1>
-                <div class="data">
+                <div class="data mx-5">
                     <h4>Name: {{user.first_name}} {{user.last_name}}</h4>
                     <h6>Gender: {{user.profile.gender}} </h6>
                     <h6>Age: {{user.profile.age}}</h6>
                     <h6>Language: {{user.profile.language}}</h6>
                     <h6>Nationality: {{user.profile.nationality}}</h6>
-                    <br>
-                    <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> </i>Contact the host</a>
-
-                </div>
-               
-                <div class="data mt-4" >
                     <h3>about:</h3>
                     <h6>{{user.profile.about}}</h6>
+                    <div class="">
+                </div>
+                </div>
+               
+                <div class=" mx-5 mt-4" >
+                    
+
                 </div>
 
             </div>
@@ -83,7 +91,7 @@ body{
                         <img class="w-100 rounded-circle"  src="{{ user.profile.personal_image.url }}" width="200px" height="300px" />
                         <div class="d-flex align-items-center justify-content-center gap-2">
                             <div class="whats">
-                                <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> </i></a>
+                                <a class="btn btn-success  rounded-circle" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> </i></a>
                             </div>                        
                         </div>
                     </div>
@@ -92,6 +100,7 @@ body{
             <div class="col">
                 <div class=" d-flex justify-content-between align-items-center">
                     <h1>{{ user.first_name }} {{ user.last_name }} </h1>
+                    
                     
                 </div>
     
