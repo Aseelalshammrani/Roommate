@@ -83,73 +83,80 @@ def advertisement_details_view(request:HttpRequest,advertisement_id):
 
 #Update advertisement
 def update_advertisement_view(request:HttpRequest, advertisement_id):
-    msg=None
-    try:
-        advertisement = Advertisement.objects.get(id=advertisement_id)
-        if request.user != advertisement.user :
-            return render(request,'main/not_authorized.html')
-        if request.method == "POST":
-            advertisement.title = request.POST["title"]
-            if 'image' in request.FILES:
-                advertisement.image = request.FILES["image"]
-            advertisement.type_of_duration = request.POST["type_of_duration"]
-            advertisement.duration_residence = request.POST["duration_residence"]
-            advertisement.type_of_residential = request.POST["type_of_residential"]
-            advertisement.space = request.POST["space"]
-            advertisement.price = request.POST["price"]
-            advertisement.number_of_people = request.POST["number_of_people"]
-            advertisement.neighborhood=request.POST["neighborhood"]
+    advertisement = Advertisement.objects.get(id=advertisement_id)
+    user:User = request.user
+    msg = None
+    try: 
+        if user.is_superuser or request.user == advertisement.user:
+                if request.method == "POST":
+                    advertisement.title = request.POST["title"]
+                    if 'image' in request.FILES:
+                        advertisement.image = request.FILES["image"]
+                    advertisement.type_of_duration = request.POST["type_of_duration"]
+                    advertisement.duration_residence = request.POST["duration_residence"]
+                    advertisement.type_of_residential = request.POST["type_of_residential"]
+                    advertisement.space = request.POST["space"]
+                    advertisement.price = request.POST["price"]
+                    advertisement.number_of_people = request.POST["number_of_people"]
+                    advertisement.neighborhood=request.POST["neighborhood"]
 
-            if 'animal_allowed' in request.POST:
-                advertisement.animal_allowed = request.POST['animal_allowed']
-            else:
-                advertisement.animal_allowed = False
-            if 'dishwasher' in request.POST:
-                advertisement.dishwasher = request.POST['dishwasher']
-            else:
-                advertisement.dishwasher = False
-                
-            if 'smoke_allowed' in request.POST:
-                advertisement.smoke_allowed = request.POST['smoke_allowed']
-            else:
-                advertisement.smoke_allowed = False
+                    if 'animal_allowed' in request.POST:
+                        advertisement.animal_allowed = request.POST['animal_allowed']
+                    else:
+                        advertisement.animal_allowed = False
+                    if 'dishwasher' in request.POST:
+                        advertisement.dishwasher = request.POST['dishwasher']
+                    else:
+                        advertisement.dishwasher = False
+                        
+                    if 'smoke_allowed' in request.POST:
+                        advertisement.smoke_allowed = request.POST['smoke_allowed']
+                    else:
+                        advertisement.smoke_allowed = False
 
-            if 'has_kitchen' in request.POST:
-                advertisement.has_kitchen = request.POST['has_kitchen']
-            else:
-                advertisement.has_kitchen = False
+                    if 'has_kitchen' in request.POST:
+                        advertisement.has_kitchen = request.POST['has_kitchen']
+                    else:
+                        advertisement.has_kitchen = False
 
-            if 'washing_machine' in request.POST:
-                advertisement.washing_machine = request.POST['washing_machine']
-            else:
-                advertisement.washing_machine = False
+                    if 'washing_machine' in request.POST:
+                        advertisement.washing_machine = request.POST['washing_machine']
+                    else:
+                        advertisement.washing_machine = False
 
-            if 'advertisement_status' in request.POST:
-                advertisement.advertisement_status = request.POST['advertisement_status']
-            else:
-                advertisement.advertisement_status=True
+                    if 'advertisement_status' in request.POST:
+                        advertisement.advertisement_status = request.POST['advertisement_status']
+                    else:
+                        advertisement.advertisement_status=True
 
-            advertisement.min_age = request.POST["min_age"]
-            advertisement.max_age = request.POST["max_age"]
-            advertisement.gender = request.POST["gender"]
-            advertisement.note = request.POST["note"]
-            advertisement.rooms_number = request.POST["rooms_number"]
-            advertisement.bathroom = request.POST["bathroom"]
-            advertisement.save()
-            return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
+                    advertisement.min_age = request.POST["min_age"]
+                    advertisement.max_age = request.POST["max_age"]
+                    advertisement.gender = request.POST["gender"]
+                    advertisement.note = request.POST["note"]
+                    advertisement.rooms_number = request.POST["rooms_number"]
+                    advertisement.bathroom = request.POST["bathroom"]
+                    advertisement.save()
+                    return redirect("advertisements:advertisement_details_view", advertisement_id=advertisement.id)
+
+        else:
+            return redirect('main:not_authorized')
     except Exception as e:
         msg = f"Please ensure all required fields are complete and try again. {e}"
+    
     return render(request,"advertisements/update_advertisement.html", {"advertisement": advertisement,'types_of_duration':Advertisement.types_of_duration,'types_of_residential':Advertisement.types_of_residential,'types_of_gender':Advertisement.types_of_gender,'msg':msg})
+        
 
 
 
 def delete_advertisement_view(request:HttpRequest, advertisement_id):
     try:
-        if request.user != advertisement.user :
-                return render(request,'main/not_authorized.html')
         advertisement=Advertisement.objects.get(id=advertisement_id)
-        advertisement.delete()
-        return redirect("advertisements:browse_advertisements_view")
+        user:User = request.user
+        if user.is_superuser or request.user == advertisement.user:
+            advertisement.delete()
+            return redirect("advertisements:browse_advertisements_view")
+        else:
+            return redirect('main:not_authorized')
     except Exception as e:
         return redirect('main:not_authorized')
     
@@ -171,7 +178,7 @@ def add_images_to_advertisements(request:HttpRequest, advertisement_id):
     try:
         advertisement=Advertisement.objects.get(id=advertisement_id)
         if request.user != advertisement.user :
-            return render(request,'main/not_authorized.html')
+            return redirect('main:not_authorized')
         if request.method=='POST':
             advertisement_image=Advertisement_Image(advertisement=advertisement,image=request.FILES["image"])
             advertisement_image.save()
@@ -183,7 +190,7 @@ def add_images_to_advertisements(request:HttpRequest, advertisement_id):
 def add_review_view(request: HttpRequest, advertisement_id):
     try:
         if not request.user.is_authenticated:
-                return render(request, 'main/not_found.html')
+                return redirect('main:not_authorized')
         if request.method == "POST":
             advertisement= Advertisement.objects.get(id=advertisement_id)
             new_rev = Review(advertisement=advertisement, user=request.user, rating=request.POST["rating"], content=request.POST["content"] )

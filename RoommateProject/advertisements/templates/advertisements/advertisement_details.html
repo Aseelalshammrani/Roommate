@@ -35,7 +35,7 @@
   <h2>{{advertisement.type_of_residential}} in {{advertisement.neighborhood}},{{advertisement.city}}</h2>
   </div>
   <div class="d-flex gap-1 p-1">
-    {% if request.user == advertisement.user %}
+    {% if request.user == advertisement.user or request.user.is_superuser %}
       <div class="btn-group">
           <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Edit</button>
@@ -46,7 +46,7 @@
           </ul>
         </div>
       {%endif%}
-  
+        {% if request.user.is_authenticated %}
         {% if not is_requested %}
         {% if request.user != advertisement.user %}
         <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#send_request">Send Request</a>
@@ -54,6 +54,7 @@
         {%else%}
         <a class="btn btn-success">Request sent</a>
         {%endif%}
+        {% endif %}
         <a class="btn btn-success" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> </i></a>
   </div> 
   </div>
