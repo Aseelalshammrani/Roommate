@@ -5,7 +5,7 @@
 <!--row 1-->
 <div class="row my-2">
 <div class="d-flex justify-content-between align-items-center">
-<h1>{{advertisement.title}}</h1>
+<h1 class="adv-title display-4">{{advertisement.title}}</h1>
 <div>
   {% if not is_favored %}
   <a href="{% url 'accounts:add_favorite_view' advertisement.id %}"><i class="bi bi-heart"></i>Save</a>

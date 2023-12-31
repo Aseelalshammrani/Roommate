@@ -247,3 +247,8 @@ background-color: #ffffff;
 .adv-title{
     font-family: 'Merriweather', serif;
 }
+
+.container-color{
+    background-color: rgba(210, 201, 182, 0.5);
+    border-radius: 20px;
+}
