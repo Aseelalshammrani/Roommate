@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-{% block title %}Advertisement details {% endblock%}
+{% block title %}Advertisement details{% endblock%}
 {% block content%}
 <div class="container">
 <!--row 1-->
@@ -37,7 +37,7 @@
   <div class="d-flex gap-1 p-1">
     {% if request.user == advertisement.user or request.user.is_superuser %}
       <div class="btn-group">
-          <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Edit</button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'advertisements:update_advertisement_view' advertisement.id %}">Update</a></li>

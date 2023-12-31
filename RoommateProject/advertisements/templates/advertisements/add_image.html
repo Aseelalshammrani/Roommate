@@ -17,7 +17,7 @@
                     {% csrf_token %}
                     <h5>Add Image:</h5>
                     <input type="file" name="image"  class="form-control" accept="image/*" required/>
-                    <button type="submit" class="btn-btn-primary">Upload image</button>
+                    <button type="submit" class="btn">Upload image</button>
                 </form>
                 
                 <a class="btn btn-secondary my-2" href="{% url 'advertisements:advertisement_details_view' advertisement.id %}">Skip</a>
