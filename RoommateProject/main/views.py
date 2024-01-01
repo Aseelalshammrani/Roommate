@@ -124,6 +124,3 @@ def contact_us_view(request):
         
         email_sent = True
     return render(request,"main/contact_us.html", {"email_sent" : email_sent})
-
-
-

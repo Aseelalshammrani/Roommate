@@ -12,11 +12,13 @@
                 <h1>ROOMMATE</h1>
                 <div class="short-para">
                     <h4>The perfect match, just a click away</h4>
-                    <form role="search" action="{% url 'advertisements:search' %}" method="GET">
-                        <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    </form>
+                    <div class="d-flex align-items-center">
+                        <form style="width:400px;" role="search" action="{% url 'advertisements:search' %}" method="GET">
+                            <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+                    <a href="{% url 'advertisements:browse_advertisements_view'%}"><button type="button" class="btn btn-secondary">Explore</button></a> 
+                    </div>
                 </div>
-                <h4></h4>
             </div>
         </div>
     </div>
@@ -55,13 +57,18 @@
                     <span class="icon material-symbols-outlined">home_pin</span>
                 </div>
                 <div class="img5 col-3 m-5">
-                    <h4 class="d-flex justify-content-center align-items-center mt-5">Wide variety</h4>
+                    <h4 class="d-flex justify-content-center align-items-center mt-5">Reviews</h4>
                     <span class="icon material-symbols-outlined">star</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="container">
+
+</div>
+
 <div class="container1 m-5">
 <div class="row gap-3 d-flex justify-content-center align-items-center">
 {% for approve in approves %}
@@ -84,7 +91,7 @@
         <a class="adv-img" href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="Advertisement image"></a>
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-            <h5 class="adv-title card-title">{{ advertisement.title}}-{{advertisement.city}}</h5>
+            <h5 class="adv-title card-title">{{ advertisement.neighborhood }} - {{ advertisement.city}}</h5>
             {% if advertisement.user.validation.validated == True %}
             <h6 class="adv-title d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
             {% else %}
@@ -92,16 +99,8 @@
             {% endif %}
             </div>  
             <div class="d-flex align-items-center gap-1">
-            {% if adv.gender == 'Male' %}
-            <span class="material-symbols-outlined">man</span>
-            <h6>Male</h6>
-            {% else %}
-            <span class="material-symbols-outlined">woman</span>
-            <h6>Female</h6>
-            {% endif %}
-            <p>{{adv.gender}}</p>
             </div>
-            <div class="d-flex align-items-center gap-1">
+            <div class="adv-title d-flex align-items-center gap-1">
             {% if advertisement.type_of_residential == 'House' %}
             <span class="material-symbols-outlined">home</span>
             {% elif advertisement.type_of_residential == 'Room' %}
@@ -116,7 +115,7 @@
             <h6 class="adv-title card-text">The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
             </div>
             <div class="d-flex justify-content-end align-items-center">
-                <span class="adv-arrow material-symbols-outlined">arrow_forward</span>
+                <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><span class="adv-arrow material-symbols-outlined text-dark">arrow_forward</span></a>
             </div>
         </div>
     </div>
