@@ -61,8 +61,14 @@
     background-color: rgba(210, 201, 182, 0.643);
     border-radius: 30px;
 }
+.note h4{
+    white-space: pre-wrap;
+}
 .profile img{
 border-radius: 20px;
+}
+i{
+    text-decoration: none;
 }
 
 #map {
@@ -250,3 +256,234 @@ background-color: #ffffff;
     background-color: rgba(210, 201, 182, 0.5);
     border-radius: 20px;
 }
+
+
+.container-home{
+    background-image:url('/static/images/apartment2.jpg');
+    height: 90vh;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-home h1{
+    font-family: 'Merriweather', serif;
+    font-size: 140px;
+    padding-left:120px;
+}
+
+.container-home form{
+    padding: 10px;
+}
+
+.container-all{
+    background-image:url('/static/images/baige.jpg');
+    height: 90vh;
+    margin-right: 50px;
+    margin-left: 0%;
+    border-radius: 60px;
+
+}
+
+  .short-para{
+    padding-left:400px;
+  }
+
+  .short-para h4{
+    font-family: 'Merriweather', serif;
+    font-size: 40px;
+  }
+
+  .features{
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+  }
+
+
+ /* Resize all icons */
+.icon {
+    font-size: 50px; /* Adjust size as needed */
+    background-color: antiquewhite;
+    color:rgba(33, 30, 30, 0.2);
+    border-radius: 30px;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    display: inline-flex;
+    text-decoration: none;
+}
+
+.icon:hover{
+    color:antiquewhite;
+    background-color:black;
+
+
+}
+
+/* Resize a specific icon */
+.features:nth-child() .icon {
+    font-size: 30px;
+
+}
+
+.features{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-fluid{
+    background-color:rgba(170, 161, 138, 0.899);
+    margin-top: 0;
+}
+
+.img1{
+    background-image:url('/static/images/baige.jpg');
+    height: 20vh;
+    border-radius: 100px;
+    width: 170px;
+}
+
+.img2{
+    background-image:url('/static/images/img2.jpg');
+    height: 20vh;
+    border-radius: 100px;
+    width: 170px;
+}
+
+.img3{
+    background-image:url('/static/images/orange.jpg');
+    height: 20vh;
+    border-radius: 100px;
+    width: 170px;
+}
+
+.img4{
+    background-image:url('/static/images/img2.jpg');
+    height: 20vh;
+    border-radius: 100px;
+    width: 170px;
+}
+
+
+.img5{
+    background-image:url('/static/images/baige.jpg');
+    height: 20vh;
+    border-radius: 100px;
+    width: 170px;
+}
+
+
+.img1,.img2,.img3,.img4,.img5 h4{
+    font-family: 'Merriweather', serif;
+
+}
+
+.adv-img:hover{
+    opacity: 0.5;
+    font-family: 'Merriweather', serif;
+    font-size: 40px;
+
+}
+
+.adv-arrow:hover{
+    font-size: 30px;
+}
+
+.contact{
+    font-family: 'Merriweather', serif;
+    font-size: 80px;
+}
+
+.about-us{
+    font-family: 'Merriweather', serif;
+    font-size: 80px;
+}
+
+.container6 {
+    background-image:url('/static/images/baige.jpg');
+    position: relative;
+    width: 50%;
+  }
+  
+  .image6 {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    right: 0;
+    background-color: #008CBA;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    transition: .5s ease;
+  }
+  
+  .container6:hover .overlay {
+    width: 100%;
+    left: 0;
+  }
+  
+  .text6 {
+    white-space: nowrap; 
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+
+  .explore-btn{
+    font-family: 'Merriweather', serif;
+    background-color: antiquewhite;
+    color:rgba(33, 30, 30, 0.2);
+    border-radius: 30px;
+    height: 80px;
+    width: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    display: inline-flex;
+    text-decoration: none;
+
+  }
+
+  .explore-btn:hover{
+    color:antiquewhite;
+    background-color:black;
+
+
+}
+=======
+.heart-f a{
+    font-size: 40px;
+}
+
+.icon-detail {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+.icon-detail-title{
+    object-fit: contain;
+    height: 40px;
+    width: 50px;
+}
+
+.heart-f{
+    font-size: 1.5rem;
+}
+

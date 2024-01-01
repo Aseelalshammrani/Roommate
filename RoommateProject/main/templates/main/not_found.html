@@ -4,12 +4,15 @@
 
 
 {% block content %}
-    <section class="container">
-        <div class="row">
-            <div class="col">
-                <h1>The advertisement was not found.</h1>
-            </div>
+ 
+<div class="container1 m-5 m-5 p-5 border border-5 p-3 mb-2 bg-warning-subtle text-emphasis-warning">
+    <div class="row">
+        <div class="col m-5 text-center">
+            <h2 class="display-5">Sorry , the page is not found<span class="material-symbols-outlined">error</span></h2>
+            <a href="{% url 'main:contact_us_view' %}" class="btn btn-outline-secondary">Contact us</a>
         </div>
 
-    </section>
+    </div>
+
+</div>
 {% endblock %}

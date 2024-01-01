@@ -9,45 +9,50 @@
     </div>
     {% endif %}
    </div>
-    <h1 class="text-center my-3">All advertisements</h1>
+   <div class="d-flex justify-content-between align-items-center m-3">
+    <h1 class="adv-title text-center">All Advertisements</h1>
+    <div class="d-flex flex-column align-items-center">
+    <h5 class="adv-title">Filter</h5>
+    <a href="{% url 'main:advertisement_filter_view' %}"><span class="icon material-symbols-outlined">arrow_circle_right</span></a>
+  </div>
+</div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for advertisement in advertisements %}
-        <div class="col">
-          <div class="card">
-            <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="..."></a>
-            <div class="card-body">
+      {% for advertisement in advertisements %}
+      <div class="col">
+          <div class="card shadow p-3 mb-5 bg-body-tertiary rounded .bg-secondary-subtle">
+          <a class="adv-img" href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="Advertisement image"></a>
+          <div class="card-body">
               <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title">{{advertisement.neighborhood}},{{advertisement.city}}</h5>
-                {% if advertisement.user.validation.validated == True %}
-                <h6 class="d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
-                {% else %}
-                <h6 class="d-flex justify-content-center align-items-center text-secondary">{{ advertisement.user.first_name }}</h6>
-                {% endif %}
-                </div>
-              <div class="d-flex justify-content-between">
+              <h5 class="adv-title card-title">{{ advertisement.neighborhood }} - {{ advertisement.city}}</h5>
+              {% if advertisement.user.validation.validated == True %}
+              <h6 class="adv-title d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
+              {% else %}
+              <h6 class="adv-title d-flex justify-content-center align-items-center text-secondary">{{ advertisement.user.first_name }}</h6>
+              {% endif %}
+              </div>  
               <div class="d-flex align-items-center gap-1">
-                {% if advertisement.type_of_residential == 'House' %}
-                <span class="material-symbols-outlined">home</span>
-                {% elif advertisement.type_of_residential == 'Room' %}
-                <span class="material-symbols-outlined">night_shelter</span>
-                {%else%}
-                <span class="material-symbols-outlined">apartment</span>
-                {% endif %}
+              </div>
+              <div class="adv-title d-flex align-items-center gap-1">
+              {% if advertisement.type_of_residential == 'House' %}
+              <span class="material-symbols-outlined">home</span>
+              {% elif advertisement.type_of_residential == 'Room' %}
+              <span class="material-symbols-outlined">night_shelter</span>
+              {%else%}
+              <span class="material-symbols-outlined">apartment</span>
+              {% endif %}
               <h6>{{advertisement.type_of_residential}}</h6>
-            </div>
-            <h6>{{advertisement.price}}SAR</h6>
-            </div>
-            
-
+              </div>
               <div class="d-flex align-items-center">
               <span class="material-symbols-outlined">timer</span>
-              <h6 class="card-text">{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
-            </div>
+              <h6 class="adv-title card-text">The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
+              </div>
+              <div class="d-flex justify-content-end align-items-center">
+                  <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><span class="adv-arrow material-symbols-outlined text-dark rounded-circle bg-body-secondary">arrow_forward</span></a>
+              </div>
           </div>
-        </div>
       </div>
-      {% endfor %}
-      
-    </div>
+  </div>
+  {% endfor %} 
+  </div>
     </div>
 {% endblock %}

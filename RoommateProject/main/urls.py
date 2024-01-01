@@ -6,5 +6,5 @@ urlpatterns = [
     path("contact_us/", views.contact_us_view , name="contact_us_view"),
     path('filter/', views.advertisement_filter_view, name="advertisement_filter_view"),
     path('not/found',views.not_found,name='not_found'),
-    path('not/authorized',views.not_authorized,name='not_authorized')
+    path('not/authorized',views.not_authorized,name='not_authorized'),
 ]

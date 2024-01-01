@@ -1,52 +1,72 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock%}
+{% block title %}Roommate{% endblock%}
 {% block content%}
 
 
-
-<div class="wrapper homepage-content">
-    <div class="sub-content">
-        <h1 class="title display-1">ROOMMATE</h1>
-        <p class="display-6 bg-success-subtle">Find your perfect match... for your apartment.</p>
-        <form role="search" action="{% url 'advertisements:search' %}" method="GET">
-            <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-        </form>
+<div class="container-all">
+    <div class="container-home">
+        <div class="row">
+            <div class="col">
+                <h1>ROOMMATE</h1>
+                <div class="short-para">
+                    <h4>The perfect match, just a click away</h4>
+                    <div class="d-flex align-items-center">
+                        <form style="width:400px;" role="search" action="{% url 'advertisements:search' %}" method="GET">
+                            <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+                    <a href="{% url 'advertisements:browse_advertisements_view'%}"><button type="button" class="btn btn-secondary">Explore</button></a> 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 
 <hr>
 <div class="container">
     <div class="row">
         <div class="sub-text col-12">
             <h1>About us:</h1>
-            <p>our intuitive platform connects you with compatible roommates based on shared interests, lifestyle preferences, and even cleaning habits. Imagine finding someone who loves board games as much as you do, respects your quiet mornings, and splits the grocery bill without a flinch. That's the roommate website magic. So ditch the solo apartment hunt and join our community. Your ideal co-pilot awaits, ready to embark on the adventure of shared living.</p>
+            <p>The project aims to create a website that offers the possibility of finding a housing partner for people who want group housing.It provides access to a wide range of people interested in group housing, Helps users to get to know the candidates better and provides access to a wide range of people interested in group housing.</p>
         </div>
     </div>
 </div>
-
 <hr>
 <div class="container">
     <div class="row">
         <div class="sub-text col-12">
             <h1 class="text-center mb-4">Our features</h1>
             <div class="d-flex justify-content-evenly align-items-center">
-                <div class="text-img">
-                    <img src="{% static 'images/dinner-table.jpg' %}" style="width: 300px; height: 400px;" class="shadow p-3 mb-5 bg-body-tertiary rounded" alt="room">
-                    <h3>Exclusive prices</h3>
+                <div class="img1 col-3 m-5">
+                    <h4 class="d-flex justify-content-center align-items-center mt-5">Roommates</h4>
+                    <span class="icon material-symbols-outlined">groups</span>
                 </div>
-                <div class="text-img">
-                    <img src="{% static 'images/washing-room.jpg' %}" style="width: 300px; height: 400px;" class="shadow p-3 mb-5 bg-body-tertiary rounded" alt="room">
-                    <h3>Room type</h3>
+                <div class="img2 col-3 m-5">
+                    <h4 class="d-flex justify-content-center align-items-center mt-5">Validation</h4>
+                    <span class="icon material-symbols-outlined">verified</span>
                 </div>
-                <div class="text-img">
-                    <img src="{% static 'images/room2.jpg' %}" style="width: 300px; height: 400px;" class="shadow p-3 mb-5 bg-body-tertiary rounded" alt="room">
-                    <h3>Living space</h3>
+                <div class="img3 col-3 m-5">
+                    <h4 class="d-flex justify-content-center align-items-center mt-5">Housing</h4>
+                    <span class="icon material-symbols-outlined">house</span>
+                </div>
+                <div class="img4 col-3 m-5">
+                    <h4 class="d-flex justify-content-center align-items-center mt-5">Location</h4>
+                    <span class="icon material-symbols-outlined">home_pin</span>
+                </div>
+                <div class="img5 col-3 m-5">
+                    <h4 class="d-flex justify-content-center align-items-center mt-5">Reviews</h4>
+                    <span class="icon material-symbols-outlined">star</span>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="container">
+
 </div>
 
 <div class="container1 m-5">
@@ -60,15 +80,18 @@
 <hr>
 </div>
 <div class="container">
-<h1 class="adv-title text-center">All advertisements</h1>
+    <div class="d-flex justify-content-between align-items-center m-3">
+        <h1 class="adv-title text-center">Explore your roommates offers</h1>
+        <a href="{% url 'advertisements:browse_advertisements_view' %}"><span class="icon material-symbols-outlined">arrow_circle_right</span></a>
+    </div>
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for advertisement in advertisements %}
     <div class="col">
-        <div class="card">
-        <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="..."></a>
+        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded .bg-secondary-subtle">
+        <a class="adv-img" href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="Advertisement image"></a>
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-            <h5 class="adv-title card-title">{{ advertisement.title}}-{{advertisement.city}}</h5>
+            <h5 class="adv-title card-title">{{ advertisement.neighborhood }} - {{ advertisement.city}}</h5>
             {% if advertisement.user.validation.validated == True %}
             <h6 class="adv-title d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
             {% else %}
@@ -76,6 +99,8 @@
             {% endif %}
             </div>  
             <div class="d-flex align-items-center gap-1">
+            </div>
+            <div class="adv-title d-flex align-items-center gap-1">
             {% if advertisement.type_of_residential == 'House' %}
             <span class="material-symbols-outlined">home</span>
             {% elif advertisement.type_of_residential == 'Room' %}
@@ -88,6 +113,9 @@
             <div class="d-flex align-items-center">
             <span class="material-symbols-outlined">timer</span>
             <h6 class="adv-title card-text">The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
+            </div>
+            <div class="d-flex justify-content-end align-items-center">
+                <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><span class="adv-arrow material-symbols-outlined text-dark rounded-circle bg-body-secondary">arrow_forward</span></a>
             </div>
         </div>
     </div>
@@ -113,5 +141,9 @@
       {% endfor %}
     </div>
   </div>
+
+  
+
+
 {% endblock %}
 
