@@ -45,14 +45,14 @@
               {% endif %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Advertisements  
+                  Options  
                 </a>
                 <ul class="dropdown-menu " style="width: 400px;">
                   {% if request.user.is_authenticated %}
-                  <li> <a class="nav-link" href="{% url 'advertisements:add_advertisement_view'%}">Add Advertisement</a></li>
+                  <li> <a class="nav-link" href="{% url 'advertisements:add_advertisement_view'%}">Be the hosting</a></li>
                   {% endif %}
-                  <li> <a class="nav-link" href="{% url 'advertisements:browse_advertisements_view'%}">Browse advertisements</a></li>
-                  <li><a class="nav-link" href="{% url 'main:advertisement_filter_view' %}">Filter advertisement by features</a></li>
+                  <li> <a class="nav-link" href="{% url 'advertisements:browse_advertisements_view'%}">Explore Rommates offers</a></li>
+                  <li><a class="nav-link" href="{% url 'main:advertisement_filter_view' %}">Find your Roommate</a></li>
                 </ul>
               </li>
               {% if not request.user.is_authenticated %}
@@ -89,10 +89,9 @@
       <div class="footer-col">
         <h4>Advertisements</h4>
         <ul>
-          <li><a href="#">Test</a></li>
-          <li><a href="#">Test</a></li>
-          <li><a href="#"> Test</a></li>
-          <li><a href="#"> Test</a></li>
+          <li><a href="{% url 'advertisements:browse_advertisements_view' %}">Explore Rommate Offers</a></li>
+          <li><a href="{% url 'main:advertisement_filter_view' %}">Find your match</a></li>
+          <li><a href="{% url 'accounts:login_user_view' %}">Join us</a></li>
         </ul>
       </div>
 
@@ -101,7 +100,6 @@
         <ul>
           <li><a href="#">FAQ</a></li>
           <li><a href="#">Policy</a></li>
-          <li><a href="#">Cookies</a></li>
         </ul>
       </div>
 
