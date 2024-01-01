@@ -179,12 +179,17 @@ def admin_validation_requests(request: HttpRequest):
     return render(request, 'accounts/admin_page.html', {'validations': validations})
 
 def approve_validation(request:HttpRequest, validation_id):
+    msg= None
     if request.method == 'POST':
-        validation = Validation.objects.get(id=validation_id)
-        validation.validated = True
-        validation.save()
-        return redirect('accounts:confirmation_view')
-    return render(request, 'accounts/validation_detail.html', {'validation_id': validation_id})
+        try:
+            validation = Validation.objects.get(id=validation_id)
+            validation.validated = True
+            validation.save()
+
+            return redirect('accounts:confirmation_view')
+        except Exception as e:
+            msg = f"something went wrong {e}"
+    return render(request, 'accounts/validation_detail.html', {'validation_id': validation_id ,"msg":msg})
 
 
 def validate_detail_view(request:HttpRequest,user_id):
@@ -203,16 +208,20 @@ def my_requset(request:HttpRequest,user_id):
     return render(request,'accounts/rent_request.html',{'requsets':requsets})
 
 def send_rent_request(request:HttpRequest, advertisement_id):
+    msg= None
     if not request.user.is_authenticated:
         return redirect("accounts:login_user_view")
-    advertisement = Advertisement.objects.get(id=advertisement_id)
-    if request.user != advertisement.user:
-        rent_request=Rent_Request.objects.filter(user=request.user,advertisement=advertisement).first()
-        if not rent_request:
-            new_rent_request = Rent_Request(user=request.user,advertisement=advertisement)
-            new_rent_request.save()
-    return redirect("advertisements:advertisement_details_view",  advertisement_id=advertisement.id)
-
+    try:
+        advertisement = Advertisement.objects.get(id=advertisement_id)
+        if request.user != advertisement.user:
+            rent_request=Rent_Request.objects.filter(user=request.user,advertisement=advertisement).first()
+            if not rent_request:
+                new_rent_request = Rent_Request(user=request.user,advertisement=advertisement)
+                new_rent_request.save()
+        return redirect("advertisements:advertisement_details_view",  advertisement_id=advertisement.id)
+    except Exception as e:
+        return redirect("advertisements:advertisement_details_view",  advertisement_id=advertisement.id)
+       
 def receive_rent_request(request:HttpRequest,user_id):
     msg = None
     receive_rent_requests = None  # Use plural for clarity
@@ -230,15 +239,18 @@ def receive_rent_request(request:HttpRequest,user_id):
     return render(request,'accounts/my_roommate.html',{'receives':receive_rent_requests,"msg":msg, "order_status": Rent_Request.order_status})
 
 def accept_rent_request(request, rent_request_id):
-    rent_request = Rent_Request.objects.get(id=rent_request_id)
-    if request.GET.get("order_status_choice") == "Approved":
-        rent_request.order_status_choice= "Approved"
-    elif request.GET.get("order_status_choice") == "Denied":
-        rent_request.order_status_choice= "Denied"
-    elif request.GET.get("order_status_choice") == "Finish":
-        rent_request.order_status_choice= "Finish"
-    rent_request.save()
-    return redirect('accounts:receive_rent_request',user_id=request.user)
+    try:
+        rent_request = Rent_Request.objects.get(id=rent_request_id)
+        if request.GET.get("order_status_choice") == "Approved":
+            rent_request.order_status_choice= "Approved"
+        elif request.GET.get("order_status_choice") == "Denied":
+            rent_request.order_status_choice= "Denied"
+        elif request.GET.get("order_status_choice") == "Finish":
+            rent_request.order_status_choice= "Finish"
+        rent_request.save()
+        return redirect('accounts:receive_rent_request',user_id=request.user)
+    except Exception as e:
+        return redirect('accounts:receive_rent_request',user_id=request.user)
 
 def cancel_rent_request(request, rent_request_id):
     rent_request = Rent_Request.objects.get(id=rent_request_id)

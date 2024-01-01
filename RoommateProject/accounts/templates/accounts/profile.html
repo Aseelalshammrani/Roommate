@@ -7,7 +7,9 @@
 
 <style>
 body{
-    background-color: rgba(210, 201, 182, 0.643);}
+    font-family: 'Merriweather', serif;
+    background-color: rgba(210, 201, 182, 0.643);
+}
 .whats{
     color: rgb(255, 255, 255);
     background-color: rgba(170, 161, 138, 0.899);
@@ -17,6 +19,55 @@ body{
 h1{
   color:rgba(153, 144, 120, 0.984) ;
 }
+h3{
+    font-size: 30px;
+
+}
+.transitions3{
+    background-color: rgba(255, 255, 255, 0.882);
+    padding:5%;
+    height: 700px;
+    width: 30%; 
+
+}
+.img_pro{
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    background-size: cover;
+    width: 10px;
+    height: 400px;
+}
+.name{
+    font-size: 60px;
+    z-index: 4;
+    margin-top: -3;
+    color:rgba(153, 144, 120, 0.984) ;
+    margin-left: 10%;
+
+ 
+}
+.name1{
+    font-size: 60px;;
+    color:rgba(153, 144, 120, 0.984) ;
+}
+.data_pro{
+    margin-left: 20%;
+    padding-right: 0%;
+    margin-top: 15%;
+}
+.information_user{
+    background-color: rgba(212, 203, 175, 0.541);
+    padding: 6% 30% 4% 14% ;
+    margin-top: -4.8%;
+    width: 108%;
+    
+    
+}
+.user_n{
+    margin-left: 40%;
+}
+
 
 </style>
 {% if request.user.is_authenticated and request.user.id == user.id %}
@@ -35,7 +86,7 @@ h1{
                         {% endif %}
                     </div>
                 </div>
-            <div class="transitions2">
+            <div class=" col transitions2">
                 <ul class="gap-1 mt-5 mx-1 transitions2">
                     
                     <li><a href="{% url 'accounts:user_profile' request.user.id %}" class="btn">My Profile</a></li>
@@ -58,12 +109,12 @@ h1{
                 
                 <h1 class=" d-flex flex-column justify-content-center align-items-center">Welcome  {{user.first_name}} to roommate</h1>
                 <div class="data mx-5">
-                    <h4>Name: {{user.first_name}} {{user.last_name}}</h4>
+                    <h3>Name: {{user.first_name}} {{user.last_name}}</h3>
                     <h6>Gender: {{user.profile.gender}} </h6>
                     <h6>Age: {{user.profile.age}}</h6>
                     <h6>Language: {{user.profile.language}}</h6>
                     <h6>Nationality: {{user.profile.nationality}}</h6>
-                    <h3>about:</h3>
+                    <h4>about:</h4>
                     <h6>{{user.profile.about}}</h6>
                     <div class="">
                 </div>
@@ -86,34 +137,42 @@ h1{
 
     {% if not request.user.id == user.id %}
    
-     <section class="container mt-5">
+     <section class=" ">
     
-        <div class="row g-3">
-            <div class="col-3">
+        <div class="row ">
          
-                    <div class="d-flex flex-column gap-1">
-                        <img class="w-100 rounded-circle"  src="{{ user.profile.personal_image.url }}" width="200px" height="300px" />
-                        <div class="d-flex align-items-center justify-content-center gap-2">
-                            <div class="whats">
-                                <a class="btn btn-success  rounded-circle" href="https://wa.me/{{user.profile.phone_number}}">  <i class="bi bi-whatsapp"> </i></a>
-                            </div>                        
+                    <div class=" transitions3" >
+        
+                        <div class="d-flex flex-column gap-1">
+                            <div class="  ">
+                            <img class=" w-100 img_pro " src="{{ user.profile.personal_image.url }}"  width="400px" height="450px" />
+                     
+                            <div class="d-flex align-items-center justify-content-center gap-2">
+                                
+                                <p class="mt-2 name1 d-flex flex-column justify-content-center align-items-center">{{ user.first_name }} {{ user.last_name }}</p>
+                                {% if user.validation.validated == True %}
+                                <h6 class="d-flex justify-content-center align-items-center text-success"><span class="material-symbols-outlined">verified</span></h6>
+                                {% endif %}
+                              
+                            </div>
+                            <hr>
+                            <div  class=" flex-column user_n justify-content-center align-items-center">
+                                <h5 style="color: rgba(153, 144, 120, 0.984);">@{{ user.username}}</h5>
+
+                            </div>
+                            </div>
                         </div>
                     </div>
 
-            </div>
-            <div class="col">
+  
+            <div class="col-8">
+                <div class="data_pro">
                 <div class=" d-flex justify-content-between align-items-center">
-                    <h1>{{ user.first_name }} {{ user.last_name }} </h1>
-                    
-                    
+                    <h1 class="name">User Profile </h1>
                 </div>
-    
-                <h5>@{{ user.username}}</h5>
+                <div class="information_user">
                 <br>
-                <div class="d-flex align-items-center justify-content- gap-2 mx-2">
-                    
-                </div>
-                <h4>Name: {{user.first_name}} {{user.last_name}}</h4>
+                
                 <h6>Gender: {{user.profile.gender}} </h6>
                 <h6>Age: {{user.profile.age}}</h6>
                 <h6>Language: {{user.profile.language}}</h6>
@@ -121,10 +180,12 @@ h1{
                 <br>
                 <h5>about: </h5>
                 <p style="color: black;"> {{user.profile.about}}/<p>
-                   
+                </div>   
+                
                  </div>
+                </div>
             </div>
-        </div>
+       
     
     </section>
     {% endif %}

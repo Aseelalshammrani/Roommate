@@ -8,7 +8,6 @@
 .transitions2 a{
     background-color: rgba(170, 161, 138, 0.899);
     width: 90%;
-    background-color: rgba(170, 161, 138, 0.899);
     border-radius: 0px;
     
 }
@@ -39,7 +38,7 @@
     align-items: center;
 }
 .data{
-    background-color: rgba(210, 201, 182, 0.543);
+    background-color:  rgba(210, 201, 182, 0.436);
     padding: 2%;
     border-radius: 15px;
     align-items: center;
@@ -81,9 +80,7 @@ i{
 
 .footer{
 background-color:lightslategray;
-margin-top: 50px;
 background-color:rgba(170, 161, 138, 0.899);
-margin-top: 100px;
 padding: 20px 0;
 }
 

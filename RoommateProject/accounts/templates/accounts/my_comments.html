@@ -7,7 +7,8 @@
 
 <style>
 body{
-    background-color: rgba(210, 201, 182, 0.643);    
+    background-color: rgba(210, 201, 182, 0.643); 
+    font-family: 'Merriweather', serif;   
 }
 h1{
   color:rgba(153, 144, 120, 0.984) ;
@@ -53,10 +54,14 @@ h1{
            
         <div class="col-md-8">
             <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
-                
+                <h1>Reviews ({{user.review_set.count}}):</h1>
+
+                {% if user.review_set.count == 0 %}
+                <div class="alert alert-dark">You don't have any comments yet.</div>
+                {% endif %}
             {% if user.review_set.count > 0 %}
             <section class="row ">
-              <h1>Reviews ({{user.review_set.count}}):</h1>
+            
                 <div class="col ">
                   <div class="d-flex flex-column gap-2 ">
                     {% for review in user.review_set.all %}

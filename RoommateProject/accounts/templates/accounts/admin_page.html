@@ -4,7 +4,27 @@
 
 
 {% block content %}
+<style>
+h1{
+  color:rgba(153, 144, 120, 0.984) ;
+}
 
+.card{
+  background-color: rgba(220, 208, 175, 0.331);
+}
+
+.title {
+  list-style-type: none;
+  display: inline-block;
+  border-bottom: none;
+  align-items: center;
+  text-decoration: none; 
+  color: #2a2929;
+}
+.none{
+    margin-bottom: 400px; 
+}
+</style>
 <div class="container">
     <div class="row">
         <h1>Admin Page</h1>
@@ -17,26 +37,43 @@
         <h2>Users requests:</h2>
         {% if validations.count == 0 %}
         <div class="text-center">
-            <div class="alert alert-warning m-5">You don't have any requests yet.</div>
+            <div class="alert alert-dark m-5">You don't have any requests yet.</div>
         </div>
         {% endif %}
         <div class="col">
             {% for validation in validations %}
-            <div class="p-3 mb-2 bg-primary-subtle text-emphasis-primary rounded-3">
-                <h4>Name of user: {{ validation.user.username }}</h4>
-                <h4>National id: {{ validation.national_id }}</h4>
-                <h5>Id image:</h5>
-                <img src="{{ validation.id_image.url }}" style="width: 100px;" alt="ID Image">
-                <div>
-                    <form action="{% url 'accounts:approve_validation' validation.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" value="True" class="btn btn-success m-3">Approve</button>
-                    </form>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+            
+            <div class="card mb-3" style="max-width: 940px;">
+                <div class="row g-0">
+                  <div class="col-4">
+                    <img src="{{ validation.id_image.url }}" class="img-fluid rounded-start" alt="ID Image" >
+                  </div>
+                  <div class="col-8">
+                    <div class="row g-0">
+                        <div class="col-8 part1">
+                            <div class="card-body">
+                     <a class="title"  href="{% url 'accounts:user_profile' validation.user.id %}"><h2 class="card-text"> {{validation.user.first_name}}</h2></a>
+                     <h3><h4>National id: {{ validation.national_id }}</h4></h3>
+                     
+                    </div>
+                  </div>
+                  <div class="col-2 part2 mt-4 " style="margin-bottom: 2px;">
+                    <form action="{% url 'accounts:approve_validation' validation.id %}" method="POST">                                    
+            
+                    <button type="submit" value="True" class="btn btn-success m-3">Approve</button>
+                </form>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
     </div>
+    </div>
+ 
+</div>
+<div class="none">
+
 </div>
 
 {% endblock %}
