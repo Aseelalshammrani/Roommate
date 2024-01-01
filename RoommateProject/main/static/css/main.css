@@ -315,17 +315,22 @@ background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
+    list-style-type: none;
+    display: inline-flex;
+    text-decoration: none;
 }
 
 .icon:hover{
     color:antiquewhite;
     background-color:black;
 
+
 }
 
 /* Resize a specific icon */
 .features:nth-child() .icon {
     font-size: 30px;
+
 }
 
 .features{
@@ -396,6 +401,76 @@ background-color: #ffffff;
     font-family: 'Merriweather', serif;
     font-size: 80px;
 }
+
+.about-us{
+    font-family: 'Merriweather', serif;
+    font-size: 80px;
+}
+
+.container6 {
+    background-image:url('/static/images/baige.jpg');
+    position: relative;
+    width: 50%;
+  }
+  
+  .image6 {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    right: 0;
+    background-color: #008CBA;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    transition: .5s ease;
+  }
+  
+  .container6:hover .overlay {
+    width: 100%;
+    left: 0;
+  }
+  
+  .text6 {
+    white-space: nowrap; 
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+
+  .explore-btn{
+    font-family: 'Merriweather', serif;
+    background-color: antiquewhite;
+    color:rgba(33, 30, 30, 0.2);
+    border-radius: 30px;
+    height: 80px;
+    width: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    display: inline-flex;
+    text-decoration: none;
+
+  }
+
+  .explore-btn:hover{
+    color:antiquewhite;
+    background-color:black;
+
+
+}
+=======
 .heart-f a{
     font-size: 40px;
 }
@@ -415,3 +490,4 @@ background-color: #ffffff;
     width: 40px;
     object-fit: contain;
 }
+
