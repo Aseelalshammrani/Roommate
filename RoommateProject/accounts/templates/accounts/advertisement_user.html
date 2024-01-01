@@ -8,7 +8,11 @@
 <style>
 body{
     background-color: rgba(210, 201, 182, 0.643); 
-    }
+}
+h1{
+  color:rgba(153, 144, 120, 0.984) ;
+}
+
 
 </style>
         <div class="">
@@ -52,13 +56,19 @@ body{
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         {% for advertisement in advertisements %}
                         <div class="col">
-                          <div class="card">
+                        <div class="card">
                             <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="..."></a>
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">{{advertisement.title}}</h5>
-                                    </div> 
-                              <div class="d-flex align-items-center gap-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">{{advertisement.neighborhood}},{{advertisement.city}}</h5>
+                                {% if advertisement.user.validation.validated == True %}
+                                <h6 class="d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
+                                {% else %}
+                                <h6 class="d-flex justify-content-center align-items-center text-secondary">{{ advertisement.user.first_name }}</h6>
+                                {% endif %}
+                                </div>
+                            <div class="d-flex justify-content-between">
+                            <div class="d-flex align-items-center gap-1">
                                 {% if advertisement.type_of_residential == 'House' %}
                                 <span class="material-symbols-outlined">home</span>
                                 {% elif advertisement.type_of_residential == 'Room' %}
@@ -68,15 +78,19 @@ body{
                                 {% endif %}
                             <h6>{{advertisement.type_of_residential}}</h6>
                             </div>
-                              <div class="d-flex align-items-center">
-                              <span class="material-symbols-outlined">timer</span>
-                              <h6 class="card-text">The Duration :{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
+                            <h6>{{advertisement.price}}SAR</h6>
                             </div>
-                          </div>
+                            
+
+                            <div class="d-flex align-items-center">
+                            <span class="material-symbols-outlined">timer</span>
+                            <h6 class="card-text">{{advertisement.duration_residence}} {{advertisement.type_of_duration}}</h6>
+                            </div>
                         </div>
-                      </div>
-                      {% endfor %}
-                      
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
                     </div>
                 
                 </div>

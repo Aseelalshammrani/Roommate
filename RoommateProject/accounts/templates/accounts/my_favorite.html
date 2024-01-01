@@ -7,8 +7,13 @@
 <style>
   body{
     background-color: rgba(210, 201, 182, 0.643);  }
-  
-    </style>
+ h1{
+  color:rgba(153, 144, 120, 0.984) ;
+}
+i{
+  color: rgb(219, 84, 84);
+}
+</style>
 <div class="">
   <div class="row">
       
@@ -44,36 +49,50 @@
      
   <div class="col-md-8">
       <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
-          
-        <div class="box">
-          <div class="d-flex justify-content-between align-items-center">
-            <h1 class="display-3 m-3">Favorites</h1>
-        </div>
-        
-        <hr>
-        {% if favorites.count == 0 %}
-          <div class="text-center">
-              <div class="alert alert-warning m-5">You don't have any favorites yet.</div>
-          </div>
-        {% endif %}
-        
-        <div class="container1 m-5 p-5">
-          <div class="row">
-            {% for fav in favorites %}
-            <div class="col-6  t">
-              <div class="card shadow p-3 mb-5 bg-body-tertiary rounded text-center" style="width: 20rem; height: 30rem;">
-                <img src="{{ fav.advertisement.image.url }}" class="card-img-top" style="width: 18rem; height: 24rem;" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{ fav.advertisement.title }}</h5>
-                  <h5 class="fw-lighter">{{ fav.advertisement.category }}</h5>
-                  <a href="{% url 'advertisements:advertisement_details_view' fav.advertisement.id %}" class="btn btn-secondary" style="margin-bottom: 5px;">Advertisement Detail</a>
-                </div>
+      
+      <h1 class="text-center my-3">My favorites</h1>
+      {% if favorites.count == 0 %}
+      <div class="alert alert-dark">You don't have any favorites yet.</div>
+      {% endif %}
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for fav in favorites %}
+          <div class="col">
+          <div class="card">
+              <a href="{% url 'advertisements:advertisement_details_view' fav.advertisement.id %}"><img src="{{ fav.advertisement.image.url }}" class="card-img-top" height="220px" alt="..."></a>
+              <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="card-title">{{fav.advertisement.neighborhood}},{{advertisement.city}}</h5>
+                  <a href="{% url 'accounts:delete_favorite' fav.advertisement.id %}"><i class="bi bi-heart-fill"></i></a>
+
+                  </div>
+              <div class="d-flex justify-content-between">
+              <div class="d-flex align-items-center gap-1">
+                  {% if advertisement.type_of_residential == 'House' %}
+                  <span class="material-symbols-outlined">home</span>
+                  {% elif advertisement.type_of_residential == 'Room' %}
+                  <span class="material-symbols-outlined">night_shelter</span>
+                  {%else%}
+                  <span class="material-symbols-outlined">apartment</span>
+                  {% endif %}
+              <h6>{{fav.advertisement.type_of_residential}}</h6>
               </div>
-            </div>
-            {% endfor %}
-          </div> 
-        </div>
+              <h6>{{fav.advertisement.price}}SAR</h6>
+              </div>
+              
+
+              <div class="d-flex align-items-center">
+              <span class="material-symbols-outlined">timer</span>
+              <h6 class="card-text">{{fav.advertisement.duration_residence}} {{fav.advertisement.type_of_duration}}</h6>
+              </div>
+          </div>
+          </div>
       </div>
+      {% endfor %}
+      
+      </div>
+
+
+
     </div>
   
   </div>

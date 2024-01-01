@@ -7,7 +7,13 @@
 <style>
   body{
     background-color: rgba(210, 201, 182, 0.643);  }
-  
+    h1{
+  color:rgba(153, 144, 120, 0.984) ;
+}
+.p{
+    font-size: small;
+    color: rgb(216, 104, 104);
+}
     </style>
 <div class="">
     <div class="row">
@@ -42,19 +48,22 @@
         </div>
 
     <div class="col-md-8">
-        {% if msg %}
-        <div class="alert alert-danger" role="alert">
-        {{ msg }}
-        </div>
-        {% endif %}
-
+   
         <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
+            <h1 class="d-flex flex-column justify-content-center align-items-center">Your validation</h1>
+            {% if msg %}
+            <div class="alert alert-danger" role="alert">
+            {{ msg }}
+            </div>
+            {% endif %}
             <form action="{% url 'accounts:validation_user_view'  %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label>National id</label>
+             <label>National id</label>
             <input type="text" class="form-control" name="national_id" placeholder="national id" minlength="10"> 
             <label>id image</label>
             <input type="file" class="form-control" name="id_image" placeholder="id image"> 
+            <div class="p"><p  class="fw-light text-nowrap">* Note: Verify only once</p>
+
             <br>
             <input class="btn btn-dark" type="submit" value="Confirm" />
             </form>
