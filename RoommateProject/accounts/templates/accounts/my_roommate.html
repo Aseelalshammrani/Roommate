@@ -5,7 +5,9 @@
 
 <style>
   body{
-    background-color: rgba(210, 201, 182, 0.643);  }
+    background-color: rgba(210, 201, 182, 0.643);
+    font-family: 'Merriweather', serif;
+    }
     h1{
   color:rgba(153, 144, 120, 0.984) ;
 }
@@ -57,18 +59,17 @@
              
           <div class="col-md-8">
               <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
-                  
-                <div class="container">
-                  <div class="row">
-                    {% if msg %}
-                        <div class="alert alert-info m-5" role="alert">
-                        {{ msg }}
-                        </div>
-                    {% endif %}
+            
+                 
                     <h1 class="d-flex flex-column justify-content-center align-items-center">My Roommate</h1>
-
+                    {% if msg %}
+                    <div class="alert alert-dark " role="alert">
+                    {{ msg }}
+                    </div>
+                       {% endif %}
                       <div class="col">
                           {% for receive in receives %}
+                          
                           <div class="card mb-3" style="max-width: 940px;">
                               <div class="row g-0">
                                 <div class="col-4">
@@ -78,8 +79,8 @@
                                   <div class="row g-0">
                                       <div class="col-8 part1">
                                           <div class="card-body">
-                                    <h5 class="card-title"><a class="title"  href="{% url 'advertisements:advertisement_details_view' receive.advertisement.id %}">{{receive.advertisement.title}}</a></h5>
-                                    <p class="card-text">{{receive.user.username}}</p>
+                                    <h4 class="card-title"><a class="title"  href="{% url 'advertisements:advertisement_details_view' receive.advertisement.id %}"><strong>{{receive.advertisement.title}}</strong></a></h4>
+                                   <a class="title"  href="{% url 'accounts:user_profile' receive.user.id %}"><p class="card-text"> <strong>{{receive.user.username}}</strong></p></a>
                                     <p class="card-text">{{receive.created_at}}</p>
                                   </div>
                                 </div>
@@ -107,9 +108,6 @@
                   </div>
               </div>
             </div>
-          
-          </div>
-   </div>
-  
+ 
 
 {%endblock%}

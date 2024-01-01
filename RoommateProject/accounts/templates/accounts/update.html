@@ -11,8 +11,13 @@
     color: rgb(216, 104, 104);
 }
 body{
-    background-color: rgba(210, 201, 182, 0.643);    }
-    
+    background-color: rgba(210, 201, 182, 0.643); 
+    font-family: 'Merriweather', serif;   }
+
+    .none{
+    margin-bottom: 100px; 
+}
+
 </style>
 
   <div class="">
@@ -70,7 +75,7 @@ body{
                             <input class="form-control"  type="text" name="first_name" required minlength="3" placeholder="First Name" value="{{ request.user.first_name }}"/>
                             <input class="form-control" type="text" name="last_name" required  minlength="3" placeholder="Last Name"  value="{{ request.user.last_name }}"/>
                             <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email" value="{{ request.user.email }}"/>
-                            <label>Avatar</label>
+                            <h5>Avatar</h5>
                             <div class="d-flex align-items-center gap-2 ">
                                 <input class="form-control" type="file" name="personal_image"  placeholder="choose avatar" accept="image/*"  />
                             </div>
@@ -113,7 +118,7 @@ body{
                             <textarea class="form-control" name="about" required placeholder="About you..">{{ request.user.profile.about }}</textarea>
                          
             
-                            <input class="btn btn-primary" type="submit" value="Update profile" />
+                            <input  class="btn btn-primary" type="submit" value="Update profile" />
                         </form>
             
                     </div>
@@ -127,5 +132,7 @@ body{
     </div>
   </div>
 
+  <div class="none">
 
+  </div>
 {% endblock %}
