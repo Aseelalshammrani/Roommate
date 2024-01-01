@@ -9,9 +9,9 @@
         </div>
     {% endif %}
     </div>
-    <h1 class="text-center my-2">Update {{advertisement.title}}</h1>
-<div class="row my-2">
-<div class="col">
+    <h1 class="text-center adv-title display-4 my-2">Update {{advertisement.title}}</h1>
+<div class="row my-2 gap-3">
+<div class="col container-color p-3">
 <form action="{% url 'advertisements:update_advertisement_view' advertisement.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <h5>Title</h5>
@@ -49,7 +49,7 @@
     <input type="checkbox" name="advertisement_status" value="False" {% if advertisement.advertisement_status == False %} checked {% endif %}>
     <br>
 </div>
-<div class="col">
+<div class="col container-color p-3">
     <h5>Number of people</h5>
     <input class="form-control" type="number" name="number_of_people" value="{{advertisement.number_of_people}}" required/>
     <h4>Favres age range</h4>
@@ -82,7 +82,7 @@
     <h5>Image</h5>
     <input type="file" name="image"  class="form-control" accept="image/*"/>
 </div>
-<input class="btn btn-success mt-4 " type="submit" value="Update advertisement" />
+<input class="btn mt-4 " type="submit" value="Update advertisement" />
 </form>
 </div>
 </div>

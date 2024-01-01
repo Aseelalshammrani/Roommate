@@ -62,8 +62,14 @@
     background-color: rgba(210, 201, 182, 0.643);
     border-radius: 30px;
 }
+.note h4{
+    white-space: pre-wrap;
+}
 .profile img{
 border-radius: 20px;
+}
+i{
+    text-decoration: none;
 }
 
 #map {
@@ -464,3 +470,24 @@ background-color: #ffffff;
 
 
 }
+=======
+.heart-f a{
+    font-size: 40px;
+}
+
+.icon-detail {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+.icon-detail-title{
+    object-fit: contain;
+    height: 40px;
+    width: 50px;
+}
+.profile_image{
+    height: 30px;
+    width: 40px;
+    object-fit: contain;
+}
+
