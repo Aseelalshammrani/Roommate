@@ -9,9 +9,9 @@
 <h1 class="adv-title display-4">{{advertisement.title}}</h1>
 <div>
   {% if not is_favored %}
-  <a href="{% url 'accounts:add_favorite_view' advertisement.id %}"><i class="bi bi-heart"></i>Save</a>
+  <a href="{% url 'accounts:add_favorite_view' advertisement.id %}"><i class="bi bi-heart text-danger heart-f"></i></a>
     {% else %}
-  <a href="{% url 'accounts:add_favorite_view' advertisement.id %}"><i class="bi bi-heart-fill"></i>Saved</a>
+  <a href="{% url 'accounts:add_favorite_view' advertisement.id %}"><i class="bi bi-heart-fill text-danger heart-f"></i></a>
   {% endif %}
 </div>
 </div>
@@ -26,15 +26,16 @@
 
   <div class="d-flex justify-content-between">
     <div class="d-flex align-items-center gap-2">
+      
       {% if advertisement.type_of_residential == 'House' %}
-      <img src="{% static 'images/house.png'%}" height="40px" width="50px" class="rounded">
+      <img src="{% static 'images/house.png'%}" class="rounded icon-detail-title">
       {% elif advertisement.type_of_residential == 'Room' %}
-      <img src="{% static 'images/room.png'%}" height="40px" width="50px" class="rounded">
+      <img src="{% static 'images/room.png'%}" class="rounded icon-detail-title">
       {%else%}
-      <img src="{% static 'images/apartment.png'%}" height="40px" width="50px" class="rounded">
+      <img src="{% static 'images/apartment.png'%}"  class="rounded icon-detail-title">
       {% endif %}
   <h2>{{advertisement.type_of_residential}} in {{advertisement.neighborhood}},{{advertisement.city}}</h2>
-  </div>
+</div>
   <div class="d-flex gap-1 p-1">
     {% if request.user == advertisement.user or request.user.is_superuser %}
       <div class="btn-group">
@@ -65,29 +66,29 @@
   <div class="d-flex justify-content-between">
   <div class="d-flex">
     <div class="d-flex align-items-center gap-2">
-    <img src="{% static 'images/guests.png'%}" height="25px" width="40px" class="rounded">
+    <img src="{% static 'images/guests.png'%}" height="25px" width="40px" class="rounded icon-detail">
     <h4>{{advertisement.number_of_people}} guests |</h4>
     </div>
     <div class="d-flex align-items-center gap-2">
-    <img src="{% static 'images/Bathroom.png'%}" height="25px" width="40px" class="rounded">
+    <img src="{% static 'images/Bathroom.png'%}" height="25px" width="40px" class="rounded icon-detail">
     <h4>{{advertisement.bathroom}} Bathroom |</h4>
     </div>
     <div class="d-flex align-items-center gap-2">
-    <img src="{% static 'images/room.png'%}" height="25px" width="40px" class="rounded">
+    <img src="{% static 'images/room.png'%}" height="25px" width="40px" class="rounded icon-detail">
     <h4>{{advertisement.rooms_number}} Room |</h4>
     </div>
     <div class="d-flex align-items-center gap-2">
     {% if advertisement.gender == 'Male' %}
-    <img src="{% static 'images/Male.png'%}" height="25px" width="40px" class="rounded">
+    <img src="{% static 'images/Male.png'%}" height="25px" width="40px" class="rounded icon-detail">
     {% else %}
-    <img src="{% static 'images/Female.png'%}" height="25px" width="40px" class="rounded">
+    <img src="{% static 'images/Female.png'%}" height="25px" width="40px" class="rounded icon-detail">
     {% endif %}
     <h4> {{advertisement.gender}}</h4>
 
   </div>
   </div>
   <div class="d-flex align-items-center gap-2">
-  <img src="{% static 'images/pay.png'%}" height="25px" width="40px" class="rounded">
+  <img src="{% static 'images/pay.png'%}" height="25px" width="40px" class="rounded icon-detail">
   <h4>{{advertisement.price}} SAR</h4>
 </div>
   </div>
@@ -98,14 +99,14 @@
   <div class="d-flex justify-content-between">
   <div class="d-flex">
     <div class="d-flex align-items-center gap-1">
-      <img src="{% static 'images/lover.png'%}" height="30px" width="40px" class="rounded">
+      <img src="{% static 'images/lover.png'%}" height="30px" width="40px" class="rounded icon-detail">
       <h4>Favred age: From {{advertisement.min_age}} to {{advertisement.max_age}} </h4>
       </div>
 </div>
 <div class="d-flex align-items-center gap-1">
-  <img src="{% static 'images/hourglass.png'%}" height="30px" width="40px" class="rounded">
+  <img src="{% static 'images/hourglass.png'%}" height="30px" width="40px" class="rounded icon-detail">
   <h4>{{advertisement.duration_residence}} {{advertisement.type_of_duration}} |</h4>
-  <img src="{% static 'images/area.png'%}" height="30px" width="40px" class="rounded">
+  <img src="{% static 'images/area.png'%}" height="30px" width="40px" class="rounded icon-detail">
   <h4>{{advertisement.space}} m</h4>
   </div>
 </div>
@@ -136,40 +137,40 @@
 <!--row 8-->
 <div class="row">
   <div class="d-flex justify-content-between">
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column ">
       <div class="col">
         <h2>What this place offers</h2>
         <div class="d-flex align-items-center gap-1">
         {% if advertisement.animal_allowed == True %}
-        <img src="{% static 'images/animals.png'%}" height="40px" width="40px" class="rounded">
+        <img src="{% static 'images/animals.png'%}" class="rounded icon-detail">
         <h4>Allowed</h4>
         {% endif %}
         </div>
         
         <div class="d-flex align-items-center gap-1">
             {% if advertisement.smoke_allowed == True %}
-            <img src="{% static 'images/cigarrete.png'%}" height="30px" width="40px" class="rounded">
+            <img src="{% static 'images/cigarrete.png'%}" class="rounded icon-detail">
             <h4>Allowed</h4>
             {% endif %}
         </div>
         
         <div class="d-flex align-items-center gap-1">
             {% if advertisement.has_kitchen == True %}
-            <img src="{% static 'images/kitchen.png'%}" height="30px" width="40px" class="rounded">
+            <img src="{% static 'images/kitchen.png'%}" class="rounded icon-detail">
             <h4>Kitchen</h4>
             {%endif%}
         </div>
         
         <div class="d-flex align-items-center gap-1">
             {% if advertisement.dishwasher == True %}
-          <img src="{% static 'images/dishwasher.png'%}" height="30px" width="40px" class="rounded">
+          <img src="{% static 'images/dishwasher.png'%}" class="rounded icon-detail">
             <h4>Dishwasher</h4>
             {%endif%}
         </div>
       
         <div class="d-flex align-items-center gap-1">
             {% if advertisement.washing_machine == True %}
-            <img src="{% static 'images/laundry-machine.png'%}" height="30px" width="40px" class="rounded">
+            <img src="{% static 'images/laundry-machine.png'%}"  class="rounded icon-detail">
             <h4>Washing machine</h4>
             {%endif%}
         </div>
@@ -181,14 +182,14 @@
     <h2>What this place prevents</h2>
     <div class="d-flex align-items-center gap-1">
       {% if advertisement.animal_allowed == False %}
-      <img src="{% static 'images/animals.png'%}" height="40px" width="40px" class="rounded">
+      <img src="{% static 'images/animals.png'%}"  class="rounded icon-detail">
       <h4>Animal</h4>
       {% endif %}
       </div>
   
       <div class="d-flex align-items-center gap-1">
         {% if advertisement.smoke_allowed == False %}
-        <img src="{% static 'images/no-smoking.png'%}" height="30px" width="40px" class="rounded">
+        <img src="{% static 'images/no-smoking.png'%}" class="rounded icon-detail">
         <h4>Smoke</h4>
         {% endif %}
     </div>
@@ -205,6 +206,7 @@
   </div>
 <!--row 10-->
 {% if advertisement_images.count > 0 %}
+<h2>Images:</h2>
 <div class="row row-cols-1 row-cols-md-2 g-4 mb-3">
   {% for images in advertisement_images %}
   <div class="col">
@@ -216,7 +218,9 @@
 </div>
 {%endif%}
 <!--row 11-->
+{% if reviews.count > 0 %}
 <div class="container">
+  <h2>Reviews</h2>
   <div class="row">
     {% for review in reviews %}
       <div class="col bg-warning p-2 text-dark bg-opacity-10 rounded-3 text-body-secondary p-4 m-4 ">
@@ -232,7 +236,8 @@
     {% endfor %}
   </div>
 </div>
-
+<hr>
+{% endif %}
 <!--row 12-->
 <div class="row">
 <h2>Location:</h2>
@@ -277,6 +282,7 @@
         {%endif%}
        </div>
   </div>
+  <hr>
 <!-- row 14-->
 <div class="row mt-3">
   {% if request.user.is_authenticated %}
