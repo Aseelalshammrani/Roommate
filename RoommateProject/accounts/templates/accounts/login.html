@@ -9,8 +9,14 @@
     margin-bottom: 400px; 
 }
 </style>
+
+<div class="d-flex justify-content-center text-center">
+    <h1 class="contact mt-3 p-3 text-center">
+      Login
+      </h1>
+</div>
+<hr>
 <section class="container mt-5">
-    
     <div class="row">
         {% if msg %}
         <div class="alert alert-danger d-flex flex-column align-items-center" role="alert">
@@ -18,9 +24,10 @@
           </div>
         {% endif %}
         <div class="col">
-
+            <p class="contact mt-3 p-3 text-center" style="font-size:30px;">
+                Please login to continue
+            </p>
             <div class="d-flex flex-column gap-3 justify-content-center align-items-center">
-                <h1>Log In</h1>
                 <form class="d-flex flex-column gap-1" style="width: 40vw;" action="{% url 'accounts:login_user_view' %}" method="post">
                     {% csrf_token %}
 

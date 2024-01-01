@@ -20,7 +20,6 @@ h1{
         <div class="">
             <div class="row">               
                 <div class="col-4 transitions" >
-        
                     <div class="d-flex flex-column gap-1">
                         <img class="rounded-circle w-100" src="{{ user.profile.personal_image.url }}"  width="200px" height="250px" />
                         <div class="d-flex align-items-center justify-content-center gap-2">
@@ -55,6 +54,9 @@ h1{
                 <div class=" mx-5 mt-5 user_data flex-column justify-content-center align-items-center ">
 
                     <h1 class="text-center my-3">My advertisements</h1>
+                    {% if advertisements.count == 0 %}
+                        <div class="alert alert-dark">You don't have any Advertisements yet.</div>
+                    {% endif %}
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         {% for advertisement in advertisements %}
                         <div class="col">

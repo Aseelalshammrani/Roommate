@@ -62,10 +62,10 @@
             
                  
                     <h1 class="d-flex flex-column justify-content-center align-items-center">My Roommate</h1>
-                    {% if msg %}
-                    <div class="alert alert-dark " role="alert">
-                    {{ msg }}
-                    </div>
+                      {% if msg %}
+                        <div class="alert alert-dark " role="alert">
+                        {{ msg }}
+                        </div>
                        {% endif %}
                       <div class="col">
                           {% for receive in receives %}
