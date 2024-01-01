@@ -9,7 +9,7 @@
     </div>
     {% endif %}
    </div>
-    <h1 class="text-center my-3">All advertisements</h1>
+    <h1 class="text-center my-3 adv-title display-4">All Advertisements</h1>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for advertisement in advertisements %}
         <div class="col">
@@ -17,7 +17,7 @@
             <a href="{% url 'advertisements:advertisement_details_view' advertisement.id %}"><img src="{{advertisement.image.url}}" class="card-img-top" height="220px" alt="..."></a>
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title">{{advertisement.neighborhood}},{{advertisement.city}}</h5>
+                <h5 class="card-title adv-title">{{advertisement.neighborhood}},{{advertisement.city}}</h5>
                 {% if advertisement.user.validation.validated == True %}
                 <h6 class="d-flex justify-content-center align-items-center text-success">{{ advertisement.user.first_name }}<span class="material-symbols-outlined">verified</span></h6>
                 {% else %}
