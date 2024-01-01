@@ -2,12 +2,15 @@
 {%load static %}
 {% block title %}Not authorized{% endblock%}
 {% block content%}
-<div class="container">
-<div class="row">
-<div class="col">
-<h1>You are not authorized</h1>
-</div>
-</div>
-</div>
+<div class="container1 m-5 m-5 p-5 border border-5 p-3 mb-2 bg-danger-subtle text-emphasis-warning">
+    <div class="row">
+        <div class="col m-5 text-center">
+            <h1>Unautorized <span class="material-symbols-outlined">warning</span></h1>
+            <p>Sorry ! you are unautorized for this action</p>
+            <a href="{% url 'main:contact_us_view' %}" class="btn btn-outline-secondary">Contact us</a>
+        </div>
 
+    </div>
+
+</div>
 {% endblock %}
