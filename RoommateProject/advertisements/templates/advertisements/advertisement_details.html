@@ -130,6 +130,9 @@
     <div class="profile d-flex gap-2 align-items-center p-2">
       <a href="{% url 'accounts:user_profile' advertisement.user.id %}"><img src="{{advertisement.user.profile.personal_image.url}}" height="50" width="50" class="rounded"></a>
     <h4>Hosted by {{advertisement.user.first_name}} {{advertisement.user.last_name}}</h4>
+    {% if advertisement.user.validation.validated == True %}
+    <span class="material-symbols-outlined text-success">verified</span>
+    {%endif%}
     </div>
   </div>
 </div>
