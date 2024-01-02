@@ -10,39 +10,53 @@
     margin-bottom: 280px; 
 }
 </style>
-<section class="container mt-5">
-    <h1>Register New User</h1>
-
-    {% if msg %}
-        <div class="alert alert-danger" role="alert">
-        {{ msg }}
-        </div>
-    {% endif %}
-
+<div class="text-center d-flex justify-content-center align-items-center">
     <div class="row">
-    
-        <div class="col-6">
-
-            <form class="d-flex flex-column gap-1" action="{% url 'accounts:register_user_view' %}" method="post" enctype="multipart/form-data">
+        <div class="col border border-5 m-5 p-5">
+            <h2 class="display-4 text-center">Register New User</h2>       
+                {% if msg %}
+                    <div class="alert alert-danger" role="alert">
+                    {{ msg }}
+                    </div>
+                {% endif %}
+            <form action="{% url 'accounts:register_user_view' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-
-                <input class="form-control" type="text" name="username" required minlength="3" placeholder="username"/>
-                <input class="form-control"  type="text" name="first_name" required minlength="3" placeholder="First Name"/>
-                <input class="form-control" type="text" name="last_name" required minlength="3" placeholder="Last Name"/>
-                <input class="form-control" type="file" name="personal_image" required  placeholder="choose avatar" accept="image/*"/>
+                <label>First Name*</label>
+                <input class="form-control m-2" type="text" name="first_name" required minlength="3" />
+                <label>Last Name*</label>
+                <input class="form-control m-2" type="text" name="last_name" required minlength="3" />
+                <label>Username*</label>
+                <input class="form-control m-2" type="text" name="username" required minlength="5" />
+                <label>Email*</label>
+                <input class="form-control m-2" type="email" name="email" required minlength="5" />
+                <label>Password*</label>
+                <input class="form-control m-2" type="password" name="password" required minlength="8" />
+                <ul class="fw-light text-nowrap bg-body-secondary border">
+                    <li>-Your password must be more than 8 characters</li>
+                    <li>-Your password can't be similar to your other personal information</li>
+                </ul>
+                <label>Personal Photo</label>
+                <input class="form-control m-2" type="file" name="personal_image" placeholder="choose avatar"/>
+                <label>Age*</label>
                 <input class="form-control" type="number" name="age" required placeholder="Age"/>
-                <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email"/>
-                <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password"/>
 
-
-                <input class="btn btn-dark" type="submit" value="Sing Up" />
+                <div class="d-flex justify-content-center align-items-center">
+                    <input class="btn btn-dark mt-5" type="submit" value="Sign up"/>
+                </div>
             </form>
+            
+
         </div>
 
     </div>
 
-</section>
+</div>
+
 <div class="none">
 
 </div>
+
+
 {% endblock %}
+
+

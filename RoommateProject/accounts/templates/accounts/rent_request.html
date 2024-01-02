@@ -25,12 +25,14 @@
 }
 
 .cancel{
-  padding-left: 100%;
+  padding-left: 370px;
   padding-bottom: 10px;
  
 }
 .cancelp{
   background-color: rgb(58, 102, 172);
+  display: flex;
+  justify-content: start;
 }
 .canceld{
   background-color:rgb(168, 10, 10) ;
@@ -195,7 +197,6 @@ h1{
                       </div>
                       <div class="cancel">
                         <a class="btn btn-light cancelp" data-bs-toggle="modal" data-bs-target="#cancelrequest">Cancel</a>
-  
                       </div> 
             {% elif requset.order_status_choice == "Approved" %}
             <div class="Approved mt-3 ">
