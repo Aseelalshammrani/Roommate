@@ -1,13 +1,13 @@
 Project name:Roommate 
 
 Project description:
-يهدف المشروع إلى إنشاء موقع إلكتروني يوفر إمكانية إيجاد شريك سكن للأشخاص الذين يرغبون في السكن الجماعي
+The capstone project aims to create a platform that connects people looking for shared accommodations with suitable roommates.
 
 team members:
-أسيل الشمراني 
-سفانا الجاوي 
-مرام الأسمري 
-عليه السهيمي
+Aseel Alshammrani
+Sufana-Aljawi
+MaramAlasmari
+Alya Smhan
 
 User Stories:
 https://docs.google.com/document/d/1FuK-OPwv_MG_Cixt1oqDH82mxIuB5Y_skKoaTT0YLUo/edit?usp=sharing
