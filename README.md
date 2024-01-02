@@ -3,7 +3,7 @@ Project name:Roommate
 Project description:
 The capstone project aims to create a platform that connects people looking for shared accommodations with suitable roommates.
 
-team members:
+Team members:
 Aseel Alshammrani
 Sufana-Aljawi
 MaramAlasmari
