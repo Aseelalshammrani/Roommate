@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Rent requset {% endblock %}
+{% block title %}My Roommate{% endblock %}
 {% block content %}
 
 <style>
@@ -72,7 +72,7 @@
                     {% if receives.count == 0 %}
                     <div class="alert alert-dark">You don't have any roommates yet.</div>
                     {% endif %}
-                    </div>
+                    
                 
 
                       <div class="col">
@@ -111,10 +111,13 @@
                         </div>
                     </div>
                     {% endfor %}
+                  </div>
                 </div>
               
                   </div>
               </div>
+
+            
             </div>
  
 

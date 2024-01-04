@@ -61,9 +61,9 @@
             <form action="{% url 'accounts:validation_user_view'  %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
              <label>National id</label>
-            <input type="text" class="form-control" name="national_id" placeholder="national id" minlength="10"> 
+            <input type="text" class="form-control" name="national_id" placeholder="national id" minlength="10" required> 
             <label>id image</label>
-            <input type="file" class="form-control" name="id_image" placeholder="id image"> 
+            <input type="file" class="form-control" name="id_image" placeholder="id image" required> 
             <div class="p"><p  class="fw-light text-nowrap">* Note: Verify only once</p>
 
             <br>

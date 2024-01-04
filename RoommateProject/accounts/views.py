@@ -247,6 +247,8 @@ def accept_rent_request(request, rent_request_id):
             rent_request.order_status_choice= "Denied"
         elif request.GET.get("order_status_choice") == "Finish":
             rent_request.order_status_choice= "Finish"
+        elif request.GET.get("order_status_choice") == "Pending":
+            rent_request.order_status_choice= "Pending"
         rent_request.save()
         return redirect('accounts:receive_rent_request',user_id=request.user)
     except Exception as e:
